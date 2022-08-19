@@ -1,0 +1,36 @@
+.btn-blue {
+  background-color: #1A237E;
+  width: 150px;
+  color: #fff;
+  border-radius: 2px;
+}
+
+.logo {
+  width: 350px;
+  height: 100px;
+  margin-top: 2%;
+  margin-left: 35px;
+
+}
+
+.image {
+  width: 360px;
+  height: 280px;
+}
+
+.bg-blue {
+  color: #fff;
+  background-color: #1A237E;
+  
+}
+
+@media screen and (max-width: 991px) {
+  .logo {
+      margin-left: 0px;
+  }
+
+  .image {
+display: none;
+  }
+
+}

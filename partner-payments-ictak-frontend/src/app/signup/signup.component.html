@@ -1,0 +1,106 @@
+<div class="container my-3">
+    <div class="row">
+
+        <div class="col-5 d-flex align-items-center">
+
+            <div class="form1 pb-5 mb-3">
+                <div class="row  justify-content-left mt-1 mb-3">
+                    <img routerLink="" src="https://ictkerala.org/assets/images/LOGO_ICTAK-Name.svg" class="logo">
+                </div>
+                <div class=" row px-3  justify-content-center mt-4 mb-5 border-line">
+                    <img src="https://i.imgur.com/uNGdWHi.png" class="image">
+                </div>
+            </div>
+
+        </div>
+        <div class="col-7">
+
+            <div class="card mx-auto container bg-light">
+                <h3 class="card-header  white-text text-center py-3">
+                    <strong>Sign Up</strong>
+                </h3><br>
+            
+                <!--Card content-->
+                <div class="card-body px-lg-5 pt-0">
+            
+                    <!-- Form -->
+                    <form #userSignUp = "ngForm" class="text-center" style="color: #757575;" (ngSubmit)="addUser()">
+                        <!-- Full Name -->
+                        <div class="md-form mt-0">
+                            <label for="fullname">Full Name</label>
+                            <input id="name" type="text" name="name" #name = "ngModel" [(ngModel)]="loginuser.name" class="form-control" 
+                            [class.is-invalid] = "name.invalid && name.touched">
+                            <label for="name" id="namefeedback" style="color:red; visibility:hidden">Enter name</label>
+                        </div>
+                        <!-- E-mail -->
+                        <div class="md-form mt-0">
+                            <label for="email">E-mail</label>
+                            <input 
+                                id="uid" 
+                                type="email" 
+                                id="email"  
+                                name="email" 
+                                [(ngModel)]="loginuser.email" 
+                                class="form-control" 
+                                #email= "ngModel" 
+                                pattern="^([\w\.\-]+)@([\w\-]+).([a-z]{2,4})(.[a-z]{2,4})*$" 
+                                required>
+                            <label for="email" id="emailfeedback" style="color:red; visibility:hidden">Enter valid e-mail id.</label>
+                        </div>
+                        <!-- Password -->
+                        <div class="md-form mt-0">
+                            <label for="pwd">Password</label>
+                            <input id="pwd" name="pwd" type="password"  class="form-control" id="password" name="password" [(ngModel)]="loginuser.password"
+                            #passwordModel = "ngModel" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$"  aria-describedby="materialRegisterFormPasswordHelpBlock" 
+                            [class.is-invalid] = "passwordModel.invalid && passwordModel.touched" required>
+                            <label for="pwd" id="pwdfeedback" style="color:red; visibility:hidden">Password should be minimum 8 characters</label>
+                        </div>
+                        <!--Re- Type Password -->
+                        <div class="md-form mt-0">
+                            <label for="pwd">Retype Password</label>
+                            <input id="pwd2" name="pwd2" [(ngModel)]="retypePassword" type="password"  class="form-control" id="password2" name="password2"
+                            #RetypepasswordModel = "ngModel"
+                             aria-describedby="materialRegisterFormPasswordHelpBlock"
+                             required>
+                            <label for="pwd2" id="pwd2feedback" style="color:red; visibility:hidden">Password should be minimum 8 characters</label>
+                        </div>
+                        <!-- User Type -->
+                        <div class="md-form mt-0"> 
+                            <label for="UserType">User Type</label><br>
+                            <select class="form-control"  [(ngModel)]="loginuser.usertype" name="usertype" id="usertype" >
+                                <option *ngFor="let currentData of usertypes" [ngValue]="currentData">
+                                    {{currentData}}
+                                </option>
+                          </select>
+                        </div>
+                        <!-- Sign up button -->
+                        <!-- <button class="btn btn-outline-info btn-rounded  my-4 waves-effect z-depth-0" type="submit">Sign Up</button> -->
+                        <button id="signup" name="signup"  class=" my-3 btn btn-blue text-center"
+                        [disabled]="userSignUp.form.invalid" 
+                        (ngSubmit)="addUser()">Sign Up</button>
+                        <br>
+
+                        <div class="row mb-4 px-3">
+                            <small class="font-weight-bold">Already have an account? <a routerLink="" class="text-danger ">Sign In</a></small>
+                        </div>
+            
+                    </form>
+                    <!-- End of Form -->
+            
+                </div>
+            
+            
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="landing bg-blue py-2 mb-1">
+    <div class="row px-3 pb-1">
+        <small class="ml-4  mb-2 py-2">Copyright &copy; 2022. All rights reserved.</small>
+
+    </div>
+</div>  
