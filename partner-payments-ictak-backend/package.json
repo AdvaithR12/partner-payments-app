@@ -1,0 +1,14 @@
+{
+  "name": "partner-payments-ictak-backend",
+  "version": "1.0.0",
+  "description": "An administration portal to coordinate training sessions taken by partner trainers of ICT Academy of Kerala",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "ICTAK"
+  ],
+  "author": "",
+  "license": "ISC"
+}
