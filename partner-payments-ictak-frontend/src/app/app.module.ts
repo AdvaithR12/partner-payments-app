@@ -14,7 +14,6 @@ import { WorkOrdersComponent } from './admin/work-orders/work-orders.component';
 import { SignupComponent } from './signup/signup.component';
 import { RouterModule } from '@angular/router';
 import { PartnerTemplateComponent } from './partner/partner-template/partner-template.component';
-import { FinanceDashboardComponent } from './finance-dashboard/finance-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +26,6 @@ import { FinanceDashboardComponent } from './finance-dashboard/finance-dashboard
     WorkOrdersComponent,
     SignupComponent,
     PartnerTemplateComponent,
-    FinanceDashboardComponent
   ],
   imports: [
     BrowserModule,
