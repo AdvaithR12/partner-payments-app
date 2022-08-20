@@ -10,7 +10,7 @@ export class AuthService {
   constructor(private http: HttpClient, private router: Router) { }
 
   logUser(user:any){
-    return this.http.post("http://localhost:8080/api/auth/login", user)
+    return this.http.post("http://localhost:3000/api/auth/login", user)
     .subscribe((data)=>{
       // alert('success');
       this.router.navigate(['admin/dashboard']);
@@ -19,7 +19,7 @@ export class AuthService {
 
   addUser(user:any){
     console.log('inside service: ', user);
-    return this.http.post<any>("http://localhost:8080/api/auth/adduser",user);
+    return this.http.post<any>("http://localhost:3000/api/auth/adduser",user);
   }
   
 }
