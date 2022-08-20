@@ -12,26 +12,24 @@ export class AdminTemplateComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  wrapperId: string = 'wrapperId';
   sideBarVisibility: string = 'block'
   mainContentMarginLeft: string = "250px"
   showHamburger: string = 'none'
-  showXMark: string = 'inline'
+
+  toggleSideBar() {
+    this.sideBarVisibility == 'block' ? this.hideSideBar() : this.showSideBar() ;
+  }
 
   hideSideBar() {
     this.sideBarVisibility = 'none';
     this.mainContentMarginLeft = '0px';
     this.showHamburger = 'inline';
-    this.showXMark = 'none';
-    this.wrapperId = '';
   }
 
   showSideBar() {
     this.sideBarVisibility = 'block';
     this.mainContentMarginLeft = "250px";
     this.showHamburger = 'none';
-    this.showXMark = 'inline';
-    this.wrapperId= 'wrapperId'
   }
 
 }
