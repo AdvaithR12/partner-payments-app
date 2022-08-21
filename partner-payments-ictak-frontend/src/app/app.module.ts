@@ -19,6 +19,7 @@ import { FinanceTemplateComponent } from './finance/finance-template/finance-tem
 import { FinanceDashboardComponent } from './finance/finance-dashboard/finance-dashboard.component';
 import { PartnerDashboardComponent } from './partner/partner-dashboard/partner-dashboard.component';
 import { PartnerInvoiceComponent } from './partner/partner-invoice/partner-invoice.component';
+import { FinanceWorkOrdersComponent } from './finance/finance-work-orders/finance-work-orders.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { PartnerInvoiceComponent } from './partner/partner-invoice/partner-invoi
     FinanceTemplateComponent,
     FinanceDashboardComponent,
     PartnerDashboardComponent,
-    PartnerInvoiceComponent
+    PartnerInvoiceComponent,
+    FinanceWorkOrdersComponent
   ],
   imports: [
     BrowserModule,
