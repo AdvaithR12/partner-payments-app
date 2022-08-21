@@ -1,1 +1,75 @@
-<p>partner-template works!</p>
+<div id="{{wrapper}}" class="wrapper ">
+
+  <div #viewChildHook  class="sidebar shadow-lg rounded  position-fixed fixed-top"  [style.display]="sideBarVisibility">
+    <!-- <i (click)="hideSideBar()" class="fw-bold fa-solid fa-xmark"></i> -->
+    <div class="container my-2 sidebar-logo bg-gradient rounded bg-opacity-25 p-1">
+      <div class="row ">
+        <div class="col-5">
+          <img routerLink="" class="rounded-2" height="90px" src="../../../assets/logo/ict-logo.png" alt="">
+        </div>
+        <div class="col-6 m-auto ">
+          <h4 class="text-left fw-bold ">Partner Payment Portal</h4>
+        </div>
+      </div>
+    </div>
+    <hr><hr>
+    <div class="container d-flex flex-column">
+      <ul class="row mb-auto mt-3">
+        <li routerLinkActive="activeLink" routerLink="dashboard"><i class="fas fa-house-user"></i><a>Dashboard</a></li>
+        <li routerLinkActive="activeLink" routerLink="workorders"><i class="fas fa-chalkboard-teacher"></i><a>Work Orders</a></li>
+        <li routerLinkActive="activeLink" routerLink="invoices"><i class="fas fa-file-invoice-dollar"></i><a>Invoices</a></li>
+        <li routerLinkActive="activeLink" routerLink="profile"><i class="fas fa-address-card"></i><a>Profile</a></li>
+      </ul>
+      <!-- <div class="row  border border-2 border-dark  bottom-link" >
+          b4-col
+      </div> -->
+    </div>
+
+  </div>
+
+  <div style="min-height: 100vh;" class="main_content" [style.margin-left]="mainContentMarginLeft" >
+  
+    <div class="header rounded">
+
+
+      <nav class="navbar navbar-expand">
+        <div class="container-fluid">
+
+          <div id="hamburger" >
+            <i (click)="toggleSideBar()"   class='fs-5 fa-solid fa-bars'></i>
+          </div>
+          <h5 class="fw-bold justify-content-start p-2 " href="#">Partner Dashboard</h5>
+          <div class=" navbar ms-auto">
+
+            <ul class="navbar-nav  mb-2 mb-lg-0 align-items-center">
+              <li class="nav-item mx-3">
+                <i class="fs-5 fa-solid fa-magnifying-glass"></i>
+              </li>
+              <li class="nav-item mx-3">
+                <i class="fs-5 fa-solid fa-calendar-plus"></i>
+              </li>
+              <li class="nav-item  mx-3">
+                <i class="fs-5 fa-solid fa-bell"></i>
+              </li>
+              <li id="profile-icon" class="nav-item  ms-3 me-1 container d-flex align-items-center justify-content-between bg-light bg-opacity-75 shadow">
+                <div class="row align-items-center justify-content-between">
+                  <img class="col-3  img-fluid img-circle me-2" src="../../../assets/logo/photo_2020-08-21_02-20-28.jpg" alt="">
+                  <span class="col">Muhammad Ismail I R</span>
+                  <a href="" class="col-1 nav-link dropdown-toggle"></a>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+      </nav>
+      
+
+    </div>  
+      
+    <div class="info">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+
+</div>

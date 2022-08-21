@@ -10,6 +10,8 @@ import { SigninComponent } from './signin/signin.component';
 import { SignupComponent } from './signup/signup.component';
 import { FinanceDashboardComponent } from './finance/finance-dashboard/finance-dashboard.component';
 import { PartnerDashboardComponent } from './partner/partner-dashboard/partner-dashboard.component';
+import { FinanceTemplateComponent } from './finance/finance-template/finance-template.component';
+import { PartnerTemplateComponent } from './partner/partner-template/partner-template.component';
 
 const routes: Routes = [
   {
@@ -29,11 +31,6 @@ const routes: Routes = [
     component: AdminTemplateComponent,
     children: [
       {
-        path: '',
-        redirectTo: 'dashboard',
-        pathMatch: 'full'
-      },
-      {
         path: 'dashboard',
         component: AdminDashboardComponent
       },
@@ -50,16 +47,30 @@ const routes: Routes = [
         component: AdminInvoicesComponent
       }
     ]
-  }
-  ,
+  },
   {
-    path: 'financedashboard',
-    component: FinanceDashboardComponent,
-  }
-  ,
+    path: 'finance',
+    component: FinanceTemplateComponent,
+    children: [
+        
+      {
+        path: 'dashboard',
+        component: FinanceDashboardComponent
+      },
+      
+    ]
+  },
   {
-    path: 'partnerdashboard',
-    component: PartnerDashboardComponent,
+    path: 'partner',
+    component: PartnerTemplateComponent,
+    children: [
+        
+      {
+        path: 'dashboard',
+        component: PartnerDashboardComponent
+      },
+      
+    ]
   }
 ];
 

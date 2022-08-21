@@ -43,31 +43,46 @@
                                 [(ngModel)]="loginuser.email" 
                                 class="form-control" 
                                 #email= "ngModel" 
-                                pattern="^([\w\.\-]+)@([\w\-]+).([a-z]{2,4})(.[a-z]{2,4})*$" 
+                                pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" 
+                                [class.is-invalid] = "email.invalid && email.touched"
                                 required>
                             <label for="email" id="emailfeedback" style="color:red; visibility:hidden">Enter valid e-mail id.</label>
                         </div>
                         <!-- Password -->
                         <div class="md-form mt-0">
                             <label for="pwd">Password</label>
-                            <input id="pwd" name="pwd" type="password"  class="form-control" id="password" name="password" [(ngModel)]="loginuser.password"
-                            #passwordModel = "ngModel" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$"  aria-describedby="materialRegisterFormPasswordHelpBlock" 
-                            [class.is-invalid] = "passwordModel.invalid && passwordModel.touched" required>
-                            <label for="pwd" id="pwdfeedback" style="color:red; visibility:hidden">Password should be minimum 8 characters</label>
-                        </div>
+                            <input 
+                            id="pwd" 
+                            name="pwd" 
+                            type="password"  
+                            class="form-control" 
+                            id="password" 
+                            name="password" 
+                            [(ngModel)]="loginuser.password"
+                            #passwordModel = "ngModel" 
+                            pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$"  aria-describedby="materialRegisterFormPasswordHelpBlock" 
+                            [class.is-invalid] = "passwordModel.invalid && passwordModel.touched" 
+                            required>
+                            <small [class.d-none] = "!(passwordModel.invalid && passwordModel.touched)" for="pwd" id="pwdfeedback" style="color:red;">Password should be minimum 8 characters</small>
+                        </div><br>
                         <!--Re- Type Password -->
                         <div class="md-form mt-0">
                             <label for="pwd">Retype Password</label>
-                            <input id="pwd2" name="pwd2" [(ngModel)]="retypePassword" type="password"  class="form-control" id="password2" name="password2"
+                            <input 
+                            id="pwd2" 
+                            name="pwd2" 
+                            [(ngModel)]="retypePassword" 
+                            type="password"  class="form-control" 
+                            id="password2" name="password2"
                             #RetypepasswordModel = "ngModel"
-                             aria-describedby="materialRegisterFormPasswordHelpBlock"
-                             required>
+                            aria-describedby="materialRegisterFormPasswordHelpBlock"
+                            required>
                             <label for="pwd2" id="pwd2feedback" style="color:red; visibility:hidden">Password should be minimum 8 characters</label>
                         </div>
                         <!-- User Type -->
                         <div class="md-form mt-0"> 
                             <label for="UserType">User Type</label><br>
-                            <select class="form-control"  [(ngModel)]="loginuser.userType" name="usertype" id="usertype" >
+                            <select class=" dropdown-toggle"  [(ngModel)]="loginuser.userType" name="usertype" id="usertype" >
                                 <option *ngFor="let currentData of usertypes" [ngValue]="currentData">
                                     {{currentData}}
                                 </option>
