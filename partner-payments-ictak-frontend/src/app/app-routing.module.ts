@@ -5,8 +5,11 @@ import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { InvoicesComponent } from './admin/invoices/invoices.component';
 import { NewEnquiryComponent } from './admin/new-enquiry/new-enquiry.component';
 import { WorkOrdersComponent } from './admin/work-orders/work-orders.component';
+import { MessagepageComponent } from './messagepage/messagepage.component';
 import { SigninComponent } from './signin/signin.component';
 import { SignupComponent } from './signup/signup.component';
+import { FinanceDashboardComponent} from './finance/dashboard/dashboard.component'
+import { PartnerDashboardComponent } from './partner/dashboard/dashboard.component';
 
 const routes: Routes = [
   {
@@ -16,6 +19,10 @@ const routes: Routes = [
   {
     path: "signup",
     component: SignupComponent
+  },
+  {
+    path: "messagepage",
+    component: MessagepageComponent
   },
   {
     path: 'admin',
@@ -43,6 +50,16 @@ const routes: Routes = [
         component: InvoicesComponent
       }
     ]
+  }
+  ,
+  {
+    path: 'financedashboard',
+    component: FinanceDashboardComponent,
+  }
+  ,
+  {
+    path: 'partnerdashboard',
+    component: PartnerDashboardComponent,
   }
 ];
 

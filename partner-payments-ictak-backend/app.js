@@ -6,7 +6,7 @@ const authRouter = require(`./src/routes/auth-router`);
 const User = require('./src/model/Userdata');
 
 const app = new express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080;
 
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));

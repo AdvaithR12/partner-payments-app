@@ -18,7 +18,8 @@ export class SignupComponent implements OnInit {
     name:'',
     email:'',
     password:'',
-    usertype:'Admin'
+    usertype:'Admin',
+    adminapproved: false
     }
   retypePassword :string = '';
     usertypes= ['Admin', 'Finance Admin','Partner']
@@ -35,7 +36,8 @@ addUser()
           //this.router.navigate(['products'])
           console.log('res :', res);
           if(res.success == true) {
-            alert('New user added');
+            //alert('New user added');
+            this.router.navigate(['']);
           } else {
             alert(res.message);
           }
