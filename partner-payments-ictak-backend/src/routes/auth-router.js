@@ -8,48 +8,47 @@ authRouter.get(`/`, (req, res)=> {
   res.send(`Hi I'm listening at /auth`);
 });
 
-authRouter.post('/signin', (req,res)=>{
-  let user = req.body
+// authRouter.post('/signin', (req,res)=>{
+//   let user = req.body
 
-  UserData.findOne({
-    $and: [{"email":user.email}, {"password":user.password}]
-  }).then((user)=> {
-      console.log(user);
-      res.send(user);
-    }).catch((err)=> {
-      console.log(err);
-    });
-});
-
-// authRouter.post(`/signin`, (req, res)=> {
-//   // console.log(`POST: /signin - auth-router.js:12`, req.body);
-//   var userName = req.body.userName.trim();
-//   var passWord = req.body.passWord.trim();
-
-//   UserData.find({'userName': userName})
-//     .then((user)=> {
-//       // console.log('auth-router.js:16 - succ', succ[0].userName);
-//       if(user.length == 0) {
-//         res.status(200).json({
-//           status: false,
-//           result: 'User Not found'
-//         });
-//       } else if(user[0].passWord != passWord) {
-//         res.status(200).json({
-//           status: false,
-//           result: `Invalid Password`        
-//         });
-//       } else {
-//         res.status(200).json({
-//           status: true,
-//           result: `Authenticated User` ,
-//           user: user
-//         });
-//       }
+//   UserData.findOne({
+//     $and: [{"email":user.email}, {"password":user.password}]
+//   }).then((user)=> {
+//       console.log(user);
+//       res.send(user);
 //     }).catch((err)=> {
-//       console.log('auth-router.js:16 - err', err);
+//       console.log(err);
 //     });
 // });
+
+authRouter.post(`/signin`, (req, res)=> {
+  // console.log(`POST: /signin - auth-router.js:12`, req.body);
+  var email = req.body.email.trim();
+  var password = req.body.password.trim();
+
+  UserData.find({"email":email})
+    .then((user)=> {
+      if(user.length == 0) {
+        res.status(200).json({
+          status: false,
+          result: 'User Not found'
+        });
+      } else if(user[0].password != password) {
+        res.status(200).json({
+          status: false,
+          result: `Invalid Password`        
+        });
+      } else {
+        res.status(200).json({
+          status: true,
+          result: `Authenticated User` ,
+          user: user[0]
+        });
+      }
+    }).catch((err)=> {
+      console.log('auth-router.js:16 - err', err);
+    });
+});
 
 authRouter.post('/signup',function(req,res) {  /*verifyToken,/insert*/ 
 

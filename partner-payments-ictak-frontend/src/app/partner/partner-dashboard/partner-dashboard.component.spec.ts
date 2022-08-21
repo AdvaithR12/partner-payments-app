@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PartnerDashboardComponent } from './dashboard.component';
+import { PartnerDashboardComponent } from './partner-dashboard.component';
 
-describe('DashboardComponent', () => {
+describe('PartnerDashboardComponent', () => {
   let component: PartnerDashboardComponent;
   let fixture: ComponentFixture<PartnerDashboardComponent>;
 

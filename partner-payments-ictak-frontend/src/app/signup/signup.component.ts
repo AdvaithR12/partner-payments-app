@@ -18,7 +18,7 @@ export class SignupComponent implements OnInit {
     name:'',
     email:'',
     password:'',
-    usertype:'Admin',
+    userType:'Admin',
     adminapproved: false
     }
   retypePassword :string = '';

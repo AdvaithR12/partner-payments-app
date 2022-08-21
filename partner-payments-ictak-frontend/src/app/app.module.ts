@@ -7,27 +7,33 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SigninComponent } from './signin/signin.component';
 import { AdminTemplateComponent } from './admin/admin-template/admin-template.component';
-import { DashboardComponent } from './admin/dashboard/dashboard.component';
-import { NewEnquiryComponent } from './admin/new-enquiry/new-enquiry.component';
-import { InvoicesComponent } from './admin/invoices/invoices.component';
-import { WorkOrdersComponent } from './admin/work-orders/work-orders.component';
+import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
+import { AdminNewEnquiryComponent } from './admin/admin-new-enquiry/admin-new-enquiry.component';
+import { AdminInvoicesComponent } from './admin/admin-invoices/admin-invoices.component';
+import { AdminWorkOrdersComponent } from './admin/admin-work-orders/admin-work-orders.component';
 import { SignupComponent } from './signup/signup.component';
 import { RouterModule } from '@angular/router';
 import { PartnerTemplateComponent } from './partner/partner-template/partner-template.component';
 import { MessagepageComponent } from './messagepage/messagepage.component';
+import { FinanceTemplateComponent } from './finance/finance-template/finance-template.component';
+import { FinanceDashboardComponent } from './finance/finance-dashboard/finance-dashboard.component';
+import { PartnerDashboardComponent } from './partner/partner-dashboard/partner-dashboard.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SigninComponent,
     AdminTemplateComponent,
-    DashboardComponent,
-    NewEnquiryComponent,
-    InvoicesComponent,
-    WorkOrdersComponent,
+    AdminDashboardComponent,
+    AdminNewEnquiryComponent,
+    AdminInvoicesComponent,
+    AdminWorkOrdersComponent,
     SignupComponent,
     PartnerTemplateComponent,
-    MessagepageComponent
+    MessagepageComponent,
+    FinanceTemplateComponent,
+    FinanceDashboardComponent,
+    PartnerDashboardComponent
   ],
   imports: [
     BrowserModule,

@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminTemplateComponent } from './admin/admin-template/admin-template.component';
-import { DashboardComponent } from './admin/dashboard/dashboard.component';
-import { InvoicesComponent } from './admin/invoices/invoices.component';
-import { NewEnquiryComponent } from './admin/new-enquiry/new-enquiry.component';
-import { WorkOrdersComponent } from './admin/work-orders/work-orders.component';
+import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
+import { AdminInvoicesComponent } from './admin/admin-invoices/admin-invoices.component';
+import { AdminNewEnquiryComponent } from './admin/admin-new-enquiry/admin-new-enquiry.component';
+import { AdminWorkOrdersComponent } from './admin/admin-work-orders/admin-work-orders.component';
 import { MessagepageComponent } from './messagepage/messagepage.component';
 import { SigninComponent } from './signin/signin.component';
 import { SignupComponent } from './signup/signup.component';
-import { FinanceDashboardComponent} from './finance/dashboard/dashboard.component'
-import { PartnerDashboardComponent } from './partner/dashboard/dashboard.component';
+import { FinanceDashboardComponent } from './finance/finance-dashboard/finance-dashboard.component';
+import { PartnerDashboardComponent } from './partner/partner-dashboard/partner-dashboard.component';
 
 const routes: Routes = [
   {
@@ -21,7 +21,7 @@ const routes: Routes = [
     component: SignupComponent
   },
   {
-    path: "messagepage",
+    path: "unauthorized",
     component: MessagepageComponent
   },
   {
@@ -35,19 +35,19 @@ const routes: Routes = [
       },
       {
         path: 'dashboard',
-        component: DashboardComponent
+        component: AdminDashboardComponent
       },
       {
         path: 'newenquiry',
-        component: NewEnquiryComponent
+        component: AdminNewEnquiryComponent
       },
       {
         path: 'workorders',
-        component: WorkOrdersComponent
+        component: AdminWorkOrdersComponent
       },
       {
         path: 'invoices',
-        component: InvoicesComponent
+        component: AdminInvoicesComponent
       }
     ]
   }

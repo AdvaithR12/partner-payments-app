@@ -18,7 +18,7 @@ var UserSchema = new Schema({
         index: true
     },
     password: String,
-    usertype : String,
+    userType : String,
     adminapproved : Boolean
 });
 

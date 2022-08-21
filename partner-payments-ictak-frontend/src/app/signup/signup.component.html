@@ -67,7 +67,7 @@
                         <!-- User Type -->
                         <div class="md-form mt-0"> 
                             <label for="UserType">User Type</label><br>
-                            <select class="form-control"  [(ngModel)]="loginuser.usertype" name="usertype" id="usertype" >
+                            <select class="form-control"  [(ngModel)]="loginuser.userType" name="usertype" id="usertype" >
                                 <option *ngFor="let currentData of usertypes" [ngValue]="currentData">
                                     {{currentData}}
                                 </option>

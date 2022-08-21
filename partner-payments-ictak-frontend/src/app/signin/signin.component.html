@@ -24,14 +24,14 @@
                       <label class="mb-1"><h6 class="mb-0 text-sm">Email Address</h6></label>
                       <input class="mb-2" type="email" name="email"  required placeholder="Enter a valid email address"
                        #email="ngModel" [class.is-invalid]="email.invalid && email.touched"
-                        [(ngModel)]="User.email" pattern="^([\w\.\-]+)@([\w\-]+).([a-z]{2,4})(.[a-z]{2,4})*$" required>
+                        [(ngModel)]="user.email" pattern="^([\w\.\-]+)@([\w\-]+).([a-z]{2,4})(.[a-z]{2,4})*$" required>
                        <small class="text-danger" [class.d-none]="email.valid || email.untouched"> Enter a Valid Email</small>
                   </div>
                   <div class="row px-3">
                       <label class="mb-1 mt-2"><h6 class="mb-0 text-sm">Password</h6></label>
                       <input type="password" name="password" placeholder="Enter password"
                       #password="ngModel" [class.is-invalid]="password.invalid && password.touched"
-                      [(ngModel)]="User.password" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$" required>
+                      [(ngModel)]="user.password" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$" required>
                       <small class="text-danger" [class.d-none]="password.valid || password.untouched"> Enter a Valid Password</small>
                   </div>
                   <div class="row px-3 mb-4 mt-2">
