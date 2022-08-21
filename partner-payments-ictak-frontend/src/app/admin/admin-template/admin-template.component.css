@@ -1,8 +1,8 @@
 @media screen and (max-width: 771px) {
-  .wrapper .sidebar {
+  #wrapper .sidebar {
     display: none !important;
   }
-  .wrapper .main_content {
+  #wrapper .main_content {
     margin-left: 0px !important;
   }
 }

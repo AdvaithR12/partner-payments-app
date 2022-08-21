@@ -30,18 +30,18 @@ authRouter.post(`/signin`, (req, res)=> {
     .then((user)=> {
       if(user.length == 0) {
         res.status(200).json({
-          status: false,
-          result: 'User Not found'
+          success: false,
+          message: 'User Not found'
         });
       } else if(user[0].password != password) {
         res.status(200).json({
-          status: false,
-          result: `Invalid Password`        
+          success: false,
+          message: `Invalid Password`        
         });
       } else {
         res.status(200).json({
-          status: true,
-          result: `Authenticated User` ,
+          success: true,
+          message: `Authenticated User` ,
           user: user[0]
         });
       }

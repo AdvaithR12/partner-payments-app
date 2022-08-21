@@ -1,16 +1,6 @@
 .profile-image {
-  object-fit: cover;
+  object-fit:contain;
   width: 36px;
   height: 36px;
   border-radius: 18px; 
-}
-
-.new-enquiry-badge {
-  width: 8rem;
-  height: 3rem;
-  border: 1px solid black;
-  position: absolute;
-  top: 12%;
-  right: 3%;
-  border-radius: 1.5rem;
 }

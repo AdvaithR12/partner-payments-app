@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-admin-template',
@@ -6,27 +6,33 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./admin-template.component.css']
 })
 export class AdminTemplateComponent implements OnInit {
-
+  @ViewChild('viewChildHook', {static: true}) sideBar!: ElementRef;
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  sideBarVisibility: string = 'block'
-  mainContentMarginLeft: string = "250px"
-  showHamburger: string = 'none'
+  wrapper: string = 'wrapper';
+  sideBarVisibility: string = 'block';
+  mainContentMarginLeft: string = "250px";
+  showHamburger: string = 'none';
 
   toggleSideBar() {
-    this.sideBarVisibility == 'block' ? this.hideSideBar() : this.showSideBar() ;
+    const sideBarStatus = window.getComputedStyle(this.sideBar.nativeElement).display;
+    console.log(sideBarStatus);
+    
+    sideBarStatus == 'block' ? this.hideSideBar() : this.showSideBar() ;
   }
 
   hideSideBar() {
+    this.wrapper = 'wrapper';
     this.sideBarVisibility = 'none';
     this.mainContentMarginLeft = '0px';
     this.showHamburger = 'inline';
   }
 
   showSideBar() {
+    this.wrapper = '';
     this.sideBarVisibility = 'block';
     this.mainContentMarginLeft = "250px";
     this.showHamburger = 'none';

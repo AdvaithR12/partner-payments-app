@@ -1,6 +1,6 @@
-<div  class="wrapper ">
+<div id="{{wrapper}}" class="wrapper ">
 
-  <div  [style.display]="sideBarVisibility" class="sidebar shadow-lg rounded  position-fixed fixed-top" >
+  <div #viewChildHook  class="sidebar shadow-lg rounded  position-fixed fixed-top"  [style.display]="sideBarVisibility">
     <!-- <i (click)="hideSideBar()" class="fw-bold fa-solid fa-xmark"></i> -->
     <div class="container my-2 sidebar-logo bg-gradient rounded bg-opacity-25 p-1">
       <div class="row ">

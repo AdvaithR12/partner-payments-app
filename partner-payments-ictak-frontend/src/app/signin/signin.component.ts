@@ -10,6 +10,7 @@ import { AuthService } from '../auth.service';
 })
 export class SigninComponent implements OnInit {
 
+  result:any = {};
   user:any = {};
 
   constructor(
@@ -24,18 +25,23 @@ export class SigninComponent implements OnInit {
     
     this.auth.logUser(user)
     .subscribe((data: any)=>{
-      this.user = JSON.parse(JSON.stringify(data.user));
       
-      if(this.user.adminApproved === false) {   //if not approved by Admin then redirect to common message page
-        localStorage.setItem("isadminapproved","false");
-        this.router.navigate(['unauthorized']);
-      }else{
-        this.redirectToUserPage(this.user.userType);
-      }
+      this.result = JSON.parse(JSON.stringify(data));
+      
+      if(this.result.success) {
+      if(!this.result.user.adminapproved) {   //if not approved by Admin then redirect to common message page
+          localStorage.setItem("isadminapproved","false");
+          this.router.navigate(['unauthorized']);
+        } else {
+          this.redirectTo(this.result.user.userType);
+        }
+      } else {
+        alert(this.result.message);
+      }    
     });
   }
 
-  redirectToUserPage(userType: any){
+  redirectTo(userType: any){
     localStorage.setItem("usertype",userType);  //store usertype in localstorage
     
     switch(userType) {  //'Admin', 'Finance Admin','Partner'
