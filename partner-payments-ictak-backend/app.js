@@ -3,7 +3,6 @@ const cors = require(`cors`);
 const path = require('path');
 const bodyparser = require('body-parser');  
 const authRouter = require(`./src/routes/auth-router`);
-const User = require('./src/model/Userdata');
 
 const app = new express();
 const PORT = process.env.PORT || 8080;

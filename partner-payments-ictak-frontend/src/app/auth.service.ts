@@ -6,6 +6,9 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class AuthService {
+
+  server: string = 'http://localhost:8080/api';
+
   User= {
     name:'',
     email:'',
@@ -16,8 +19,13 @@ export class AuthService {
   
   constructor(private http: HttpClient, private router: Router) { }
 
+  addUser(user:any){
+    console.log('inside service: ', user);
+    return this.http.post<any>(`${this.server}/auth/signup`,user);
+  }
+
   logUser(user:any){
-    return this.http.post("http://localhost:8080/api/auth/login", user)
+    return this.http.post(`${this.server}/auth/signin`, user)
     .subscribe((data)=>{
       console.log('inside service: ', data);
       this.User = JSON.parse(JSON.stringify(data));
@@ -49,9 +57,6 @@ export class AuthService {
     }
     
   }
-  addUser(user:any){
-    console.log('inside service: ', user);
-    return this.http.post<any>("http://localhost:8080/api/auth/adduser",user);
-  }
+
   
 }

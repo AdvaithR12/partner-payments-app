@@ -22,13 +22,10 @@ export class SignupComponent implements OnInit {
     adminapproved: false
     }
   retypePassword :string = '';
-    usertypes= ['Admin', 'Finance Admin','Partner']
+  usertypes= ['Admin', 'Finance Admin','Partner']
   
-addUser()
-  {    
+  addUser() {    
     if(this.loginuser.password == this.retypePassword) {
-      console.log('req :', this.loginuser);
-   
       this.auth.addUser(this.loginuser)
       .subscribe(
         res=>{
@@ -45,9 +42,6 @@ addUser()
     } else {
       alert(`Passwords doesn't match`)
     }
-   
-    
-   // this.router.navigate(['login'])
   }
 
 }
