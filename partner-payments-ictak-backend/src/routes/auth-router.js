@@ -14,6 +14,15 @@ authRouter.get(`/`, (req, res)=> {
 authRouter.post('/login', (req,res)=>{
   let userdata = req.body
 
+  logincheck= User.findOne({
+    $and: [{"email":userdata.email},
+    {"password":userdata.password}]})
+    .then((userlogin)=>{
+    console.log(userlogin);
+    res.send(userlogin);
+    })
+
+/*
   if(email !== userdata.email) {
       res.status(401).send('Invalid Email')
   } else if(password !== userdata.password) {
@@ -21,6 +30,7 @@ authRouter.post('/login', (req,res)=>{
   } else {
       res.status(200).send()
   }
+  */
 });
 
 authRouter.post('/adduser',function(req,res){/*verifyToken,/insert*/ 
@@ -31,7 +41,8 @@ authRouter.post('/adduser',function(req,res){/*verifyToken,/insert*/
     name : req.body.fullname,
     email : req.body.email,
     password : req.body.password,
-    usertype : req.body.usertype
+    usertype : req.body.usertype,
+    adminapproved : false
  }     
    var user = new User(user);//create an instance of your model
   user.save() 
