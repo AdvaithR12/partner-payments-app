@@ -18,6 +18,7 @@ import { MessagepageComponent } from './messagepage/messagepage.component';
 import { FinanceTemplateComponent } from './finance/finance-template/finance-template.component';
 import { FinanceDashboardComponent } from './finance/finance-dashboard/finance-dashboard.component';
 import { PartnerDashboardComponent } from './partner/partner-dashboard/partner-dashboard.component';
+import { PartnerInvoiceComponent } from './partner/partner-invoice/partner-invoice.component';
 import { FinanceWorkOrdersComponent } from './finance/finance-work-orders/finance-work-orders.component';
 
 @NgModule({
@@ -35,6 +36,7 @@ import { FinanceWorkOrdersComponent } from './finance/finance-work-orders/financ
     FinanceTemplateComponent,
     FinanceDashboardComponent,
     PartnerDashboardComponent,
+    PartnerInvoiceComponent,
     FinanceWorkOrdersComponent
   ],
   imports: [
