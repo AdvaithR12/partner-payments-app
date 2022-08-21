@@ -14,7 +14,6 @@ import { WorkOrdersComponent } from './admin/work-orders/work-orders.component';
 import { SignupComponent } from './signup/signup.component';
 import { RouterModule } from '@angular/router';
 import { PartnerTemplateComponent } from './partner/partner-template/partner-template.component';
-import { MessagepageComponent } from './messagepage/messagepage.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +26,6 @@ import { MessagepageComponent } from './messagepage/messagepage.component';
     WorkOrdersComponent,
     SignupComponent,
     PartnerTemplateComponent,
-    MessagepageComponent,
   ],
   imports: [
     BrowserModule,
