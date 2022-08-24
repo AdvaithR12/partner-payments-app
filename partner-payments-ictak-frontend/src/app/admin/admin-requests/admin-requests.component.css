@@ -1,0 +1,295 @@
+/* body{
+  background: #F4F7FD;
+  margin-top:20px;
+}
+
+.card-margin {
+  margin-bottom: 1.875rem;
+}
+
+.card {
+  border: 0;
+  box-shadow: 0px 0px 10px 0px rgba(82, 63, 105, 0.1);
+  -webkit-box-shadow: 0px 0px 10px 0px rgba(82, 63, 105, 0.1);
+  -moz-box-shadow: 0px 0px 10px 0px rgba(82, 63, 105, 0.1);
+  -ms-box-shadow: 0px 0px 10px 0px rgba(82, 63, 105, 0.1);
+}
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #ffffff;
+  background-clip: border-box;
+  border: 1px solid #e6e4e9;
+  border-radius: 8px;
+}
+
+.card .card-header {
+  background: none;
+  padding: 0 0.9375rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  min-height: 50px;
+}
+
+.widget .widget-title-wrapper {
+display: flex;
+align-items: center;
+}
+
+.widget .widget-title-wrapper .widget-date-primary {
+display: flex;
+align-items: center;
+justify-content: center;
+flex-direction: column;
+background-color: #edf1fc;
+width: 4rem;
+height: 4rem;
+border-radius: 50%;
+}
+
+.widget .widget-title-wrapper .widget-date-primary .widget-date-day {
+color: #4e73e5;
+font-weight: 500;
+font-size: 1.5rem;
+line-height: 1;
+}
+
+.widget .widget-title-wrapper .widget-date-primary .widget-date-month {
+color: #4e73e5;
+line-height: 1;
+font-size: 1rem;
+text-transform: uppercase;
+}
+
+.widget .widget-title-wrapper .widget-date-secondary {
+display: flex;
+align-items: center;
+justify-content: center;
+flex-direction: column;
+background-color: #fcfcfd;
+width: 4rem;
+height: 4rem;
+border-radius: 50%;
+}
+
+.widget .widget-title-wrapper .widget-date-secondary .widget-date-day {
+color: #dde1e9;
+font-weight: 500;
+font-size: 1.5rem;
+line-height: 1;
+}
+
+.widget .widget-title-wrapper .widget-date-secondary .widget-date-month {
+color: #dde1e9;
+line-height: 1;
+font-size: 1rem;
+text-transform: uppercase;
+}
+
+
+.widget .widget-title-wrapper .widget-date-success .widget-date-day {
+color: #17d1bd;
+font-weight: 500;
+font-size: 1.5rem;
+line-height: 1;
+}
+
+.widget .widget-title-wrapper .widget-date-success .widget-date-month {
+color: #17d1bd;
+line-height: 1;
+font-size: 1rem;
+text-transform: uppercase;
+}
+
+.widget .widget-title-wrapper .widget-date-info {
+display: flex;
+align-items: center;
+justify-content: center;
+flex-direction: column;
+background-color: #ebf7ff;
+width: 4rem;
+height: 4rem;
+border-radius: 50%;
+}
+
+.widget .widget-title-wrapper .widget-date-info .widget-date-day {
+color: #36afff;
+font-weight: 500;
+font-size: 1.5rem;
+line-height: 1;
+}
+
+.widget .widget-title-wrapper .widget-date-info .widget-date-month {
+color: #36afff;
+line-height: 1;
+font-size: 1rem;
+text-transform: uppercase;
+}
+
+.widget .widget-title-wrapper .widget-date-warning {
+display: flex;
+align-items: center;
+justify-content: center;
+flex-direction: column;
+background-color: floralwhite;
+width: 4rem;
+height: 4rem;
+border-radius: 50%;
+}
+
+.widget .widget-title-wrapper .widget-date-warning .widget-date-day {
+color: #FFC868;
+font-weight: 500;
+font-size: 1.5rem;
+line-height: 1;
+}
+
+.widget .widget-title-wrapper .widget-date-warning .widget-date-month {
+color: #FFC868;
+line-height: 1;
+font-size: 1rem;
+text-transform: uppercase;
+}
+
+.widget .widget-title-wrapper .widget-date-danger {
+display: flex;
+align-items: center;
+justify-content: center;
+flex-direction: column;
+background-color: #feeeef;
+width: 4rem;
+height: 4rem;
+border-radius: 50%;
+}
+
+.widget .widget-title-wrapper .widget-date-danger .widget-date-day {
+color: #F95062;
+font-weight: 500;
+font-size: 1.5rem;
+line-height: 1;
+}
+
+.widget .widget-title-wrapper .widget-date-danger .widget-date-month {
+color: #F95062;
+line-height: 1;
+font-size: 1rem;
+text-transform: uppercase;
+}
+
+.widget .widget-title-wrapper .widget-date-light {
+display: flex;
+align-items: center;
+justify-content: center;
+flex-direction: column;
+background-color: #fefeff;
+width: 4rem;
+height: 4rem;
+border-radius: 50%;
+}
+
+.widget .widget-title-wrapper .widget-date-light .widget-date-day {
+color: #f7f9fa;
+font-weight: 500;
+font-size: 1.5rem;
+line-height: 1;
+}
+
+.widget .widget-title-wrapper .widget-date-light .widget-date-month {
+color: #f7f9fa;
+line-height: 1;
+font-size: 1rem;
+text-transform: uppercase;
+}
+
+.widget .widget-title-wrapper .widget-date-dark {
+display: flex;
+align-items: center;
+justify-content: center;
+flex-direction: column;
+background-color: #ebedee;
+width: 4rem;
+height: 4rem;
+border-radius: 50%;
+}
+
+.widget .widget-title-wrapper .widget-date-dark .widget-date-day {
+color: #394856;
+font-weight: 500;
+font-size: 1.5rem;
+line-height: 1;
+}
+
+.widget .widget-title-wrapper .widget-date-dark .widget-date-month {
+color: #394856;
+line-height: 1;
+font-size: 1rem;
+text-transform: uppercase;
+}
+
+.widget .widget-title-wrapper .widget-date-base {
+display: flex;
+align-items: center;
+justify-content: center;
+flex-direction: column;
+background-color: #f0fafb;
+width: 4rem;
+height: 4rem;
+border-radius: 50%;
+}
+
+.widget .widget-title-wrapper .widget-date-base .widget-date-day {
+color: #68CBD7;
+font-weight: 500;
+font-size: 1.5rem;
+line-height: 1;
+}
+
+.widget .widget-title-wrapper .widget-date-base .widget-date-month {
+color: #68CBD7;
+line-height: 1;
+font-size: 1rem;
+text-transform: uppercase;
+}
+
+.widget .widget-title-wrapper .widget-meeting-info {
+display: flex;
+flex-direction: column;
+margin-left: 1rem;
+}
+
+.widget .widget-title-wrapper .widget-meeting-info .widget-pro-title {
+color: #3c4142;
+font-size: 14px;
+}
+
+.widget .widget-title-wrapper .widget-meeting-info .widget-meeting-time {
+color: #B1BAC5;
+font-size: 13px;
+}
+
+.widget .widget-meeting-points {
+font-weight: 400;
+font-size: 13px;
+margin-top: .5rem;
+}
+
+.widget .widget-meeting-points .widget-meeting-item {
+display: list-item;
+color: #727686;
+}
+
+.widget .widget-meeting-points .widget-meeting-item span {
+margin-left: .5rem;
+}
+
+.widget .widget-meeting-action {
+text-align: right;
+}
+
+.widget .widget-meeting-action a {
+text-transform: uppercase;
+} */

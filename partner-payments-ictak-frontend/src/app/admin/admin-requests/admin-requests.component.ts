@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AdminService } from '../admin.service';
 
 @Component({
   selector: 'app-admin-requests',
@@ -7,9 +8,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminRequestsComponent implements OnInit {
 
-  constructor() { }
+  trainingRequests: any = []
+
+  constructor(private adminServices: AdminService) { }
 
   ngOnInit(): void {
+    this.adminServices.getTrainingRequests()
+      .subscribe({
+        next: (response)=> {
+          console.log(response);
+          this.trainingRequests = response;
+        },
+        error: (err)=> {
+          console.log(err);
+        }
+      });
+  }
+
+  generateWorkOrder() {
   }
 
 }

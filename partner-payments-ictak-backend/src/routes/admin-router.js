@@ -7,6 +7,16 @@ adminRouter.get(`/`, (req, res)=> {
   res.send(`Hi I'm listening at /auth`);
 });
 
+adminRouter.get(`/trainingrequests`, (req,res)=> {
+  TrainingRequest.find()
+    .then((succ)=> {
+      res.send(succ)
+    }).catch((err)=> {
+      console.log(err);
+      res.send('Some error')
+    });
+})
+
 adminRouter.post('/newrequest', (req, res)=> {
 
   //Converting the start and end time to valid date objects for mongoose

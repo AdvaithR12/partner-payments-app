@@ -1,1 +1,146 @@
-<p>admin-requests works!</p>
+<div class="container ">  
+
+  <div class="row d-flex justify-content-center ">
+    <div class="col-9  px-5 py-4 m-3  text-center fs-2 text-black rounded  ">
+      <span>TRAINING REQUESTS</span>       
+      <hr>
+    </div>
+  </div>
+
+  <div class="row d-flex justify-content-center align-items-center">
+
+    <!-- <div class="row d-flex justify-content-center align-items-center">
+
+      <div class="col-2">Partner</div>
+      <div class="col-4">Topic</div>
+      <div class="col-4">Venue</div>
+      <div class="col-2">Date & Time</div>
+
+    </div> -->
+
+    <!-- <div class="row d-flex justify-content-center align-items-center ">
+
+      <div class="col-lg-4">
+        <div class="card card-margin p-2">
+            <div class="card-header border-bottom mb-2">
+                <h5 class="card-title text-uppercase text-center">Latest Trends in Software Engineering</h5>
+            </div>
+            <div class="card-body pt-0">
+                <div class="widget">
+                    <div class="widget-title-wrapper">
+                        <div class="widget-date-primary">
+                            <span class="widget-date-day">09</span>
+                            <span class="widget-date-month">apr</span>
+                        </div>
+                        <div class="widget-meeting-info">
+                            <span class="widget-pro-title">PRO-08235 DeskOpe. Website</span>
+                            <span class="widget-meeting-time">12:00 to 13.30 Hrs</span>
+                        </div>
+                    </div>
+                    <ol class="widget-meeting-points">
+                        <li class="widget-meeting-item"><span>Expand module is removed</span></li>
+                        <li class="widget-meeting-item"><span>Data migration is in scope</span></li>
+                        <li class="widget-meeting-item"><span>Session timeout increase to 30 minutes</span></li>
+                    </ol>
+                    <div class="widget-meeting-action">
+                        <a href="#" class="btn btn-sm btn-flash-border-primary">View All</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+
+      <div class="col-6">
+        <div class="card">
+          <h5 class="card-header bg-secondary bg-opacity-50">Latest Trends in Software Engineering</h5>
+          <div class="card-body">
+            <h5 class="card-title">Special title treatment</h5>
+            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-6">
+        <div class="card">
+          <h5 class="card-header">Latest Trends in Software Engineering</h5>
+          <div class="card-body">
+            <h5 class="card-title">Special title treatment</h5>
+            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+          </div>
+        </div>
+      </div>
+
+    </div> -->
+
+    <div class="row d-flex justify-content-center align-items-center ">
+      <div *ngFor="let request of trainingRequests" class="row  p-2  mx-2 my-1 d-flex align-items-center justify-content-center">
+        <div class="col ">
+          {{request.trainingDetails.partner}}
+        </div>
+        <div class="col ">
+          {{request.trainingDetails.topic}}
+        </div>
+        <div class="col d-flex  justify-content-center">
+          {{request.sessionDetails.mode}}
+        </div>
+        <div class="col text-center">
+          <span>{{request.sessionDetails.startTime.toString().slice(8,10)}}/{{request.sessionDetails.startTime.toString().slice(5,7)}}/{{request.sessionDetails.startTime.toString().slice(0,4)}}</span>
+          <br>
+          <span>07:30 PM</span>
+        </div>
+        <div class="col d-flex align-items-center justify-content-center">
+          <button class="btn btn-success mx-1">View</button>
+        </div>
+      </div>    
+      <hr>
+      <div class="row  p-2  mx-2 my-1 d-flex align-items-center justify-content-center">
+        <div class="col ">
+          Infosys
+        </div>
+        <div class="col ">
+          Making the best out of amazon web Services
+        </div>
+        <div class="col d-flex  justify-content-center">
+          Offline
+        </div>
+        <div class="col text-center">
+          <span>03/09/2022</span>
+          <br>
+          <span>09:30 AM</span>
+        </div>
+        <div class="col d-flex align-items-center justify-content-center">
+          <button class="btn btn-success mx-1">View</button>
+        </div>
+      </div>    
+      <hr>
+      <div class="row  p-2  mx-2 my-1 d-flex align-items-center justify-content-center">
+        <div class="col ">
+          Mr. Harikrishnan S.
+        </div>
+        <div class="col ">
+          SOFTWARE TESTING
+        </div>
+        <div class="col d-flex  justify-content-center">
+          Offline
+        </div>
+        <div class="col text-center">
+          <span>11/09/2022</span>
+          <br>
+          <span>11:00 AM</span>
+        </div>
+        <div class="col d-flex  ">
+          <a routerLink="viewrequest">
+            <button class="btn btn-success mx-1">View</button>
+            <button (click)="generateWorkOrder()" class="btn btn-primary mx-1">Work Order</button>
+          </a>
+        </div>
+      </div>    
+      <hr>
+    </div>
+
+  </div>
+
+
+</div>

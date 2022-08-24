@@ -13,4 +13,8 @@ export class AdminService {
   addNewRequest(trainingRequestData: any) {
     return this.http.post(`${this.server}/admin/newrequest`, { trainingRequest: trainingRequestData });
   }
+
+  getTrainingRequests() {
+    return this.http.get(`${this.server}/admin/trainingrequests`);
+  }
 }
