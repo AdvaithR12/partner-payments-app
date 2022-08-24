@@ -6,40 +6,11 @@
   </div>
   <div class="row d-flex justify-content-center align-items-center">
 
-    <!-- <div class="col-2 shadow rounded p-3 m-3  fs-4 text-capitalize fw-bold">
-      Enter new training session details
-    </div> -->
-
-    <div class="col-9   py-4 m-3  shadow rounded text-bg-dark bg-opacity-50">
+    <div class="col-9 py-4 m-3  shadow rounded text-bg-dark bg-opacity-50">
       
-      <!-- <form class="col-10 ">
-        <div class="form-floating my-3 ">
-          <input type="text" class="form-control input-field" id="venueInput" placeholder=" ">
-          <label for="venueInput">Class Venue</label>
-        </div>
-        <div class="form-floating my-3">
-          <input type="text" class="form-control input-field" id="topicInput" placeholder=" ">
-          <label for="topicInput">Training Subject</label>
-        </div>
-        <div class="form-floating my-3">
-          <input type="date" class="form-control input-field" id="trainingDateInput" placeholder=" ">
-          <label for="trainingDateInput">Training Date</label>
-        </div>
-        <div class="form-floating my-3">
-          <select type="text" class="form-control input-field" id="trainingDateInput" placeholder=" ">
-            <option value="tcs">Select</option>
-            <option value="tcs">Tata Consultancy Services</option>
-            <option value="tcs">Tata Consultancy Services</option>
-            <option value="tcs">Tata Consultancy Services</option>
-          </select>
-          <label for="trainingDateInput">Training Assigned To</label>
-        </div>
-      </form> -->
-      
-      
-       <form>
+      <form #trainingForm = 'ngForm' [formGroup]="trainingRequestForm">
         <!-- Training Details Begin -->
-        <section>
+        <section formGroupName = 'trainingDetails'>
           <div class="d-flex my-4">
             <span class="mx-auto"> Training Details</span>
           </div>
@@ -47,16 +18,31 @@
             <div class="input-set">
               <label for="topicInput">Training Topic</label>
               &nbsp;
-              <input type="text" class="" id="topicInput" placeholder="Enter the topic for training">
+              <input 
+                [style.color]="textColor" 
+                (input)="toggleColor()" 
+
+                formControlName='topic'
+                name="topic"
+                type="text" 
+                class="text-capitalize" 
+                id="topicInput" 
+                placeholder="Enter the topic for training">
             </div>
             <div class="input-set">
               <label for="partnerInput">Partner Assigned</label>
               &nbsp;
-              <select type="" class=" " id="partnerInput" >
-                <option hidden disabled selected value> -- Select an option -- </option>
-                <option value="PT00001">Tata Consultancy Services</option>
-                <option value="PT00002">Infosys</option>
-                <option value="PT00003">Harikrishnan S</option>
+              <select 
+                class=" " 
+                name="partner"
+                [style.color]="textColor" 
+                (input)="toggleColor()" 
+                formControlName='partner'
+                id="partnerInput" >
+                  <option hidden disabled selected value> -- Select an option -- </option>
+                  <option value="PT00001">Tata Consultancy Services</option>
+                  <option value="PT00002">Infosys</option>
+                  <option value="PT00003">Harikrishnan S</option>
               </select>
             </div>
           </div>
@@ -65,7 +51,7 @@
         <!-- Training Details End -->
 
         <!-- Session Details Begin -->
-        <section>
+        <section formGroupName = 'sessionDetails'>
           <div class="d-flex my-4">
             <span class="mx-auto">Session Details</span>
           </div>
@@ -73,48 +59,96 @@
             <div class="input-set">
               <label for="modeInput">Session Mode</label>
               &nbsp;
-              <select type="" class=" " id="modeInput" >
-                <option hidden disabled selected value> -- Select an option -- </option>
-                <option value="online">Online</option>
-                <option value="offline">Offline</option>
-                <option value="hybrid">Hybrid</option>
+              <select                
+                [style.color]="textColor" 
+                (input)="toggleColor()" 
+                formControlName = 'mode'
+                name="mode"
+                type="" 
+                class=" " 
+                id="modeInput" >
+                  <option hidden disabled selected value> -- Select an option -- </option>
+                  <option value="online">Online</option>
+                  <option value="offline">Offline</option>
+                  <option value="hybrid">Hybrid</option>
               </select>
             </div>
             <div class="input-set">
               <label for="dateInput">Session Date</label>
-              &nbsp;
-              <input type="date" class=" " id="dateInput" >
-            </div>
-            <div class="input-set">
-              <label for="timeInput">Session Time</label>
-              &nbsp;
-              <input type="time" class=" " id="timeInput" >
+              <input 
+                [style.color]="textColor" 
+                (input)="toggleColor()"  
+                formControlName = 'date'
+                name="date"
+                type="date" 
+                class=" " 
+                id="dateInput" >
             </div>
             <div class="input-set">
               <label for="venueInput">Session Venue</label>
-              &nbsp;
-              <input type="text" class=" " id="venueInput" placeholder="Enter the session venue">
+              <input 
+                [style.color]="textColor" 
+                (input)="toggleColor()"  
+                formControlName = 'venue'
+                name="venue"
+                type="text" 
+                class=" " 
+                id="venueInput" 
+                placeholder="Enter the session venue">
             </div>  
             <div class="input-set">
-              <label for="paymentInput">Session Payment (₹/hr)</label>
-              &nbsp;
-              <input type="number" class=" " id="paymentInput" placeholder="Enter hourly renumeration (₹)">
+              <label for="hourlyPaymentInput">Session Payment (₹/hr)</label>
+              <input 
+              [style.color]="textColor" 
+              (input)="toggleColor()"  
+              formControlName = 'hourlyPayment'
+              name="hourlyPayment"
+              type="number" 
+              class=" " 
+              id="hourlyPaymentInput" 
+              placeholder="Enter hourly renumeration (₹)">
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="input-set">
+                  <label for="timeInput" class="">Session Begin Time</label>
+                  <input 
+                    [style.color]="textColor" 
+                    (input)="toggleColor()"  
+                    formControlName = 'startTime'
+                    name="startTime"
+                    type="time"
+                    class=" " 
+                  id="timeInput" >
+                </div>
+              </div>
+              <div class="col">
+                <div class="input-set">
+                  <label for="timeInput">Session End Time</label>
+                  <input 
+                    [style.color]="textColor" 
+                    (input)="toggleColor()" 
+                    formControlName = 'endTime'
+                    name="endTime"
+                    type="time" 
+                    class=" " 
+                  id="timeInput" >
+                </div>                
+              </div>
             </div>
           </div>
-          <i class="fa-regular fa-calendar-plus fs-4 px-5"><span class="fs-6 ms-2">Add Session</span></i>
+          <i class="fa-regular fa-plus fs-4 px-5"><span class="fs-6 ms-2">Add Session</span></i>
           <hr>
         </section>
         <!-- Session Details End -->
 
         <!-- Submission Buttons Begin -->
         <section class="row d-flex justify-content-evenly mx-3 mt-5 mb-3">
-          <button class="col-5 btn btn-light btn-lg">Preview Work Order</button>
-          <button class="col-5 btn btn-success btn-lg">Save Request</button>
+          <button class="col-4 btn btn-light btn-lg">Preview Work Order</button>
+          <button (click)="saveRequest()" class="col-4 btn btn-success btn-lg">Save Request</button>
         </section>
-
         <!-- Submission Buttons End -->
-
-       </form>
+      </form>
     
       </div>
 

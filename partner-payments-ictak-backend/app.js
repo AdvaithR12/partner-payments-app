@@ -1,11 +1,22 @@
 const express = require(`express`);
 const cors = require(`cors`);
 const path = require('path');
+const mongoose = require('mongoose');
 const bodyparser = require('body-parser');  
 const authRouter = require(`./src/routes/auth-router`);
+const adminRouter = require(`./src/routes/admin-router`)
 
 const app = new express();
 const PORT = process.env.PORT || 8080;
+
+mongoose.connect('mongodb+srv://ictakuser1:BDuEr7h0j2F7wIM0@ppp.16ftfvb.mongodb.net/partner-payments?retryWrites=true&w=majority', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+}).then((succ)=>{
+  console.log(`MongoDB connected`);
+}).catch((err)=> {
+  console.log(`MongoDB connection error! Can't connect to ${mongoDbServer}`);
+});
 
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
@@ -13,6 +24,7 @@ app.use(express.json());
 app.use(bodyparser.urlencoded({extended:true}));
 
 app.use(`/api/auth`, authRouter);
+app.use(`/api/admin`, adminRouter);
 
 app.listen(PORT, ()=> {
   console.log(`Hi, I'm listening at ${PORT}`);

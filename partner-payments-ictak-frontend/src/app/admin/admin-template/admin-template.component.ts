@@ -7,6 +7,7 @@ import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 })
 export class AdminTemplateComponent implements OnInit {
   @ViewChild('viewChildHook', {static: true}) sideBar!: ElementRef;
+  
   constructor() { }
 
   ngOnInit(): void {

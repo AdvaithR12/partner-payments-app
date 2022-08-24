@@ -29,9 +29,14 @@
                   </div>
                   <div class="row px-3">
                       <label class="mb-1 mt-2"><h6 class="mb-0 text-sm">Password</h6></label>
-                      <input type="password" name="password" placeholder="Enter password"
-                      #password="ngModel" [class.is-invalid]="password.invalid && password.touched"
-                      [(ngModel)]="user.password" required>
+                      <input 
+                        type="password" 
+                        name="password" 
+                        autocomplete="on"
+                        placeholder="Enter password"
+                        #password="ngModel" 
+                        [class.is-invalid]="password.invalid && password.touched"
+                        [(ngModel)]="user.password" required>
                       <small class="text-danger" [class.d-none]="password.valid || password.untouched"> Enter a Valid Password</small>
                   </div>
                   <div class="row px-3 mb-4 mt-2">

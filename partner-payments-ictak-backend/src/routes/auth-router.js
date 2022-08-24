@@ -8,21 +8,7 @@ authRouter.get(`/`, (req, res)=> {
   res.send(`Hi I'm listening at /auth`);
 });
 
-// authRouter.post('/signin', (req,res)=>{
-//   let user = req.body
-
-//   UserData.findOne({
-//     $and: [{"email":user.email}, {"password":user.password}]
-//   }).then((user)=> {
-//       console.log(user);
-//       res.send(user);
-//     }).catch((err)=> {
-//       console.log(err);
-//     });
-// });
-
 authRouter.post(`/signin`, (req, res)=> {
-  // console.log(`POST: /signin - auth-router.js:12`, req.body);
   var email = req.body.email.trim();
   var password = req.body.password.trim();
 
@@ -56,13 +42,14 @@ authRouter.post('/signup',function(req,res) {  /*verifyToken,/insert*/
     name : req.body.fullname,
     email : req.body.email,
     password : req.body.password,
-    usertype : req.body.usertype,
+    userType : req.body.userType,
     adminapproved : false
   }
 
   var newUser = new UserData(user);  //create an instance of your model
   newUser.save() 
   .then((success)=> {
+    console.log('New User added')
     res.status(200).json({
       success: true,
       message: 'User Addition Successfull'
