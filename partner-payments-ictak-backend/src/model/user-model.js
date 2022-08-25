@@ -10,7 +10,7 @@ var UserSchema = new Schema({
     },
     password: String,
     userType : String,
-    adminapproved : Boolean
+    adminapproved : Boolean,
 });
 
 var userData = mongoose.model('UserData',UserSchema);

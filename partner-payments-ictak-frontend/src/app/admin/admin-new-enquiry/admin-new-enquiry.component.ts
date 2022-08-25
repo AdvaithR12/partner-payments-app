@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule} from '@angular/forms'
+import { Router } from '@angular/router';
 import { AdminService } from '../admin.service';
 
 @Component({
@@ -9,26 +10,40 @@ import { AdminService } from '../admin.service';
 })
 export class AdminNewEnquiryComponent implements OnInit {
 
-  constructor(private adminService: AdminService) { }
+  constructor(
+    private adminServices: AdminService,
+    private router: Router 
+  ) { }
 
-  textColor: string ='';
+  partners: any = [];
+
+  textColor: string = '';
 
   trainingRequestForm = new FormGroup({
     trainingDetails: new FormGroup({
       topic: new FormControl('', [Validators.required]),
-      partner: new FormControl('')
+      partner: new FormControl('', [Validators.required])
     }),
     sessionDetails: new FormGroup({
-      mode: new FormControl(''),
-      date: new FormControl(''),
-      venue: new FormControl(''),
-      hourlyPayment: new FormControl(''),
-      startTime: new FormControl(''),
-      endTime: new FormControl(''),
+      mode: new FormControl('', [Validators.required]),
+      date: new FormControl('', [Validators.required]),
+      venue: new FormControl('', [Validators.required]),
+      hourlyPayment: new FormControl('', [Validators.required]),
+      startTime: new FormControl('', [Validators.required]),
+      endTime: new FormControl('', [Validators.required]),
     })
   });
 
   ngOnInit(): void {
+    this.adminServices.getPartnerList()
+      .subscribe({
+        next: (succ)=> {
+          this.partners = succ;
+        },
+        error: (err)=> {
+          console.log(err);
+        }
+      });
   }
 
   toggleColor() {
@@ -36,10 +51,13 @@ export class AdminNewEnquiryComponent implements OnInit {
   }
 
   saveRequest() {
-    this.adminService.addNewRequest(this.trainingRequestForm.value)
+    this.adminServices.addNewRequest(this.trainingRequestForm.value)
       .subscribe({
-        next: (response)=> {
-          console.log(response);
+        next: (response: any)=> {
+          if(response.success) {
+            alert('Successfully added new request');
+            this.router.navigate(['admin/requests']);
+          }
         },
         error: (err)=> {
           console.log(err);

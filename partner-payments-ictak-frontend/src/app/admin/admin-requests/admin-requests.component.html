@@ -1,4 +1,4 @@
-<div class="container ">  
+<div class="container mb-5">  
 
   <div class="row d-flex justify-content-center ">
     <div class="col-9  px-5 py-4 m-3  text-center fs-2 text-black rounded  ">
@@ -75,69 +75,46 @@
     </div> -->
 
     <div class="row d-flex justify-content-center align-items-center ">
-      <div *ngFor="let request of trainingRequests" class="row  p-2  mx-2 my-1 d-flex align-items-center justify-content-center">
+
+      <div class="row border-bottom fs-6 fw-bold text-uppercase border-2 border-dark mb-4 p-2  mx-2 my-1 d-flex align-items-center justify-content-center">
         <div class="col ">
-          {{request.trainingDetails.partner}}
+          Partner
         </div>
         <div class="col ">
+          Topic
+        </div>
+        <div class="col d-flex justify-content-center">
+          Mode
+        </div>
+        <div class="col text-center">
+          Date & Time
+        </div>
+        <div class="col d-flex align-items-center justify-content-center">
+          Action
+        </div>
+      </div> 
+
+      <div *ngFor="let request of trainingRequests" class="row rounded shadow mb-3 p-2  mx-2 my-1 d-flex align-items-center justify-content-center">
+        <div class="col ">
+          {{request.trainingDetails.partner.slice(0,9)}}
+        </div>
+        <div class="col text-capitalize">
           {{request.trainingDetails.topic}}
         </div>
-        <div class="col d-flex  justify-content-center">
+        <div class="col text-capitalize  d-flex  justify-content-center">
           {{request.sessionDetails.mode}}
         </div>
         <div class="col text-center">
           <span>{{request.sessionDetails.startTime.toString().slice(8,10)}}/{{request.sessionDetails.startTime.toString().slice(5,7)}}/{{request.sessionDetails.startTime.toString().slice(0,4)}}</span>
           <br>
-          <span>07:30 PM</span>
+          <span>{{request.sessionDetails.startTime.toString().slice(11,16)}} PM</span>
         </div>
         <div class="col d-flex align-items-center justify-content-center">
-          <button class="btn btn-success mx-1">View</button>
+          <a (click)="generateWorkOrder(request._id)">
+            <button class="btn btn-success mx-1">Approve</button></a>
         </div>
       </div>    
-      <hr>
-      <div class="row  p-2  mx-2 my-1 d-flex align-items-center justify-content-center">
-        <div class="col ">
-          Infosys
-        </div>
-        <div class="col ">
-          Making the best out of amazon web Services
-        </div>
-        <div class="col d-flex  justify-content-center">
-          Offline
-        </div>
-        <div class="col text-center">
-          <span>03/09/2022</span>
-          <br>
-          <span>09:30 AM</span>
-        </div>
-        <div class="col d-flex align-items-center justify-content-center">
-          <button class="btn btn-success mx-1">View</button>
-        </div>
-      </div>    
-      <hr>
-      <div class="row  p-2  mx-2 my-1 d-flex align-items-center justify-content-center">
-        <div class="col ">
-          Mr. Harikrishnan S.
-        </div>
-        <div class="col ">
-          SOFTWARE TESTING
-        </div>
-        <div class="col d-flex  justify-content-center">
-          Offline
-        </div>
-        <div class="col text-center">
-          <span>11/09/2022</span>
-          <br>
-          <span>11:00 AM</span>
-        </div>
-        <div class="col d-flex  ">
-          <a routerLink="viewrequest">
-            <button class="btn btn-success mx-1">View</button>
-            <button (click)="generateWorkOrder()" class="btn btn-primary mx-1">Work Order</button>
-          </a>
-        </div>
-      </div>    
-      <hr>
+
     </div>
 
   </div>

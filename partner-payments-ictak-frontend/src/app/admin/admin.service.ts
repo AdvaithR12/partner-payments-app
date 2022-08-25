@@ -17,4 +17,13 @@ export class AdminService {
   getTrainingRequests() {
     return this.http.get(`${this.server}/admin/trainingrequests`);
   }
+
+  createWorkOrder(requestId: any) {
+    return this.http.post(`${this.server}/admin/createworkorder`, { requestId: requestId });
+  }
+
+  getPartnerList() {
+    return this.http.get(`${this.server}/admin/getpartners`);
+  }
+
 }

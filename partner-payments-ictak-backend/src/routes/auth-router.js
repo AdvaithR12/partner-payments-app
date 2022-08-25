@@ -37,9 +37,10 @@ authRouter.post(`/signin`, (req, res)=> {
 });
 
 authRouter.post('/signup',function(req,res) {  /*verifyToken,/insert*/ 
+  // console.log(req.body);
 
   var user = {       
-    name : req.body.fullname,
+    fullname : req.body.name,
     email : req.body.email,
     password : req.body.password,
     userType : req.body.userType,

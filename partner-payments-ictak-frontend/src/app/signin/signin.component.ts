@@ -49,10 +49,10 @@ export class SigninComponent implements OnInit {
         this.router.navigate(['admin/dashboard']);
         break;
       case "Finance Admin":
-        this.router.navigate(['financedashboard']);
+        this.router.navigate(['finance/dashboard']);
         break;
       case "Partner":
-        this.router.navigate(['partnerdashboard']);
+        this.router.navigate(['partner/dashboard']);
         break;
     }
   }
