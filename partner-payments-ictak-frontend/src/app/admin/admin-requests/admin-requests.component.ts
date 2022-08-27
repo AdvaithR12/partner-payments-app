@@ -36,7 +36,7 @@ export class AdminRequestsComponent implements OnInit {
       });
   }
 
-  generateWorkOrder(requestId: any) {
+  approve(requestId: any) {
     this.adminServices.createWorkOrder(requestId)
     .subscribe({
       next: (response)=> {

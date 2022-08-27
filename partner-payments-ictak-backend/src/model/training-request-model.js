@@ -4,7 +4,8 @@ const Schema = mongoose.Schema;
 var TrainingRequestSchema = new Schema({
   trainingDetails: { 
     topic: String,
-    partner: String 
+    partnerId: String,
+    partnerName: String,
   },
   sessionDetails: {
     mode: String,

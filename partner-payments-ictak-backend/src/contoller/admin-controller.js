@@ -24,6 +24,8 @@ userListGen = (users)=> { // function to return the list of received users omitt
 generatePdf = (requestId)=> {
 
   (async (requestId) => {
+    let generated = false;
+
     // launch a new chrome instance
     const browser = await puppeteer.launch({
       headless: true
@@ -40,13 +42,15 @@ generatePdf = (requestId)=> {
       path: `${__dirname}/../assets/work-orders/workorder_${requestId}.pdf`,
       printBackground: true
     }).then((succ)=> {
-      console.log(`PDF file saved at ${__dirname}/../assets/work-orders/workorder_${requestId}.pdf`);
+      generated = true;
     }).catch((err)=> {
       console.log(err);
     });
   
     await browser.close();
-  
+
+    return generated;
+
   })(requestId);
 
 }

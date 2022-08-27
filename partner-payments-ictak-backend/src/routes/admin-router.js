@@ -25,6 +25,9 @@ adminRouter.post('/newrequest', (req, res)=> {
   req.body.trainingRequest.sessionDetails.startTime = req.body.trainingRequest.sessionDetails.date + 'T' + req.body.trainingRequest.sessionDetails.startTime
   req.body.trainingRequest.sessionDetails.endTime = req.body.trainingRequest.sessionDetails.date + 'T' + req.body.trainingRequest.sessionDetails.endTime
   
+  // split and save partner ID and name
+  req.body.trainingRequest.trainingDetails.partnerId = req.body.trainingRequest.trainingDetails.partner.split(',')[0];
+  req.body.trainingRequest.trainingDetails.partnerName = req.body.trainingRequest.trainingDetails.partner.split(',')[1];
 
   var request = req.body.trainingRequest;
   var newRequest = new TrainingRequest(request);
@@ -65,7 +68,11 @@ adminRouter.get(`/createworkorder`, (req, res)=> {
 });
 
 adminRouter.post(`/createworkorder`, (req, res)=> {
-  generatePdf(req.body.requestId);
+  let success = generatePdf(req.body.requestId);
+
+  res.json({
+    success: success
+  })
 });
 
 module.exports = adminRouter;
