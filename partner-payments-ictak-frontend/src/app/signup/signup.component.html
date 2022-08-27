@@ -52,7 +52,7 @@
                                 pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" 
                                 [class.is-invalid] = "email.invalid && email.touched"
                                 required>
-                            <label for="email" id="emailfeedback" style="color:red; visibility:hidden">Enter valid e-mail id.</label>
+                                <small [class.d-none] = "!(email.invalid && email.touched)" for="pwd" id="pwdfeedback" style="color:red;">Enter a valid Email ID</small>
                         </div>
                         <!-- Password -->
                         <div class="md-form mt-0">
@@ -70,7 +70,7 @@
                                 pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$"  aria-describedby="materialRegisterFormPasswordHelpBlock" 
                                 [class.is-invalid] = "passwordModel.invalid && passwordModel.touched" 
                                 required>
-                            <small [class.d-none] = "!(passwordModel.invalid && passwordModel.touched)" for="pwd" id="pwdfeedback" style="color:red;">Password should be minimum 8 characters</small>
+                            <small [class.d-none] = "!(passwordModel.invalid && passwordModel.touched)" for="pwd" id="pwdfeedback" style="color:red;">One uppercase, one lowercase & minimum 8 characters required for password</small>
                         </div><br>
                         <!--Re- Type Password -->
                         <div class="md-form mt-0">
@@ -87,7 +87,6 @@
                                 #RetypepasswordModel = "ngModel"
                                 aria-describedby="materialRegisterFormPasswordHelpBlock"
                                 required>
-                            <label for="pwd2" id="pwd2feedback" style="color:red; visibility:hidden">Password should be minimum 8 characters</label>
                         </div>
                         <!-- User Type -->
                         <div class="md-form mt-0"> 
@@ -102,9 +101,7 @@
                                 </option>
                           </select>
                         </div>
-                        <!-- Sign up button -->
-                        <!-- <button class="btn btn-outline-info btn-rounded  my-4 waves-effect z-depth-0" type="submit">Sign Up</button> -->
-                        <button 
+                         <button 
                             id="signup" 
                             name="signup"  
                             class=" my-3 btn btn-blue text-center"
