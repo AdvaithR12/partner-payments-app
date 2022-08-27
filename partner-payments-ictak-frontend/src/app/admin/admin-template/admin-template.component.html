@@ -1,7 +1,6 @@
 <div id="{{wrapper}}" class="wrapper ">
 
   <div #viewChildHook  class="sidebar shadow-lg rounded  position-fixed fixed-top"  [style.display]="sideBarVisibility">
-    <!-- <i (click)="hideSideBar()" class="fw-bold fa-solid fa-xmark"></i> -->
     <div class="container my-2 sidebar-logo bg-gradient rounded bg-opacity-25 p-1">
       <div class="row ">
         <div class="col-5">
@@ -17,6 +16,7 @@
       <ul class="row mb-auto mt-3">
         <li routerLinkActive="activeLink" routerLink="dashboard"><i class="fas fa-house-user"></i><a>Dashboard</a></li>
         <li routerLinkActive="activeLink" routerLink="newenquiry"><i class="fas fa-calendar-plus"></i><a>New Enquiry</a></li>
+        <li routerLinkActive="activeLink" routerLink="requests"><i class="fas fa-calendar-plus"></i><a>Training Requests</a></li>
         <li routerLinkActive="activeLink" routerLink="workorders"><i class="fas fa-chalkboard-teacher"></i><a>Work Orders</a></li>
         <li routerLinkActive="activeLink" routerLink="invoices"><i class="fas fa-file-invoice-dollar"></i><a>Invoices</a></li>
         <li routerLinkActive="activeLink" routerLink="portalusers"><i class="fas fa-user"></i><a>Portal Users</a></li>
@@ -47,9 +47,9 @@
               <li class="nav-item mx-3">
                 <i class="fs-5 fa-solid fa-magnifying-glass"></i>
               </li>
-              <li class="nav-item mx-3">
+              <!-- <li class="nav-item mx-3">
                 <i class="fs-5 fa-solid fa-calendar-plus"></i>
-              </li>
+              </li> -->
               <li class="nav-item  mx-3">
                 <i class="fs-5 fa-solid fa-bell"></i>
               </li>

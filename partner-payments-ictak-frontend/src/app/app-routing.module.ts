@@ -12,6 +12,7 @@ import { FinanceDashboardComponent } from './finance/finance-dashboard/finance-d
 import { PartnerDashboardComponent } from './partner/partner-dashboard/partner-dashboard.component';
 import { FinanceTemplateComponent } from './finance/finance-template/finance-template.component';
 import { PartnerTemplateComponent } from './partner/partner-template/partner-template.component';
+import { AdminRequestsComponent } from './admin/admin-requests/admin-requests.component';
 import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
@@ -39,6 +40,10 @@ const routes: Routes = [
       {
         path: 'newenquiry',
         component: AdminNewEnquiryComponent
+      },
+      {
+        path: 'requests',
+        component: AdminRequestsComponent
       },
       {
         path: 'workorders',

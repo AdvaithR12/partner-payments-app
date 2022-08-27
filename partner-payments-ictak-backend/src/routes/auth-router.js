@@ -9,7 +9,6 @@ authRouter.get(`/`, (req, res)=> {
 });
 
 authRouter.post(`/signin`, (req, res)=> {
-  // console.log(`POST: /signin - auth-router.js:12`, req.body);
   var email = req.body.email.trim();
   var password = req.body.password.trim();
 
@@ -38,18 +37,20 @@ authRouter.post(`/signin`, (req, res)=> {
 });
 
 authRouter.post('/signup',function(req,res) {  /*verifyToken,/insert*/ 
+  // console.log(req.body);
 
   var user = {       
-    name : req.body.name,
+    fullname : req.body.name,
     email : req.body.email,
     password : req.body.password,
-    usertype : req.body.usertype,
+    userType : req.body.userType,
     adminapproved : false
   }
 
   var newUser = new UserData(user);  //create an instance of your model
   newUser.save() 
   .then((success)=> {
+    console.log('New User added')
     res.status(200).json({
       success: true,
       message: 'User Addition Successfull'

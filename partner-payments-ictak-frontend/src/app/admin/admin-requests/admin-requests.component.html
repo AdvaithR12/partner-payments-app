@@ -1,0 +1,58 @@
+<div class="container mb-5">  
+
+  <div class="row d-flex justify-content-center ">
+    <div class="col-9  px-5 py-4 m-3  text-center fs-2 text-black rounded  ">
+      <span>TRAINING REQUESTS</span>       
+      <hr>
+    </div>
+  </div>
+
+  <div class="row d-flex justify-content-center align-items-center">
+    
+    <div class="row d-flex justify-content-center align-items-center ">
+
+      <div class="row border-bottom fs-6 fw-bold text-uppercase border-2 border-dark mb-4 p-2  mx-2 my-1 d-flex align-items-center justify-content-center">
+        <div class="col ">
+          Partner
+        </div>
+        <div class="col ">
+          Topic
+        </div>
+        <div class="col d-flex justify-content-center">
+          Mode
+        </div>
+        <div class="col text-center">
+          Date & Time
+        </div>
+        <div class="col d-flex align-items-center justify-content-center">
+          Action
+        </div>
+      </div> 
+
+      <div *ngFor="let request of trainingRequests" class="row rounded shadow mb-3 p-2  mx-2 my-1 d-flex align-items-center justify-content-center">
+        <div class="col ">
+          {{request.trainingDetails.partner.slice(0,9)}}
+        </div>
+        <div class="col text-capitalize">
+          {{request.trainingDetails.topic}}
+        </div>
+        <div class="col text-capitalize  d-flex  justify-content-center">
+          {{request.sessionDetails.mode}}
+        </div>
+        <div class="col text-center">
+          <span>{{request.sessionDetails.startTime.toString().slice(8,10)}}/{{request.sessionDetails.startTime.toString().slice(5,7)}}/{{request.sessionDetails.startTime.toString().slice(0,4)}}</span>
+          <br>
+          <span>{{request.sessionDetails.startTime.toString().slice(11,16)}} PM</span>
+        </div>
+        <div class="col d-flex align-items-center justify-content-center">
+          <a (click)="generateWorkOrder(request._id)">
+            <button class="btn btn-success mx-1">Approve</button></a>
+        </div>
+      </div>    
+
+    </div>
+
+  </div>
+
+
+</div>

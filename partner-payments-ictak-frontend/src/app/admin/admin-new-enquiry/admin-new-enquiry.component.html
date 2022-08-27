@@ -1,0 +1,155 @@
+<div class="container ">
+  <div class="row d-flex justify-content-center ">
+    <div class="col-9  px-5 py-4 m-3  text-center fs-2 text-black rounded  ">
+      <span >NEW TRAINING REQUEST</span>    
+      <hr>   
+    </div>
+  </div>
+  <div class="row d-flex justify-content-center align-items-center">
+
+    <div class="col-9 py-4 m-3  shadow rounded text-bg-dark bg-opacity-75">
+      
+      <form #trainingForm = 'ngForm' [formGroup]="trainingRequestForm">
+        <!-- Training Details Begin -->
+        <section formGroupName = 'trainingDetails'>
+          <div class="d-flex my-4">
+            <span class="mx-auto"> Training Details</span>
+          </div>
+          <div class="my-4">
+            <div class="input-set">
+              <label for="topicInput">Training Topic</label>
+              &nbsp;
+              <input 
+                [style.color]="textColor" 
+                (input)="toggleColor()" 
+                formControlName='topic'
+                name="topic"
+                type="text" 
+                class="text-capitalize" 
+                id="topicInput" 
+                placeholder="Enter the topic for training">
+            </div>
+            <div class="input-set">
+              <label for="partnerInput">Partner Assigned</label>
+              &nbsp;
+              <select 
+                class=" " 
+                name="partner"
+                [style.color]="textColor" 
+                (input)="toggleColor()" 
+                formControlName='partner'
+                id="partnerInput" >
+                  <option hidden disabled selected value> -- Choose Training Partner -- </option>
+                  <option *ngFor="let partner of partners" [value]="partner._id">{{partner.fullname}}</option>
+              </select>
+            </div>
+          </div>
+          <hr>
+        </section>
+        <!-- Training Details End -->
+
+        <!-- Session Details Begin -->
+        <section formGroupName = 'sessionDetails'>
+          <div class="d-flex my-4">
+            <span class="mx-auto">Session Details</span>
+          </div>
+          <div style="border: 1px dashed white;" class="my-4 py-3 rounded">
+            <div class="input-set">
+              <label for="modeInput">Session Mode</label>
+              &nbsp;
+              <select                
+                [style.color]="textColor" 
+                (input)="toggleColor()" 
+                formControlName = 'mode'
+                name="mode"
+                type="" 
+                class=" " 
+                id="modeInput" >
+                  <option hidden disabled selected value> -- Select an option -- </option>
+                  <option value="online">Online</option>
+                  <option value="offline">Offline</option>
+                  <option value="hybrid">Hybrid</option>
+              </select>
+            </div>
+            <div class="input-set">
+              <label for="dateInput">Session Date</label>
+              <input 
+                [style.color]="textColor" 
+                (input)="toggleColor()"  
+                formControlName = 'date'
+                name="date"
+                type="date" 
+                class=" " 
+                id="dateInput" >
+            </div>
+            <div class="input-set">
+              <label for="venueInput">Session Venue</label>
+              <input 
+                [style.color]="textColor" 
+                (input)="toggleColor()"  
+                formControlName = 'venue'
+                name="venue"
+                type="text" 
+                class=" " 
+                id="venueInput" 
+                placeholder="Enter the session venue">
+            </div>  
+            <div class="input-set">
+              <label for="hourlyPaymentInput">Session Payment (₹/hr)</label>
+              <input 
+              [style.color]="textColor" 
+              (input)="toggleColor()"  
+              formControlName = 'hourlyPayment'
+              name="hourlyPayment"
+              type="number" 
+              class=" " 
+              id="hourlyPaymentInput" 
+              placeholder="Enter hourly renumeration (₹)">
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="input-set">
+                  <label for="timeInput" class="">Session Begin Time</label>
+                  <input 
+                    [style.color]="textColor" 
+                    (input)="toggleColor()"  
+                    formControlName = 'startTime'
+                    name="startTime"
+                    type="time"
+                    class=" " 
+                  id="timeInput" >
+                </div>
+              </div>
+              <div class="col">
+                <div class="input-set">
+                  <label for="timeInput">Session End Time</label>
+                  <input 
+                    [style.color]="textColor" 
+                    (input)="toggleColor()" 
+                    formControlName = 'endTime'
+                    name="endTime"
+                    type="time" 
+                    class=" " 
+                  id="timeInput" >
+                </div>                
+              </div>
+            </div>
+          </div>
+          <i class="fa-regular fa-plus fs-4 px-5"><span class="fs-6 ms-2">Add Session</span></i>
+          <hr>
+        </section>
+        <!-- Session Details End -->
+
+        <!-- Submission Buttons Begin -->
+        <section class="row d-flex justify-content-evenly mx-3 mt-5 mb-3">
+          <button [disabled]="trainingForm.invalid" class="col-4 btn btn-light btn-lg">Preview Work Order</button>
+          <button [disabled]="trainingForm.invalid" (click)="saveRequest()" class="col-4 btn btn-success btn-lg">Save Request</button>
+        </section>
+        <!-- Submission Buttons End -->
+      </form>
+    
+      </div>
+
+
+  </div>
+</div>

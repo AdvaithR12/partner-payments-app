@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from "@angular/common/http";
 
@@ -20,6 +20,7 @@ import { FinanceDashboardComponent } from './finance/finance-dashboard/finance-d
 import { PartnerDashboardComponent } from './partner/partner-dashboard/partner-dashboard.component';
 import { PartnerInvoiceComponent } from './partner/partner-invoice/partner-invoice.component';
 import { FinanceWorkOrdersComponent } from './finance/finance-work-orders/finance-work-orders.component';
+import { AdminRequestsComponent } from './admin/admin-requests/admin-requests.component';
 import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
@@ -39,14 +40,16 @@ import { ProfileComponent } from './profile/profile.component';
     PartnerDashboardComponent,
     PartnerInvoiceComponent,
     FinanceWorkOrdersComponent,
-    ProfileComponent
+    ProfileComponent,
+    AdminRequestsComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
     FormsModule,
-    RouterModule
+    RouterModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

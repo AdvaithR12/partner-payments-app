@@ -31,7 +31,6 @@ export class SignupComponent implements OnInit {
         res=>{
           //localStorage.setItem('token',res.token)
           //this.router.navigate(['products'])
-          console.log('res :', res);
           if(res.success == true) {
             //alert('New user added');
             this.router.navigate(['']);
