@@ -4,7 +4,8 @@ const path = require('path');
 const mongoose = require('mongoose');
 const bodyparser = require('body-parser');  
 const authRouter = require(`./src/routes/auth-router`);
-const adminRouter = require(`./src/routes/admin-router`)
+const adminRouter = require(`./src/routes/admin-router`);
+const partnerRouter = require('./src/routes/partner-router')
 
 const app = new express();
 const PORT = process.env.PORT || 8080;
@@ -26,6 +27,7 @@ app.use(bodyparser.urlencoded({extended:true}));
 
 app.use(`/api/auth`, authRouter);
 app.use(`/api/admin`, adminRouter);
+app.use(`/partner`, partnerRouter);
 
 app.listen(PORT, ()=> {
   console.log(`Hi, I'm listening at ${PORT}`);

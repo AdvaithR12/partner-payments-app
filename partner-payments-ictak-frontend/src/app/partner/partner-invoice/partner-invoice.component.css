@@ -1,0 +1,55 @@
+body{
+    background-color:#eee;
+}
+
+/* .card {
+    background-color:rgb(69, 67, 67);
+    opacity: 98%;
+} */
+
+.formcontainer{
+    margin-top: 5%;
+}
+
+.form-control{
+    background-color:#d8d8d8;
+    border:1px solid #fff;
+    caret-color:#fff;
+    color:black;
+    height:45px;
+    margin-top:14px;
+}
+
+.form-control:focus{
+    outline: 3px solid #76e4d0;
+    /* background-color:#647381; */
+    box-shadow:none;
+    border:1px solid #fff;
+    color:rgb(0, 0, 0);
+    
+}
+
+.form-select{
+    background-color:#212529;
+    border:1px solid #fff;
+    color:#fff;
+    font-size:15px;
+    height:45px;
+}
+
+.form-select:focus{
+    box-shadow:none;
+    border:1px solid #fff;
+}
+
+.submit-button{
+    height:48px;
+}
+
+.form-control.ng-invalid {
+    border-left: 5px solid red;
+}
+
+.form-control.ng-valid.ng-touched {
+    border-left: 5px solid  green;
+}

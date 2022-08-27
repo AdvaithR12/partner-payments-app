@@ -14,6 +14,7 @@ import { FinanceTemplateComponent } from './finance/finance-template/finance-tem
 import { PartnerTemplateComponent } from './partner/partner-template/partner-template.component';
 import { AdminRequestsComponent } from './admin/admin-requests/admin-requests.component';
 import { ProfileComponent } from './profile/profile.component';
+import { PartnerInvoiceComponent } from './partner/partner-invoice/partner-invoice.component';
 
 const routes: Routes = [
   {
@@ -86,6 +87,10 @@ const routes: Routes = [
       {
         path: "profile",
         component: ProfileComponent
+      },
+      {
+        path: "invoice",
+        component: PartnerInvoiceComponent
       },
     ]
   }
