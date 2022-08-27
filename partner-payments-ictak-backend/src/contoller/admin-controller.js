@@ -37,10 +37,10 @@ generatePdf = (requestId)=> {
   
     await page.pdf({
       format: 'A4',
-      path: `${__dirname}/../assets/work-orders/${requestId}.pdf`,
+      path: `${__dirname}/../assets/work-orders/workorder_${requestId}.pdf`,
       printBackground: true
     }).then((succ)=> {
-      console.log(`PDF file saved at ${__dirname}/../assets/work-orders/${requestId}.pdf`);
+      console.log(`PDF file saved at ${__dirname}/../assets/work-orders/workorder_${requestId}.pdf`);
     }).catch((err)=> {
       console.log(err);
     });
