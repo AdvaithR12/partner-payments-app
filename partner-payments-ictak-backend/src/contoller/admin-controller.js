@@ -1,3 +1,5 @@
+const puppeteer = require('puppeteer');
+
 userListGen = (users)=> { // function to return the list of received users omitting some fields
   var userList = [];
 
@@ -19,4 +21,34 @@ userListGen = (users)=> { // function to return the list of received users omitt
 
 }
 
-module.exports = userListGen
+generatePdf = (requestId)=> {
+
+  (async (requestId) => {
+    // launch a new chrome instance
+    const browser = await puppeteer.launch({
+      headless: true
+    })  
+  
+    const page = await browser.newPage();
+  
+    page.setViewport({width: 1440, height: 2000})
+  
+    await page.goto('http://localhost:8080/api/admin/createworkorder');
+  
+    await page.pdf({
+      format: 'A4',
+      path: `${__dirname}/../assets/work-orders/${requestId}.pdf`,
+      printBackground: true
+    }).then((succ)=> {
+      console.log(`PDF file saved at ${__dirname}/../assets/work-orders/${requestId}.pdf`);
+    }).catch((err)=> {
+      console.log(err);
+    });
+  
+    await browser.close();
+  
+  })(requestId);
+
+}
+
+module.exports = { userListGen, generatePdf }

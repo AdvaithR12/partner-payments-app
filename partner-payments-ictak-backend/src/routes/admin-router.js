@@ -1,7 +1,7 @@
 const express = require(`express`);
 const TrainingRequest = require(`../model/training-request-model`);
 const UserData = require(`../model/user-model`);
-const userListGen = require('../contoller/admin-controller')
+const { userListGen, generatePdf } = require('../contoller/admin-controller')
 
 const adminRouter = express.Router();
 
@@ -60,9 +60,12 @@ adminRouter.get(`/getpartners`, (req, res)=> {
     });
 });
 
-adminRouter.post(`/createworkorder`, (req, res)=> {
-  // console.log('createworkorder api', req.body);
+adminRouter.get(`/createworkorder`, (req, res)=> {
+  res.render('template', {});
+});
 
-})
+adminRouter.post(`/createworkorder`, (req, res)=> {
+  generatePdf(req.body.requestId);
+});
 
 module.exports = adminRouter;
