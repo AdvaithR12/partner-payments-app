@@ -19,4 +19,4 @@ userListGen = (users)=> { // function to return the list of received users omitt
 
 }
 
-module.exports = { pdfGeneration, userListGen }
+module.exports = userListGen

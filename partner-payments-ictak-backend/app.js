@@ -16,7 +16,7 @@ mongoose.connect('mongodb+srv://ictakuser1:BDuEr7h0j2F7wIM0@ppp.16ftfvb.mongodb.
 }).then((succ)=>{
   console.log(`MongoDB connected`);
 }).catch((err)=> {
-  console.log(`MongoDB connection error! Can't connect to ${mongoDbServer}`);
+  console.log(`MongoDB connection error! Can't connect`);
 });
 
 app.use(cors());

@@ -21,6 +21,7 @@ import { PartnerDashboardComponent } from './partner/partner-dashboard/partner-d
 import { PartnerInvoiceComponent } from './partner/partner-invoice/partner-invoice.component';
 import { FinanceWorkOrdersComponent } from './finance/finance-work-orders/finance-work-orders.component';
 import { AdminRequestsComponent } from './admin/admin-requests/admin-requests.component';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { AdminRequestsComponent } from './admin/admin-requests/admin-requests.co
     PartnerDashboardComponent,
     PartnerInvoiceComponent,
     FinanceWorkOrdersComponent,
+    ProfileComponent,
     AdminRequestsComponent
   ],
   imports: [

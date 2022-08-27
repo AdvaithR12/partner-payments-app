@@ -11,7 +11,19 @@ var UserSchema = new Schema({
     password: String,
     userType : String,
     adminapproved : Boolean,
+    additionalqualification : String,
+    address : String,
+  
+    gstnumber : String,
+    heightestqualification: String,
+    mobile : Number,
+    pannumber : String,
+    partnertype : String,
+    workexperience  : String,
+    skills : Array
 });
+
+
 
 var userData = mongoose.model('UserData',UserSchema);
 

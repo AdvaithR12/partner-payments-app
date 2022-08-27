@@ -64,4 +64,60 @@ authRouter.post('/signup',function(req,res) {  /*verifyToken,/insert*/
   });
 });
 
+authRouter.post('/updateProfile',function(req,res) {  /*verifyToken,/insert*/ 
+  console.log('router. updateProfile');
+  console.log(req.body)
+  id=req.body._id;
+//userType
+       
+additionalqualification = req.body.additionalqualification,
+address =  req.body.address,
+gstnumber = req.body.gstnumber,
+heightestqualification = req.body.heightestqualification,
+mobile = req.body.mobile,
+pannumber  = req.body.pannumber,
+partnertype = req.body.partnertype,
+skills = req.body.skills,
+workexperience = req.body.workexperience,
+
+UserData.findByIdAndUpdate({"_id":id},
+{$set:{"additionalqualification":additionalqualification,
+"address":address,
+"gstnumber":gstnumber,
+"heightestqualification":heightestqualification,
+"mobile":mobile,
+"pannumber":pannumber,
+"partnertype":partnertype,
+"skills":skills,
+"workexperience" : workexperience
+}})
+.then((success)=> {
+  res.status(200).json({
+    success: true,
+    userType: req.body.userType,
+    message: 'Profile Updated Successfully'
+  });
+})
+.catch((err)=> {
+  res.json({
+    success: false,
+    message: 'Profile Updated failed',
+  });
+});
+});
+//findprofile
+authRouter.get('/findprofile/:id', (req,res) =>{  /*verifyToken,/insert*/ 
+  const id = req.params.id;
+  UserData.findOne({"_id":id}) 
+  .then((user)=>{
+    res.send(user);
+  })
+  .catch((err)=> {
+    res.json({
+      success: false,
+      message: "Some error occurred",
+    });
+  });
+});
+
 module.exports = authRouter;
