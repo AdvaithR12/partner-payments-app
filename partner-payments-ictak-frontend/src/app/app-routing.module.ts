@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AdminTemplateComponent } from './admin/admin-template/admin-template.component';
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
 import { AdminInvoicesComponent } from './admin/admin-invoices/admin-invoices.component';
-import { AdminNewEnquiryComponent } from './admin/admin-new-enquiry/admin-new-enquiry.component';
+import { AdminNewRequestComponent } from './admin/admin-new-request/admin-new-request.component';
 import { AdminWorkOrdersComponent } from './admin/admin-work-orders/admin-work-orders.component';
 import { MessagepageComponent } from './messagepage/messagepage.component';
 import { SigninComponent } from './signin/signin.component';
@@ -40,7 +40,7 @@ const routes: Routes = [
       },
       {
         path: 'newenquiry',
-        component: AdminNewEnquiryComponent
+        component: AdminNewRequestComponent
       },
       {
         path: 'requests',

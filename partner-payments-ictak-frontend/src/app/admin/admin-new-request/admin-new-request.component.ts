@@ -4,11 +4,11 @@ import { Router } from '@angular/router';
 import { AdminService } from '../admin.service';
 
 @Component({
-  selector: 'app-admin-new-enquiry',
-  templateUrl: './admin-new-enquiry.component.html',
-  styleUrls: ['./admin-new-enquiry.component.css']
+  selector: 'app-admin-new-request',
+  templateUrl: './admin-new-request.component.html',
+  styleUrls: ['./admin-new-request.component.css']
 })
-export class AdminNewEnquiryComponent implements OnInit {
+export class AdminNewRequestComponent implements OnInit {
 
   constructor(
     private adminServices: AdminService,
