@@ -14,7 +14,16 @@ export class AuthService {
     email: '',
     password: '',
     userType: '',
-    adminApproved: false
+    adminApproved: false,
+    additionalqualification : null,
+    address : null,  
+    gstnumber : null,
+    heightestqualification: '',
+    mobile : null,
+    pannumber : null,
+    partnertype : null,
+    workexperience  : null,
+    skills : []
   }
   
   constructor( private http: HttpClient ) { }
@@ -26,5 +35,10 @@ export class AuthService {
   logUser(user:any) {
     return this.http.post(`${this.server}/auth/signin`, user);
   }
-
+  getUserProfile(id:any){
+    return this.http.get(`${this.server}/auth/findprofile/`+id);
+  }
+  updateUserProfile(user:any){
+    return this.http.post<any>(`${this.server}/auth/updateProfile`,user);
+  }
 }

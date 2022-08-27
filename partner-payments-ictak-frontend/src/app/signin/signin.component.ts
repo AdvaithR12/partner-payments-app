@@ -33,7 +33,7 @@ export class SigninComponent implements OnInit {
           localStorage.setItem("isadminapproved","false");
           this.router.navigate(['unauthorized']);
         } else {
-          this.redirectTo(this.result.user.userType);
+          this.redirectTo(this.result.user);
         }
       } else {
         alert(this.result.message);
@@ -41,18 +41,20 @@ export class SigninComponent implements OnInit {
     });
   }
 
-  redirectTo(userType: any){
+  redirectTo(user: any){
+    var userType = user.userType;
     localStorage.setItem("usertype",userType);  //store usertype in localstorage
-    
+    localStorage.setItem("userid",user._id);  //store userid in localstorage
+
     switch(userType) {  //'Admin', 'Finance Admin','Partner'
       case "Admin":
         this.router.navigate(['admin/dashboard']);
         break;
       case "Finance Admin":
-        this.router.navigate(['financedashboard']);
+        this.router.navigate(['finance/dashboard']);
         break;
       case "Partner":
-        this.router.navigate(['partnerdashboard']);
+        this.router.navigate(['partner/dashboard']);
         break;
     }
   }

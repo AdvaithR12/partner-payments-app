@@ -12,6 +12,7 @@ import { FinanceDashboardComponent } from './finance/finance-dashboard/finance-d
 import { PartnerDashboardComponent } from './partner/partner-dashboard/partner-dashboard.component';
 import { FinanceTemplateComponent } from './finance/finance-template/finance-template.component';
 import { PartnerTemplateComponent } from './partner/partner-template/partner-template.component';
+import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
   {
@@ -26,6 +27,7 @@ const routes: Routes = [
     path: "unauthorized",
     component: MessagepageComponent
   },
+  
   {
     path: 'admin',
     component: AdminTemplateComponent,
@@ -45,7 +47,11 @@ const routes: Routes = [
       {
         path: 'invoices',
         component: AdminInvoicesComponent
-      }
+      },
+      {
+        path: "profile",
+        component: ProfileComponent
+      },
     ]
   },
   {
@@ -57,7 +63,10 @@ const routes: Routes = [
         path: 'dashboard',
         component: FinanceDashboardComponent
       },
-      
+      {
+        path: "profile",
+        component: ProfileComponent
+      },
     ]
   },
   {
@@ -69,7 +78,10 @@ const routes: Routes = [
         path: 'dashboard',
         component: PartnerDashboardComponent
       },
-      
+      {
+        path: "profile",
+        component: ProfileComponent
+      },
     ]
   }
 ];

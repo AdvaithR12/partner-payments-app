@@ -1,0 +1,150 @@
+<div class="card mx-auto container">
+    <div class="card mx-auto container bg-light">
+        <h3 class="card-header info-color white-text text-center py-4">
+            <strong>Welcome {{userdetail.fullname}} </strong>
+        </h3><br>
+        <!--Card content-->
+        <div class="card-body px-lg-5 pt-0">
+        <!-- Form -->
+        <form #profileForm = 'ngForm' class="text-center" style="color: #757575;" >
+            <!-- Address -->
+            <div class="md-form mt-0">
+                <label for="address">Address</label>
+                <textarea 
+                id="address"  
+                name="address" 
+                [(ngModel)]="userdetail.address" 
+                class="form-control"
+                #address = "ngModel" 
+                [class.is-invalid] = "address.invalid && address.touched"
+                required
+                ></textarea>
+                <label for="address"  [class.d-none] = "!(address.invalid && address.touched)" id="addressfeedback" style="color:red; ">Enter address</label>
+            </div>
+            <!-- Mobile -->
+            <div class="md-form mt-0">
+                <label for="mobile">Mobile</label>
+                <input 
+                type="number" 
+                id="mobile" 
+                pattern="^[0-9]{10}$"
+                minlength="10" 
+                maxlength="10"  
+                name="mobile" 
+                [(ngModel)]="userdetail.mobile" class="form-control"
+                #mobile = "ngModel" 
+                [class.is-invalid] = "mobile.invalid && mobile.touched"
+                required
+                >
+                <label for="mobile" id="mobilefeedback" style="color:red; visibility:hidden">Enter mobile#</label>
+            </div>
+     
+            <!-- Partner Type -->
+            <div class="md-form mt-0" id="divtrainertype" *ngIf = "userdetail.userType === 'Partner' && userdetail.partnertype == null ">
+                <label for="partnertype">Partner Type</label>
+                <select [(ngModel)]="userdetail.partnertype" (ngModelChange)="showPartnerInfo($event)" class="form-control"  name="partnertype" id="partnertype">
+                    <option *ngFor="let currenttrainertype of trainertypes" [ngValue]="currenttrainertype">
+                        {{currenttrainertype}}
+                    </option>
+              </select>
+            </div>
+            <!-- Show Hide Trainer Specific Info divs-->
+            <div id="partnerinfo" *ngIf = "userdetail.userType === 'Partner'">
+                <!-- Individual Info -->
+                
+                <div id="individualInfo" *ngIf = "userdetail.userType === 'Partner' && (userdetail.partnertype == null || userdetail.partnertype === 'Individual') ">
+                    <!-- PANNumber -->
+                    <div class="md-form mt-0">
+                        <label for="pannumber">PAN Number</label>
+                        <input type="text" 
+                        id="pannumber"  
+                        name="pannumber" 
+                        [(ngModel)]="userdetail.pannumber" 
+                        #pannumber = "ngModel" 
+                        class="form-control"
+                        [class.is-invalid] = "pannumber.invalid && pannumber.touched"
+                        required
+                        >
+                        <label for="pannumber" id="pannumberfeedback" style="color:red; visibility:hidden">Enter PAN Number</label>
+                    </div>
+                    <!-- Heighest Qualification -->
+                    <div class="md-form mt-0">
+                        <label for="heighestqualification">Heighest Qualification</label>
+                        <input 
+                        type="text" 
+                        id="heighestqualification"  
+                        name="heighestqualification" 
+                        [(ngModel)]="userdetail.heighestqualification" 
+                        class="form-control">
+                    </div>
+                    <!-- Additional Qualification -->
+                    <div class="md-form mt-0">
+                        <label for="addtionalqualification">Additional Qualification</label>
+                        <textarea 
+                        id="addtionalqualification"  
+                        name="addtionalqualification" 
+                        [(ngModel)]="userdetail.addtionalqualification" 
+                        class="form-control"></textarea>
+                    </div>
+                    <!-- Work Experience -->
+                    <div class="md-form mt-0">
+                        <label for="workexperience">Work Experience</label>
+                        <textarea 
+                        id="workexperience"  
+                        name="workexperience" 
+                        [(ngModel)]="userdetail.workexperience" 
+                        class="form-control"></textarea>
+                    </div>
+                </div>
+                
+
+                <!-- Company Specific Info -->
+                <div id="companyInfo" *ngIf = "userdetail.userType === 'Partner' && (userdetail.partnertype == null || userdetail.partnertype === 'Company') ">
+                    <!-- GSTNumber -->
+                    <div class="md-form mt-0">
+                        <label for="gstnumber">GST Number</label>
+                        <input 
+                        type="text" 
+                        id="gstnumber"  
+                        name="gstnumber" 
+                        [(ngModel)]="userdetail.gstnumber"
+                        #gstnumber = "ngModel"
+                        [class.is-invalid] = "gstnumber.invalid && gstnumber.touched"
+                        class="form-control"
+                        required
+                        >
+                        <label for="gstnumber" id="gstnumberfeedback" style="color:red; visibility:hidden">Enter GST Number</label>
+                    </div>
+                </div>
+                <!-- Technical Skills -->
+                <div class="md-form mt-0">
+                    <label for="technologies">Technical Skills</label>
+                    <button class="btn btn-success" style="cursor:pointer"  style="margin-left: 20px;" (click)="showAddSkill()"  >Add Skill</button>
+                    <div class='table-responsive' id="addedittech" class="modalpopup" style="display: none;">
+                        <input type="text" id="addskill"  name="addskill" [(ngModel)]="newlyaddedskill" class="form-control">
+                        <button class="btn btn-warning" style="cursor:pointer" (click)="saveSkill()"   style="margin-left: 20px;"> Save</button>
+                    </div>
+                    <div class='table-responsive'>
+                        <table id="skilltable" name="skilltable" class='table' >
+                            <tr *ngFor="let tech of userdetail.skills" style="border: 1px solid grey;">
+                                <td >{{tech}}</td>
+                                <td ><button class="btn btn-warning" style="cursor:pointer" (click)="deleteSkill(tech)"> Delete</button></td>
+                            </tr>
+                        </table>
+                        
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Update button -->
+            <button id="signup" name="signup"  class="btn btn-success text-center"
+            [disabled]="profileForm.form.invalid" 
+            (click)="updateProfile()">Update Profile</button>
+            <br>
+        </form>
+        <!-- End of Form -->
+        </div>
+    </div>
+</div>
+<br><br><br>
+

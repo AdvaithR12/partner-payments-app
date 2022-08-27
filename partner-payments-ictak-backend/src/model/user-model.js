@@ -5,7 +5,7 @@ mongoose.connect('mongodb+srv://ictakuser1:BDuEr7h0j2F7wIM0@ppp.16ftfvb.mongodb.
 }).then((succ)=>{
   console.log(`MongoDB connected`);
 }).catch((err)=> {
-  console.log(`MongoDB connection error! Can't connect to ${mongoDbServer}`);
+  console.log(`MongoDB connection error! Can't connect`);
 });
 const Schema = mongoose.Schema;
 
@@ -19,10 +19,35 @@ var UserSchema = new Schema({
     },
     password: String,
     userType : String,
-    adminapproved : Boolean
+    adminapproved : Boolean,
+    additionalqualification : String,
+    address : String,
+  
+    gstnumber : String,
+    heightestqualification: String,
+    mobile : Number,
+    pannumber : String,
+    partnertype : String,
+    workexperience  : String,
+    skills : Array
 });
 
+
+
 var userData = mongoose.model('UserData',UserSchema);
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 module.exports = userData;
 //mongodb+srv://ictakuser1:BDuEr7h0j2F7wIM0@ppp.16ftfvb.mongodb.net/partner-payments?retryWrites=true&w=majority
