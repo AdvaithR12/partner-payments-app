@@ -12,11 +12,11 @@ userListGen = (users)=> { // function to return the list of received users omitt
       userType: user.userType,
       adminapproved: user.adminapproved
     }
-    
+
     userList.push(userInfo);
 
   });
-    
+
   return userList;
 
 }
@@ -33,7 +33,7 @@ generatePdf = async (requestId) => {
   
     page.setViewport({width: 1440, height: 2000})
   
-    //await to connect to the page with the mentioned address, (if successful- try & generate the pdf present in the page mentioned url, if failed- show error), if connection failed, show error. Return generated = true only on successfull pdf generation. Return generated = false for all other cases.
+    //await to connect to the page with the mentioned address - (if successful- try & generate the pdf present in the page mentioned url, if failed- show error), if connection failed, show error;;; Return generated = true only on successfull pdf generation. Return generated = false for all other cases.
     await page.goto('http://localhost:8080/api/admin/createworkorder')
       .then( async ()=> {
         await page.pdf({
@@ -44,10 +44,10 @@ generatePdf = async (requestId) => {
             generated = true; //on successful connection and pdf generation
           },
           (err)=> {
-            console.log('err', err.message); //on pdf generation failure
+            console.log('Error while generating pdf', err.message); //on pdf generation failure
           });
       }).catch((err)=> {
-        console.log('err', err.message); //on connection failure
+        console.log('Error on connection', err.message); //on connection failure
       });
     
     await browser.close();

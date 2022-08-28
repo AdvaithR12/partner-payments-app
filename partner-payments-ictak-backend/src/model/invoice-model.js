@@ -10,7 +10,6 @@ var invoiceSchema = new Schema({
     workorderid: String,
     invoiceid: String
 
-
 });
 
 

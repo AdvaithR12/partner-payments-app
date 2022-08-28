@@ -21,7 +21,7 @@ adminRouter.get(`/trainingrequests`, (req,res)=> {
 
 adminRouter.post('/newrequest', (req, res)=> {
 
-  //Converting the start and end time to valid date objects for mongoose
+  //Converting the start and end time to valid date objects for mongoose - combine date and time
   req.body.trainingRequest.sessionDetails.startTime = req.body.trainingRequest.sessionDetails.date + 'T' + req.body.trainingRequest.sessionDetails.startTime
   req.body.trainingRequest.sessionDetails.endTime = req.body.trainingRequest.sessionDetails.date + 'T' + req.body.trainingRequest.sessionDetails.endTime
   
@@ -63,8 +63,7 @@ adminRouter.get(`/getpartners`, (req, res)=> {
     });
 });
 
-adminRouter
-  .route(`/createworkorder`)
+adminRouter.route(`/createworkorder`)
   .get((req, res)=> {
     res.render('template', {});
   })
