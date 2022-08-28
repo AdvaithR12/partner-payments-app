@@ -1,7 +1,7 @@
 const express = require(`express`);
-const TrainingRequest = require(`../model/training-request-model`);
+const TrainingRequest = require(`../model/work-order-model`);
 const UserData = require(`../model/user-model`);
-const { userListGen, generatePdf } = require('../contoller/admin-controller')
+const { userListGen, generatePdf, storeWorkOrderData } = require('../contoller/admin-controller')
 
 const adminRouter = express.Router();
 
@@ -68,22 +68,25 @@ adminRouter.route(`/createworkorder`)
     res.render('template', {});
   })
   .post((req, res)=> {
-    generatePdf(req.body.requestId)
-      .then((returned)=> {
-        if(returned) {
+    generatePdf(req.body.requestId) // call function to generate pdf and name it using the requestId
+      .then((result)=> {
+        if(result.success) {
+          console.log('New work order generated');
+          storeWorkOrderData(result.fileName, req.body.requestId);
           res.json({
-            success: returned,
+            success: result.success,
+            fileName: result.fileName,
             message: 'Work order generation successful'
           });
         } else {
           res.json({
-            success: returned,
+            success: result.success,
             message: 'Work order generation failed'
           });
         }
       },
       (err)=> {
-        console.log('Error', err);
+        console.log('Unknown error', err.message);
       });
 
 

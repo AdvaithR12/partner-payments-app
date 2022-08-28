@@ -81,15 +81,15 @@ skills = req.body.skills,
 workexperience = req.body.workexperience,
 
 UserData.findByIdAndUpdate({"_id":id},
-{$set:{"additionalqualification":additionalqualification,
-"address":address,
-"gstnumber":gstnumber,
-"heighestqualification":heighestqualification,
-"mobile":mobile,
-"pannumber":pannumber,
-"partnertype":partnertype,
-"skills":skills,
-"workexperience" : workexperience
+  {$set:{"additionalqualification":additionalqualification,
+    "address":address,
+    "gstnumber":gstnumber,
+    "heighestqualification":heighestqualification,
+    "mobile":mobile,
+    "pannumber":pannumber,
+    "partnertype":partnertype,
+    "skills":skills,
+    "workexperience" : workexperience
 }})
 .then((success)=> {
   console.log('success', success);
