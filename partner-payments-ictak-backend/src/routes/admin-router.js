@@ -63,16 +63,31 @@ adminRouter.get(`/getpartners`, (req, res)=> {
     });
 });
 
-adminRouter.get(`/createworkorder`, (req, res)=> {
-  res.render('template', {});
-});
-
-adminRouter.post(`/createworkorder`, (req, res)=> {
-  let success = generatePdf(req.body.requestId);
-
-  res.json({
-    success: success
+adminRouter
+  .route(`/createworkorder`)
+  .get((req, res)=> {
+    res.render('template', {});
   })
-});
+  .post((req, res)=> {
+    generatePdf(req.body.requestId)
+      .then((returned)=> {
+        if(returned) {
+          res.json({
+            success: returned,
+            message: 'Work order generation successful'
+          });
+        } else {
+          res.json({
+            success: returned,
+            message: 'Work order generation failed'
+          });
+        }
+      },
+      (err)=> {
+        console.log('Error', err);
+      });
+
+
+  });
 
 module.exports = adminRouter;

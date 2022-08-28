@@ -21,9 +21,7 @@ userListGen = (users)=> { // function to return the list of received users omitt
 
 }
 
-generatePdf = (requestId)=> {
-
-  (async (requestId) => {
+generatePdf = async (requestId) => {
     let generated = false;
 
     // launch a new chrome instance
@@ -35,23 +33,26 @@ generatePdf = (requestId)=> {
   
     page.setViewport({width: 1440, height: 2000})
   
-    await page.goto('http://localhost:8080/api/admin/createworkorder');
-  
-    await page.pdf({
-      format: 'A4',
-      path: `${__dirname}/../assets/work-orders/workorder_${requestId}.pdf`,
-      printBackground: true
-    }).then((succ)=> {
-      generated = true;
-    }).catch((err)=> {
-      console.log(err);
-    });
-  
+    //await to connect to the page with the mentioned address, (if successful- try & generate the pdf present in the page mentioned url, if failed- show error), if connection failed, show error. Return generated = true only on successfull pdf generation. Return generated = false for all other cases.
+    await page.goto('http://localhost:8080/api/admin/createworkorder')
+      .then( async ()=> {
+        await page.pdf({
+          format: 'A4',
+          path: `${__dirname}/../assets/work-orders/generated/workorder_${requestId}.pdf`,
+          printBackground: true
+        }).then(()=> {
+            generated = true; //on successful connection and pdf generation
+          },
+          (err)=> {
+            console.log('err', err.message); //on pdf generation failure
+          });
+      }).catch((err)=> {
+        console.log('err', err.message); //on connection failure
+      });
+    
     await browser.close();
 
     return generated;
-
-  })(requestId);
 
 }
 
