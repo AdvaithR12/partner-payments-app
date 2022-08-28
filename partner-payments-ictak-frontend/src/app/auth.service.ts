@@ -18,7 +18,7 @@ export class AuthService {
     additionalqualification : null,
     address : null,  
     gstnumber : null,
-    heightestqualification: '',
+    heighestqualification: '',
     mobile : null,
     pannumber : null,
     partnertype : null,
@@ -39,6 +39,7 @@ export class AuthService {
     return this.http.get(`${this.server}/auth/findprofile/`+id);
   }
   updateUserProfile(user:any){
+    console.log(' updateUserProfile() in service',user);
     return this.http.post<any>(`${this.server}/auth/updateProfile`,user);
   }
 }
