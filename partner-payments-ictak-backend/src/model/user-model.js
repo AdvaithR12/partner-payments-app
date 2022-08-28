@@ -15,7 +15,7 @@ var UserSchema = new Schema({
     address : String,
   
     gstnumber : String,
-    heightestqualification: String,
+    heighestqualification: String,
     mobile : Number,
     pannumber : String,
     partnertype : String,
