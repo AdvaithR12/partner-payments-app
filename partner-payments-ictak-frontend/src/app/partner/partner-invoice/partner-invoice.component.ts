@@ -11,11 +11,15 @@ import { PartnerService } from '../partner.service';
 export class PartnerInvoiceComponent implements OnInit {
 
   invoiceData = {
+    invoicetype:'',
     name: '',
     email: '',
     contactnumber: '',
     workorderid:'',
-    invoiceid:''  }
+    invoiceid:''
+     }
+
+     invoicetypes= ['advance', 'PostSession']
 
     displayMultipleInvoices!: Boolean;
 

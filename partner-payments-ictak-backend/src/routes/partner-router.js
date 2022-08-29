@@ -31,6 +31,8 @@ var storage = multer.diskStorage({
       }).catch((error)=> {
           console.log(error.message);
       });
+
+
   })
   
   partnerRouter.post('/multiplefiles', (req, res) => {

@@ -8,7 +8,8 @@ var invoiceSchema = new Schema({
     email: String,
     contactnumber: Number,
     workorderid: String,
-    invoiceid: String
+    invoiceid: String,
+    invoicetype: String
 
 
 });
