@@ -9,7 +9,8 @@ var invoiceSchema = new Schema({
     contactnumber: Number,
     workorderid: String,
     invoiceid: String,
-    invoicetype: String
+    invoicetype: String,
+    fileName: String
 
 });
 

@@ -10,16 +10,9 @@ import { PartnerService } from '../partner.service';
 })
 export class PartnerInvoiceComponent implements OnInit {
 
-  invoiceData = {
-    invoicetype:'',
-    name: '',
-    email: '',
-    contactnumber: '',
-    workorderid:'',
-    invoiceid:''
-     }
+  invoiceData: any = {};
 
-     invoicetypes= ['advance', 'PostSession']
+  invoicetypes= ['advance', 'PostSession']
 
   displayMultipleInvoices!: Boolean;
 
@@ -56,20 +49,27 @@ export class PartnerInvoiceComponent implements OnInit {
     .subscribe((res) => {
       this.multipleInput.nativeElement.value = ""
       console.log(res.path)
+
+      this.invoiceFormUpload(res.path[0])
+
       this.displayMultipleInvoices=true
     })
 
+  }
+
+  invoiceFormUpload(invoiceFileName: any) {
+    this.invoiceData.fileName = invoiceFileName;
     console.log(this.invoiceData);
     this.partnerServices.invoiceFormUpload(this.invoiceData)
-      .subscribe({
-        next: (succ: any)=> {
-          if(succ.success) {
-            console.log('success')
-          }
-        },
-        error: (err)=> {
-          console.log('Error', err);
+    .subscribe({
+      next: (succ: any)=> {
+        if(succ.success) {
+          console.log('success')
         }
-      })
+      },
+      error: (err)=> {
+        console.log('Error', err);
+      }
+    });
   }
 }
