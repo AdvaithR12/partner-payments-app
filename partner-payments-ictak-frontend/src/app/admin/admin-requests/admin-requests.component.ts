@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AdminService } from '../admin.service';
 
 @Component({
@@ -10,8 +11,12 @@ export class AdminRequestsComponent implements OnInit {
 
   partners: any = [];
   trainingRequests: any = [];
+  workOrders: any = []
 
-  constructor( private adminServices: AdminService ) { }
+  constructor( 
+    private adminServices: AdminService,
+    private router: Router 
+  ) { }
 
   ngOnInit(): void {
 
@@ -25,6 +30,23 @@ export class AdminRequestsComponent implements OnInit {
       }
     })
 
+    this.adminServices.getWorkOrders()
+    .subscribe({
+      next: (data: any)=> {
+        console.log(data.workOrders);
+        
+        if(data.success) {
+          this.workOrders = data.workOrders
+        } else {
+          alert(`Server error while fetching work orders`);
+        }
+      },
+      error: (err)=> {
+        console.log(err.message);
+        alert(`Unknown error while fetching work orders`);
+      }
+    });
+
     this.adminServices.getTrainingRequests()
       .subscribe({
         next: (response)=> {
@@ -37,15 +59,24 @@ export class AdminRequestsComponent implements OnInit {
   }
 
   approve(requestId: any) {
-    this.adminServices.createWorkOrder(requestId)
-    .subscribe({
-      next: (response)=> {
-        console.log('success', response);
-      },
-      error: (err)=> {
-        console.log('error', err);
-      }
-    });
+    if(confirm(`Create Work Order and forward the request to Finance Department? (This might take a few seconds)`)) {
+      this.adminServices.createWorkOrder(requestId)
+      .subscribe({
+        next: (response: any)=> {
+          if(response.success) {
+            alert(`Work Order successfully generated`)
+            this.router.navigate(['admin/workorders']);
+          }
+        },
+        error: (err)=> {
+          console.log('error', err);
+        }
+      });
+    }
+  }
+
+  viewWorkOrderPdf(workOrderId: any) {
+
   }
 
 }

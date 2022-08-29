@@ -26,4 +26,8 @@ export class AdminService {
     return this.http.get(`${this.server}/admin/getpartners`);
   }
 
+  getWorkOrders() {
+    return this.http.get(`${this.server}/admin/getworkorders`)
+  }
+
 }

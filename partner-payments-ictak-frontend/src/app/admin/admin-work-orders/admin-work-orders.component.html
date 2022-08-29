@@ -1,1 +1,58 @@
-<p>work-orders works!</p>
+<div class="container mb-5">  
+
+  <div class="row d-flex justify-content-center ">
+    <div class="col-9  px-5 py-4 m-3  text-center fs-2 text-black rounded  ">
+      <span>WORK ORDERS</span>       
+      <hr>
+    </div>
+  </div>
+
+  <div class="row d-flex justify-content-center align-items-center">
+    
+    <div class="row d-flex justify-content-center align-items-center ">
+
+      <div class="row border-bottom fs-6 fw-bold text-uppercase border-2 border-dark mb-4 p-2  mx-2 my-1 d-flex align-items-center justify-content-center">
+        <div class="col ">
+          Work Order ID
+        </div>
+        <div class="col ">
+          Partner Name
+        </div>
+        <div class="col d-flex justify-content-center">
+          Work Order Date
+        </div>
+        <div class="col text-center">
+          Session Date
+        </div>
+        <div class="col d-flex align-items-center justify-content-center">
+          Action
+        </div>
+      </div> 
+
+      <div *ngFor="let workOrder of workOrders" class="row rounded shadow mb-3 p-2  mx-2 my-1 d-flex align-items-center justify-content-center">
+        <div class="col ">
+          {{workOrder.workOrderDetails.workOrderId}}
+        </div>
+        <div class="col text-capitalize">
+          {{workOrder.trainingDetails.partnerName}}
+        </div>
+        <div class="col text-capitalize  d-flex  justify-content-center">
+          <span>{{workOrder.workOrderDetails.generatedDate.toString().slice(8,10)}}/{{workOrder.workOrderDetails.generatedDate.toString().slice(5,7)}}/{{workOrder.workOrderDetails.generatedDate.toString().slice(0,4)}}</span>
+        </div>
+        <div class="col text-center">
+          <span>{{workOrder.sessionDetails.startTime.toString().slice(8,10)}}/{{workOrder.sessionDetails.startTime.toString().slice(5,7)}}/{{workOrder.sessionDetails.startTime.toString().slice(0,4)}}</span>
+          <br>
+          <span>{{workOrder.sessionDetails.startTime.toString().slice(11,16)}} PM</span>
+        </div>
+        <div class="col d-flex align-items-center justify-content-center">
+          <a (click)="viewWorkOrderPdf(workOrder._id)">
+            <button class="btn btn-primary mx-1">View</button></a>
+        </div>
+      </div>    
+
+    </div>
+
+  </div>
+
+
+</div>

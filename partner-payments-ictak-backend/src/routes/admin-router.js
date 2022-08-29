@@ -92,4 +92,20 @@ adminRouter.route(`/createworkorder`)
 
   });
 
+adminRouter.get(`/getworkorders`, (req,res)=> {
+  TrainingRequest.find({approved: true})
+    .then((succ)=> {
+      res.status(200).json({
+        success: true,
+        workOrders: succ
+      });
+    }).catch((err)=> {
+      console.log('Error on fetching work orders', err.message);
+      res.status(500).json({
+        success: false,
+        message: `Unknown error. Can't get list of work orders`
+      });
+    });
+});
+
 module.exports = adminRouter;
