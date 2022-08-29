@@ -22,19 +22,17 @@
                     <div class="p-2 px-5">
 
                       <label for="modeInput">Invoice Type</label>
-&nbsp;
-<select                
-  name="type"
-  class=" dropdown-toggle form-control" 
-  [(ngModel)]="invoiceData.invoicetype"
-  id="modeInput"
-  required >
-    <option hidden disabled selected value> -- Select an option -- </option>
-    <option *ngFor="let currentData of invoicetypes" [ngValue]="currentData">
-      {{currentData}}</option>
-
-</select>
-<hr>
+                      &nbsp;
+                      <select                
+                        name="type"
+                        class=" dropdown-toggle form-control" 
+                        [(ngModel)]="invoiceData.invoicetype"
+                        id="modeInput"required >
+                        
+                          <option hidden disabled selected value> -- Select an option -- </option>
+                          <option *ngFor="let currentData of invoicetypes" [ngValue]="currentData">{{currentData}}</option>
+                      </select>
+                      <hr>
 
                       <label>
                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard-check" viewBox="0 0 16 16">
