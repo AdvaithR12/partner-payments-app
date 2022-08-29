@@ -33,8 +33,6 @@ export class AdminRequestsComponent implements OnInit {
     this.adminServices.getWorkOrders()
     .subscribe({
       next: (data: any)=> {
-        console.log(data.workOrders);
-        
         if(data.success) {
           this.workOrders = data.workOrders
         } else {
@@ -65,7 +63,11 @@ export class AdminRequestsComponent implements OnInit {
         next: (response: any)=> {
           if(response.success) {
             alert(`Work Order successfully generated`)
-            this.router.navigate(['admin/workorders']);
+            const currentRoute = this.router.url;
+            this.router.navigateByUrl('/', { skipLocationChange: true })
+              .then(() => {
+                this.router.navigate([currentRoute]); // navigate to same route
+              }); 
           }
         },
         error: (err)=> {
@@ -76,7 +78,8 @@ export class AdminRequestsComponent implements OnInit {
   }
 
   viewWorkOrderPdf(workOrderId: any) {
-
+    localStorage.setItem(`workOrderId`, workOrderId);
+    this.router.navigate(['admin/workorder']);
   }
 
 }

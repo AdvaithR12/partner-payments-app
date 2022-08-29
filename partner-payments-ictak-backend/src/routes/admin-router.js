@@ -9,30 +9,37 @@ adminRouter.get(`/`, (req, res)=> {
   res.send(`Hi I'm listening at /auth`);
 });
 
-adminRouter.get(`/trainingrequests`, (req,res)=> {
-  TrainingRequest.find()
+adminRouter.get(`/getpartners`, (req, res)=> {
+  UserData.find({
+    $and: [
+      { userType: 'Partner' },
+      { adminapproved: true }
+    ]
+  })
     .then((succ)=> {
-      res.send(succ)
+      let partnerList =  userListGen(succ) // calling the function to modify the fetched list of users
+      res.status(200).send(partnerList);
     }).catch((err)=> {
       console.log(err);
-      res.send('Some error')
     });
 });
 
 adminRouter.post('/newrequest', (req, res)=> {
 
+  var newRequest = req.body.trainingRequest;
+
   //Converting the start and end time to valid date objects for mongoose - combine date and time
-  req.body.trainingRequest.sessionDetails.startTime = req.body.trainingRequest.sessionDetails.date + 'T' + req.body.trainingRequest.sessionDetails.startTime
-  req.body.trainingRequest.sessionDetails.endTime = req.body.trainingRequest.sessionDetails.date + 'T' + req.body.trainingRequest.sessionDetails.endTime
+  newRequest.sessionDetails.startTime = newRequest.sessionDetails.date + 'T' + newRequest.sessionDetails.startTime
+  newRequest.sessionDetails.endTime = newRequest.sessionDetails.date + 'T' + newRequest.sessionDetails.endTime
   
   // split and save partner ID and name
-  req.body.trainingRequest.trainingDetails.partnerId = req.body.trainingRequest.trainingDetails.partner.split(',')[0];
-  req.body.trainingRequest.trainingDetails.partnerName = req.body.trainingRequest.trainingDetails.partner.split(',')[1];
+  newRequest.trainingDetails.partnerId = newRequest.trainingDetails.partner.split(',')[0];
+  newRequest.trainingDetails.partnerName = newRequest.trainingDetails.partner.split(',')[1];
 
-  var request = req.body.trainingRequest;
-  var newRequest = new TrainingRequest(request);
+  newRequest.approved = false;
+  var newRequestData = new TrainingRequest(newRequest);
 
-  newRequest.save({ timestamps: true })
+  newRequestData.save({ timestamps: true })
     .then((succ)=> {
       console.log('New training request saved');
       res.status(200).json({
@@ -48,18 +55,13 @@ adminRouter.post('/newrequest', (req, res)=> {
     });
 });
 
-adminRouter.get(`/getpartners`, (req, res)=> {
-  UserData.find({
-    $and: [
-      { userType: 'Partner' },
-      { adminapproved: true }
-    ]
-  })
+adminRouter.get(`/trainingrequests`, (req,res)=> {
+  TrainingRequest.find({approved: false})
     .then((succ)=> {
-      let partnerList =  userListGen(succ) // calling the function to modify the fetched list of users
-      res.status(200).send(partnerList);
+      res.send(succ)
     }).catch((err)=> {
       console.log(err);
+      res.send('Some error')
     });
 });
 
@@ -107,5 +109,9 @@ adminRouter.get(`/getworkorders`, (req,res)=> {
       });
     });
 });
+
+adminRouter.get(`/getworkorder/:id`, (req, res)=> {
+  console.log(req.params.id);
+})
 
 module.exports = adminRouter;

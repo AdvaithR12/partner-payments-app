@@ -29,5 +29,5 @@ export class AdminService {
   getWorkOrders() {
     return this.http.get(`${this.server}/admin/getworkorders`)
   }
-
+  
 }
