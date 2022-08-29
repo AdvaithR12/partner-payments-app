@@ -12,7 +12,7 @@ export class PartnerInvoiceComponent implements OnInit {
 
   invoiceData: any = {};
 
-  invoicetypes= ['advance', 'PostSession']
+  invoicetypes= ['Advance', 'Post-session']
 
   displayMultipleInvoices!: Boolean;
 

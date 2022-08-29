@@ -69,7 +69,7 @@ storeWorkOrderData = (fileName, requestId)=> {
     $set: {
       approved: true,
       workOrderDetails: {
-        workOrderId: 'WOD-123-22',
+        workOrderId: `WOD-${date.getFullYear()}`,
         fileName: fileName,
         generatedDate: ` ${date.getFullYear().toString()}-${(date.getMonth().toString().length == 2) ? date.getMonth().toString() : ('0'+date.getMonth().toString()) }-${date.getDate().toString()}`
       }

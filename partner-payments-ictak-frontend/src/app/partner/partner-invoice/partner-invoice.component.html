@@ -32,8 +32,7 @@
                 class=" dropdown-toggle form-control" 
                 [(ngModel)]="invoiceData.invoicetype"
                 id="modeInput"required >
-                
-                  <option hidden disabled selected value> select an option </option>
+                  <option hidden disabled selected value> -- Select an option -- </option>
                   <option *ngFor="let currentData of invoicetypes" [ngValue]="currentData">{{currentData}}</option>
               </select>
               <hr>
@@ -159,7 +158,11 @@
 
               </div>
               <button class="btn btn-danger w-100 mt-5 submit-button" [disabled]="invoiceForm.form.invalid" >Submit Form</button>
+<<<<<<< HEAD
          
+=======
+              <!--  -->
+>>>>>>> 14aac41ccac77508d0bbffa7fc4c12a2e23ae722
             </div>
           </div>
             

@@ -10,7 +10,7 @@ import { AdminTemplateComponent } from './admin/admin-template/admin-template.co
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
 import { AdminNewRequestComponent } from './admin/admin-new-request/admin-new-request.component';
 import { AdminInvoicesComponent } from './admin/admin-invoices/admin-invoices.component';
-import { AdminWorkOrdersComponent } from './admin/admin-work-orders/admin-work-orders.component';
+import { AdminWorkOrderComponent } from './admin/admin-work-order/admin-work-order.component';
 import { SignupComponent } from './signup/signup.component';
 import { RouterModule } from '@angular/router';
 import { PartnerTemplateComponent } from './partner/partner-template/partner-template.component';
@@ -32,7 +32,7 @@ import { PartnerWorkordersComponent } from './partner/partner-workorders/partner
     AdminDashboardComponent,
     AdminNewRequestComponent,
     AdminInvoicesComponent,
-    AdminWorkOrdersComponent,
+    AdminWorkOrderComponent,
     SignupComponent,
     PartnerTemplateComponent,
     MessagepageComponent,
