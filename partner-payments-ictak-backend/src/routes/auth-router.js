@@ -73,7 +73,7 @@ authRouter.post('/updateProfile',function(req,res) {  /*verifyToken,/insert*/
 additionalqualification = req.body.additionalqualification,
 address =  req.body.address,
 gstnumber = req.body.gstnumber,
-heightestqualification = req.body.heightestqualification,
+heighestqualification = req.body.heighestqualification,
 mobile = req.body.mobile,
 pannumber  = req.body.pannumber,
 partnertype = req.body.partnertype,
@@ -81,17 +81,18 @@ skills = req.body.skills,
 workexperience = req.body.workexperience,
 
 UserData.findByIdAndUpdate({"_id":id},
-{$set:{"additionalqualification":additionalqualification,
-"address":address,
-"gstnumber":gstnumber,
-"heightestqualification":heightestqualification,
-"mobile":mobile,
-"pannumber":pannumber,
-"partnertype":partnertype,
-"skills":skills,
-"workexperience" : workexperience
+  {$set:{"additionalqualification":additionalqualification,
+    "address":address,
+    "gstnumber":gstnumber,
+    "heighestqualification":heighestqualification,
+    "mobile":mobile,
+    "pannumber":pannumber,
+    "partnertype":partnertype,
+    "skills":skills,
+    "workexperience" : workexperience
 }})
 .then((success)=> {
+  console.log('success', success);
   res.status(200).json({
     success: true,
     userType: req.body.userType,

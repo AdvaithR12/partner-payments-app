@@ -20,7 +20,7 @@ export class ProfileComponent implements OnInit {
 
     pannumber:'',
     heighestqualification:'',
-    addtionalqualification:'',
+    additionalqualification:'',
     workexperience:'',
 
     gstnumber:'',
@@ -63,6 +63,7 @@ export class ProfileComponent implements OnInit {
 }
 
 updateProfile(){
+  console.log('updateProfile()',this.userdetail);
   this.auth.updateUserProfile(this.userdetail)
     .subscribe({
       next: (succ: any)=> {

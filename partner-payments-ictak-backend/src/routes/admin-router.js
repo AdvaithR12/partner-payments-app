@@ -1,7 +1,7 @@
 const express = require(`express`);
-const TrainingRequest = require(`../model/training-request-model`);
+const TrainingRequest = require(`../model/work-order-model`);
 const UserData = require(`../model/user-model`);
-const { userListGen, generatePdf } = require('../contoller/admin-controller')
+const { userListGen, generatePdf, storeWorkOrderData } = require('../contoller/admin-controller')
 
 const adminRouter = express.Router();
 
@@ -21,7 +21,7 @@ adminRouter.get(`/trainingrequests`, (req,res)=> {
 
 adminRouter.post('/newrequest', (req, res)=> {
 
-  //Converting the start and end time to valid date objects for mongoose
+  //Converting the start and end time to valid date objects for mongoose - combine date and time
   req.body.trainingRequest.sessionDetails.startTime = req.body.trainingRequest.sessionDetails.date + 'T' + req.body.trainingRequest.sessionDetails.startTime
   req.body.trainingRequest.sessionDetails.endTime = req.body.trainingRequest.sessionDetails.date + 'T' + req.body.trainingRequest.sessionDetails.endTime
   
@@ -63,16 +63,33 @@ adminRouter.get(`/getpartners`, (req, res)=> {
     });
 });
 
-adminRouter.get(`/createworkorder`, (req, res)=> {
-  res.render('template', {});
-});
-
-adminRouter.post(`/createworkorder`, (req, res)=> {
-  let success = generatePdf(req.body.requestId);
-
-  res.json({
-    success: success
+adminRouter.route(`/createworkorder`)
+  .get((req, res)=> {
+    res.render('template', {});
   })
-});
+  .post((req, res)=> {
+    generatePdf(req.body.requestId) // call function to generate pdf and name it using the requestId
+      .then((result)=> {
+        if(result.success) {
+          console.log('New work order generated');
+          storeWorkOrderData(result.fileName, req.body.requestId);
+          res.json({
+            success: result.success,
+            fileName: result.fileName,
+            message: 'Work order generation successful'
+          });
+        } else {
+          res.json({
+            success: result.success,
+            message: 'Work order generation failed'
+          });
+        }
+      },
+      (err)=> {
+        console.log('Unknown error', err.message);
+      });
+
+
+  });
 
 module.exports = adminRouter;

@@ -8,7 +8,11 @@ export class PartnerService {
 
   constructor( private http: HttpClient ) { }
 
-  invoiceUpload(data: any) {
+  invoiceFormUpload(data: any) {
     return this.http.post("http://localhost:8080/partner/invoice", data);
+  }
+
+  invoiceFileUpload(data: any) {
+    return this.http.post<any>('http://localhost:8080/partner/multipleFiles', data)
   }
 }

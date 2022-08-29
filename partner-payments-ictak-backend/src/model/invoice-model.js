@@ -11,7 +11,6 @@ var invoiceSchema = new Schema({
     invoiceid: String,
     invoicetype: String
 
-
 });
 
 

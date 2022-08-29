@@ -21,28 +21,24 @@ export class PartnerInvoiceComponent implements OnInit {
 
      invoicetypes= ['advance', 'PostSession']
 
-    displayMultipleInvoices!: Boolean;
+  displayMultipleInvoices!: Boolean;
 
-    @ViewChild('multipleInput', { static: false })
-    multipleInput!: ElementRef;
+  @ViewChild('multipleInput', { static: false }) multipleInput!: ElementRef;
 
-    images:any;
-    multipleInvoices=[]
+  images:any;
+  multipleInvoices=[]
 
   constructor(
     private http:HttpClient, 
     private partnerServices: PartnerService,
     private router: Router
-  ) { 
-    this.displayMultipleInvoices = false;
-  }
+  ) { this.displayMultipleInvoices = false; }
 
-      selectMultipleInvoice(event:any){
-      if(event.target.files.length > 0){
-        this.multipleInvoices = event.target.files
-      }
+  selectMultipleInvoice(event:any) {
+    if(event.target.files.length > 0) {
+      this.multipleInvoices = event.target.files
     }
-  
+  }
 
   ngOnInit(): void {
   }
@@ -55,16 +51,16 @@ export class PartnerInvoiceComponent implements OnInit {
       formdata.append('files',img)
     }
 
-    this.http.post<any>('http://localhost:8080/partner/multipleFiles', formdata)
+    //do the form upload call on successfull completion of fileupload
+    this.partnerServices.invoiceFileUpload(formdata)
     .subscribe((res) => {
-      console.log(res)
       this.multipleInput.nativeElement.value = ""
       console.log(res.path)
       this.displayMultipleInvoices=true
-  })
+    })
 
     console.log(this.invoiceData);
-    this.partnerServices.invoiceUpload(this.invoiceData)
+    this.partnerServices.invoiceFormUpload(this.invoiceData)
       .subscribe({
         next: (succ: any)=> {
           if(succ.success) {
