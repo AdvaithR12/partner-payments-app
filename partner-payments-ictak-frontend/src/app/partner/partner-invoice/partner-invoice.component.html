@@ -1,7 +1,5 @@
 <div class="color">
 
-
-
   <form #invoiceForm="ngForm" (ngSubmit)="uploadInvoice()">
 
     <div class="formcontainer mb-5">   
@@ -25,7 +23,7 @@
               </svg>
             </span>
 
-            <div class="p-2 px-5">
+            <div class="p-2 px-5 mt-3">
 
               <label for="modeInput">Invoice Type</label>
               &nbsp;
@@ -35,7 +33,7 @@
                 [(ngModel)]="invoiceData.invoicetype"
                 id="modeInput"required >
                 
-                  <option hidden disabled selected value> -- Select an option -- </option>
+                  <option hidden disabled selected value> select an option </option>
                   <option *ngFor="let currentData of invoicetypes" [ngValue]="currentData">{{currentData}}</option>
               </select>
               <hr>
@@ -80,7 +78,7 @@
                 </svg>
                 Name
               </label> 
-              <input 
+              <input git 
                 class="form-control" 
                 type="text" 
                 name="name" 
@@ -160,8 +158,8 @@
                 </ng-template>
 
               </div>
-              <button class="btn btn-danger w-100 mt-5 submit-button"  >Submit Form</button>
-              <!-- [disabled]="invoiceForm.form.invalid" -->
+              <button class="btn btn-danger w-100 mt-5 submit-button" [disabled]="invoiceForm.form.invalid" >Submit Form</button>
+         
             </div>
           </div>
             

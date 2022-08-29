@@ -1,7 +1,8 @@
 const express = require(`express`);
 const invoiceData  = require('../model/invoice-model')
 const partnerRouter = express.Router();
-const multipleUpload = require('../contoller/partner-controller')
+const multipleUpload = require('../contoller/partner-controller');
+const TrainingRequestsData = require('../model/work-order-model')
 
 
 partnerRouter.post('/invoice', function(req,res){
@@ -38,5 +39,9 @@ partnerRouter.post('/multiplefiles', (req, res) => {
   });
 
 });
+
+partnerRouter.get(
+  TrainingRequestsData.find()
+)
 
 module.exports = partnerRouter;

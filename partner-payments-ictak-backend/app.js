@@ -10,8 +10,8 @@ const partnerRouter = require('./src/routes/partner-router')
 const app = new express();
 const PORT = process.env.PORT || 8080;
 
-mongoose.connect('mongodb://localhost:27017/partner-payments', {
-//mongoose.connect('mongodb+srv://ictakuser1:BDuEr7h0j2F7wIM0@ppp.16ftfvb.mongodb.net/partner-payments?retryWrites=true&w=majority', {
+//mongoose.connect('mongodb://localhost:27017/partner-payments', {
+mongoose.connect('mongodb+srv://ictakuser1:BDuEr7h0j2F7wIM0@ppp.16ftfvb.mongodb.net/partner-payments?retryWrites=true&w=majority', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 }).then((succ)=>{
