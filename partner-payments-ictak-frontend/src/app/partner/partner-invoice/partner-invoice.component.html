@@ -34,7 +34,6 @@
                 class=" dropdown-toggle form-control" 
                 [(ngModel)]="invoiceData.invoicetype"
                 id="modeInput"required >
-                
                   <option hidden disabled selected value> -- Select an option -- </option>
                   <option *ngFor="let currentData of invoicetypes" [ngValue]="currentData">{{currentData}}</option>
               </select>

@@ -10,13 +10,13 @@ export class AdminWorkOrderComponent implements OnInit {
 
   workOrderUrl: string ='';
 
-  constructor(private adminServices :AdminService ) { }
+  constructor(private adminServices: AdminService ) { }
 
   ngOnInit(): void {
-    let workOrderId = localStorage.getItem(`workOrderId`);
+    let workOrderId = sessionStorage.getItem(`workOrderId`);
     console.log(`http://localhost:8080/api/admin/getworkorder/${workOrderId}`);
     
-    this.workOrderUrl = `https://localhost:8080/api/admin/getworkorder/${workOrderId}`
+    this.workOrderUrl = `http://localhost:4200/admin/dashboard`
   }
 
 }
