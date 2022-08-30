@@ -1,4 +1,5 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-template',
@@ -8,7 +9,7 @@ import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 export class AdminTemplateComponent implements OnInit {
   @ViewChild('viewChildHook', {static: true}) sideBar!: ElementRef;
   
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -37,6 +38,11 @@ export class AdminTemplateComponent implements OnInit {
     this.sideBarVisibility = 'block';
     this.mainContentMarginLeft = "250px";
     this.showHamburger = 'none';
+  }
+
+  signOut() {
+    localStorage.clear();
+    this.router.navigate([''])
   }
 
 }

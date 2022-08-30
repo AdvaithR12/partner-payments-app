@@ -1,7 +1,7 @@
 const express = require(`express`);
-const TrainingRequest = require(`../model/work-order-model`);
 const UserData = require(`../model/user-model`);
-const { userListGen, generatePdf, storeWorkOrderData } = require('../contoller/admin-controller')
+const { TrainingRequest } = require(`../model/work-order-model`);
+const { userListGen, generatePdf, storeWorkOrderData } = require('../contoller/admin-controller');
 
 const adminRouter = express.Router();
 
@@ -36,7 +36,8 @@ adminRouter.post('/newrequest', (req, res)=> {
   newRequest.trainingDetails.partnerId = newRequest.trainingDetails.partner.split(',')[0];
   newRequest.trainingDetails.partnerName = newRequest.trainingDetails.partner.split(',')[1];
 
-  newRequest.approved = false;
+  newRequest.adminApproved = false;
+  newRequest.financeApproved = false;
   var newRequestData = new TrainingRequest(newRequest);
 
   newRequestData.save({ timestamps: true })
@@ -56,7 +57,7 @@ adminRouter.post('/newrequest', (req, res)=> {
 });
 
 adminRouter.get(`/trainingrequests`, (req,res)=> {
-  TrainingRequest.find({approved: false})
+  TrainingRequest.find({ adminApproved: false })
     .then((succ)=> {
       res.send(succ)
     }).catch((err)=> {
@@ -95,7 +96,7 @@ adminRouter.route(`/createworkorder`)
   });
 
 adminRouter.get(`/getworkorders`, (req,res)=> {
-  TrainingRequest.find({approved: true})
+  TrainingRequest.find({ adminApproved: true })
     .then((succ)=> {
       res.status(200).json({
         success: true,

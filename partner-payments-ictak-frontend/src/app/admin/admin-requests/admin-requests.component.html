@@ -7,7 +7,7 @@
     </div>
   </div>
 
-  <div class="fw fs-5">
+  <div style="font-size:large;">
     <span class="border-bottom border-dark border-3 rounded shadow py-2 px-3">Pending Requests ({{trainingRequests.length}})</span>
   </div>
   <br>
@@ -33,8 +33,8 @@
         </div>
       </div> 
 
-      <div style="font-size:large;" *ngFor="let request of trainingRequests" class="row rounded shadow bg-dark bg-opacity-25 mb-3 p-2  mx-2 my-1 d-flex align-items-center justify-content-center">
-        <div class="col fw-bold">
+      <div  *ngFor="let request of trainingRequests" class="row  shadow bg-dark bg-opacity-25 mb-3 p-2  mx-2 my-1 d-flex align-items-center justify-content-center">
+        <div class="col">
           {{request.trainingDetails.partnerName}}
         </div>
         <div class="col text-capitalize">
@@ -50,11 +50,11 @@
         </div>
         <div class="col ">
           <div class="d-flex justify-content-center">
-            <a><button class="btn btn-warning mx-1">Modify</button></a>
-            <a><button class="btn btn-danger mx-1">Reject</button></a>
+            <a (click)="approve(request._id)"><button class="btn btn-success px-5 mb-2">Approve</button></a>
           </div>
           <div class="d-flex justify-content-center">
-            <a (click)="approve(request._id)"><button class="btn btn-primary px-5 mt-2">Approve</button></a>
+            <a><button class="btn btn-warning mx-1">Modify</button></a>
+            <a><button class="btn btn-danger mx-1">Reject</button></a>
           </div>
         </div>
       </div>    
@@ -66,7 +66,7 @@
   <br>
   <br>
 
-  <div class=" fs-5">
+  <div style="font-size:large;">
     <span class="border-bottom border-dark border-3 rounded shadow py-2 px-3">Approved ({{workOrders.length}})</span>
   </div>
   <br>
@@ -74,7 +74,7 @@
     
     <div class="row d-flex justify-content-center align-items-center ">
 
-      <div class="row border-bottom fs-6 fw-bold text-uppercase border-2 border-dark mb-4 p-2  mx-2 my-2 d-flex align-items-center justify-content-center">
+      <div *ngIf="!(workOrders.length == 0)" class="row border-bottom fs-6 fw-bold text-uppercase border-2 border-dark mb-4 p-2  mx-2 my-2 d-flex align-items-center justify-content-center">
         <div class="col ">
           Work Order ID
         </div>

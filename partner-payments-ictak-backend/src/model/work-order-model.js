@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 var TrainingRequestSchema = new Schema({
-  approved: Boolean,
+  adminApproved: Boolean,
+  financeApproved: Boolean,
   trainingDetails: { 
     topic: String,
     partnerId: String,
@@ -22,6 +23,16 @@ var TrainingRequestSchema = new Schema({
   }
 });
 
-var trainingRequest = mongoose.model('TrainingRequest',TrainingRequestSchema);
+var WorkOrderCounterSchema = new Schema({
+  year: Number,
+  month: Number,
+  count: Number
+});
 
-module.exports = trainingRequest;
+var trainingRequest = mongoose.model('TrainingRequest', TrainingRequestSchema);
+var workOrderCounter = mongoose.model('WorkOrderCounter', WorkOrderCounterSchema);
+
+module.exports = { 
+  TrainingRequest: trainingRequest, 
+  WorkOrderCounter: workOrderCounter 
+};

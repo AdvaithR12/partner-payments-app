@@ -78,7 +78,7 @@ flex-grow: 0; */
   align-items: center;
   padding: 14px 8px 14px 15px;
   width: 200px;
-  height: 48px;
+  height: 42px;
   margin: auto;
   margin-top: 12px;
   box-shadow: 1px 1px 1px  #a8a7a7;
@@ -160,6 +160,13 @@ flex-grow: 0; */
   color: rgb(240, 0, 0);
 }
 
+.wrapper .action-buttons {
+  position: absolute;
+  bottom: 7.5%;
+  left: 25%;
+
+}
+
 .wrapper .main_content{
   width: 100%;
   margin-left: 250px;
@@ -203,3 +210,4 @@ flex-grow: 0; */
   color: #000000;
   line-height: 25px;
 }
+

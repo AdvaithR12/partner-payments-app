@@ -1,5 +1,5 @@
 const puppeteer = require('puppeteer');
-const TrainingRequest = require(`../model/work-order-model`);
+const { TrainingRequest, WorkOrderCounter } = require(`../model/work-order-model`);
 
 
 userListGen = (users)=> { // function to return the list of received users omitting some fields
@@ -63,13 +63,27 @@ generatePdf = async (requestId) => {
 
 storeWorkOrderData = (fileName, requestId)=> {
   let date = new Date();
-  console.log();
+
+  WorkOrderCounter.findOneAndUpdate({
+    $and: [
+      {year: date.getFullYear()}, 
+      {month: date.getMonth()}
+    ]}, {
+      $inc: {
+        count: 1
+      }
+    }, { upsert: true, new: true } )
+    .then((succ)=> {
+      console.log('succ', succ);
+    }).catch((err)=> {
+      console.log('err', err);
+    });
 
   TrainingRequest.findByIdAndUpdate({_id: requestId}, {
     $set: {
-      approved: true,
+      adminApproved: true,
       workOrderDetails: {
-        workOrderId: `WOD-${date.getFullYear()}`,
+        workOrderId: `WO/${date.getFullYear()}/${date.getMonth()}`,
         fileName: fileName,
         generatedDate: ` ${date.getFullYear().toString()}-${(date.getMonth().toString().length == 2) ? date.getMonth().toString() : ('0'+date.getMonth().toString()) }-${date.getDate().toString()}`
       }
