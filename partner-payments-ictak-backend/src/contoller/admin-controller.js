@@ -1,12 +1,10 @@
 const puppeteer = require('puppeteer');
-const TrainingRequest = require(`../model/work-order-model`);
-
+const { TrainingRequest, WorkOrderCounter } = require(`../model/work-order-model`);
 
 userListGen = (users)=> { // function to return the list of received users omitting some fields
   var userList = [];
 
   users.forEach((user)=> {
-
     let userInfo = {
       _id: user._id,
       fullname: user.fullname,
@@ -14,16 +12,36 @@ userListGen = (users)=> { // function to return the list of received users omitt
       userType: user.userType,
       adminapproved: user.adminapproved
     }
-
     userList.push(userInfo);
-
   });
 
   return userList;
 
-}
+};
 
-generatePdf = async (requestId) => {
+generateWorkOrderNumber = async ()=> {
+  let date = new Date();
+  let workOrderNumber;
+  await WorkOrderCounter.findOneAndUpdate({ //to generate a serial number for work orders
+    $and: [
+      {year: date.getFullYear()}, //collection with the current month and year is fetched
+      {month: date.getMonth()}
+    ]}, {
+      $inc: {
+        count: 1  //increment the count if the collection with current month and year is found
+      }
+    }, { upsert: true, new: true } ) //insert new collection with current month and year if not found; return the new/updated document always
+    .then((succ)=> {
+      let countStr = succ.count.toString()
+      while (countStr.length < 4) countStr = "0" + countStr;
+      workOrderNumber = `WOD/${date.getMonth()+1}/${date.getFullYear()}/${countStr}`
+    }).catch((err)=> {
+      console.log('Error while generating work order number, A-C: L39', err);
+    });
+    return workOrderNumber
+};
+
+generatePdf = async (requestId, workOrderNumber) => {
     let result = { 
       success: false,
       fileName:  false
@@ -50,10 +68,10 @@ generatePdf = async (requestId) => {
             result.fileName = `workorder_${requestId}.pdf`;
           },
           (err)=> {
-            console.log('Error while generating pdf: generatePdf.L51', err.message); //on pdf generation failure
+            console.log('Error while generating pdf, A-C: L71', err.message); //on pdf generation failure
           });
       }).catch((err)=> {
-        console.log('Error on connection: generatePdf.L54', err.message); //on connection failure
+        console.log('Error on connection, A-C: L74', err.message); //on connection failure
       });
     
     await browser.close();
@@ -61,25 +79,42 @@ generatePdf = async (requestId) => {
 
 };
 
-storeWorkOrderData = (fileName, requestId)=> {
+storeWorkOrderData = async (fileName, requestId, workOrderNumber)=> {
   let date = new Date();
-  console.log();
 
-  TrainingRequest.findByIdAndUpdate({_id: requestId}, {
+  return await TrainingRequest.findByIdAndUpdate({_id: requestId}, {
     $set: {
-      approved: true,
+      adminApproved: true,
       workOrderDetails: {
-        workOrderId: `WOD-${date.getFullYear()}`,
+        workOrderNumber: workOrderNumber,
         fileName: fileName,
-        generatedDate: ` ${date.getFullYear().toString()}-${(date.getMonth().toString().length == 2) ? date.getMonth().toString() : ('0'+date.getMonth().toString()) }-${date.getDate().toString()}`
+        generatedDate: ` ${date.getFullYear().toString()}-${(date.getMonth()+1).toString()}-${date.getDate().toString()}`
+        // generatedDate: ` ${date.getFullYear().toString()}-${(date.getMonth().toString().length == 2) ? date.getMonth().toString() : ('0'+date.getMonth().toString()) }-${date.getDate().toString()}`
       }
     }
-  }, { new: true })
-    .then((succ)=> {
-      console.log(succ);
-    }).catch((err)=> {
-      console.log(err);
-    });
-}
+  }, { new: true });
+};
 
-module.exports = { userListGen, generatePdf, storeWorkOrderData }
+createWorkOrder = async (req, res)=> {
+
+  // call function to generate a Work Order Number.
+  let workOrderNumber = await generateWorkOrderNumber(); 
+
+  // call function to generate pdf and name it using the requestId
+  let pdfGenerationStatus = await generatePdf(req.body.requestId, workOrderNumber) 
+
+  // await to store the generated work order data in db
+  let storeWorkOrderStatus = await storeWorkOrderData(pdfGenerationStatus.fileName, req.body.requestId, workOrderNumber);
+
+  if(storeWorkOrderStatus.adminApproved && pdfGenerationStatus.success) {
+    return { 
+      success: true, 
+      workOrderNumber: workOrderNumber 
+    }
+  } else {
+    return { success: false }
+  }
+
+};
+
+module.exports = { userListGen, createWorkOrder };
