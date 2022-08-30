@@ -19,7 +19,8 @@ var TrainingRequestSchema = new Schema({
   workOrderDetails : {
     workOrderId: String,
     fileName: String,
-    generatedDate: Date
+    generatedDate: Date,
+    workOrderNumber: String
   }
 });
 

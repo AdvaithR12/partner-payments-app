@@ -1,7 +1,7 @@
 const express = require(`express`);
 const UserData = require(`../model/user-model`);
 const { TrainingRequest } = require(`../model/work-order-model`);
-const { userListGen, generatePdf, storeWorkOrderData } = require('../contoller/admin-controller');
+const { userListGen, createWorkOrder } = require('../contoller/admin-controller');
 
 const adminRouter = express.Router();
 
@@ -71,28 +71,28 @@ adminRouter.route(`/createworkorder`)
     res.render('template', {});
   })
   .post((req, res)=> {
-    generatePdf(req.body.requestId) // call function to generate pdf and name it using the requestId
-      .then((result)=> {
-        if(result.success) {
-          console.log('New work order generated');
-          storeWorkOrderData(result.fileName, req.body.requestId);
-          res.json({
-            success: result.success,
-            fileName: result.fileName,
-            message: 'Work order generation successful'
+    createWorkOrder(req, res)
+      .then((succ)=> {
+        if(succ.success) {
+          console.log('New work order generated')
+          res.status(200).json({
+            success: true,
+            message: 'New work order generation successfull'
           });
         } else {
-          res.json({
-            success: result.success,
-            message: 'Work order generation failed'
+          console.log('New work order generation failed, A-R: L83')
+          res.status(500).json({
+            success: false,
+            message: 'New work order generation failed'
           });
         }
-      },
-      (err)=> {
-        console.log('Unknown error', err.message);
+      }).catch((err)=> {
+        console.log('New work order generation failed, A-R: L90', err.message);
+        res.status(500).json({
+          success: false,
+          message: 'New work order generation failed'
+        });
       });
-
-
   });
 
 adminRouter.get(`/getworkorders`, (req,res)=> {
