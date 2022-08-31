@@ -44,6 +44,7 @@ export class FinanceTemplateComponent implements OnInit {
 
   signOut() {
     localStorage.clear();
+    sessionStorage.clear();
     this.router.navigate([''])
   }
 

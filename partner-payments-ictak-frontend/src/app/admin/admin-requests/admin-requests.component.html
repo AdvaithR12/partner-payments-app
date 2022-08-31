@@ -78,14 +78,14 @@
         <div class="col ">
           Work Order ID
         </div>
-        <div class="col ">
+        <div class="col  text-center">
           Partner Name / Topic
         </div>
         <div class="col d-flex justify-content-center">
           Work Order Date
         </div>
         <div class="col text-center">
-          Session Date & time
+          Finance Approval Status
         </div>
         <div class="col d-flex align-items-center justify-content-center">
           Action
@@ -100,12 +100,14 @@
           <span class="fw-bold">{{workOrder.trainingDetails.partnerName}}</span> / {{workOrder.trainingDetails.topic}}
         </div>
         <div class="col text-capitalize  d-flex  justify-content-center">
-          <span>{{(workOrder.workOrderDetails.generatedDate).toString().slice(8,10)}}/{{workOrder.workOrderDetails.generatedDate.toString().slice(5,7)}}/{{workOrder.workOrderDetails.generatedDate.toString().slice(0,4)}}</span>
+          <span>{{workOrder.workOrderDetails.generatedDate.toString().slice(8,10)}}/{{workOrder.workOrderDetails.generatedDate.toString().slice(5,7)}}/{{workOrder.workOrderDetails.generatedDate.toString().slice(0,4)}}</span>
         </div>
         <div class="col text-center">
-          <span>{{workOrder.sessionDetails.startTime.toString().slice(8,10)}}/{{workOrder.sessionDetails.startTime.toString().slice(5,7)}}/{{workOrder.sessionDetails.startTime.toString().slice(0,4)}}</span>
-          <br>
-          <span>{{workOrder.sessionDetails.startTime.toString().slice(11,16)}} PM</span>
+          <span>
+            <i *ngIf="!workOrder.financeApproved" style="color: red;" class="fa-solid fs-4 fa-circle-xmark"></i>
+            <i *ngIf="workOrder.financeApproved" style="color: green;" class="fa-solid fs-4 fa-circle-check"></i>
+
+          </span>
         </div>
         <div class="col d-flex align-items-center justify-content-center">
           <a (click)="viewWorkOrderPdf(workOrder._id)">

@@ -3,15 +3,16 @@ const mongoose = require("mongoose")
 const Schema =  mongoose.Schema;
 
 var invoiceSchema = new Schema({
-
-    name: String,
-    email: String,
-    contactnumber: Number,
-    workorderid: String,
-    invoiceid: String,
-    invoicetype: String,
-    fileName: String
-
+  partnerName: String,
+  partnerEmail: String,
+  contactNumber: Number,
+  workOrderNumber: String,
+  workOrderId: String,
+  invoiceNumber: String,
+  invoiceType: Boolean,
+  adminApproved: Boolean,
+  paid: Boolean,
+  fileName: String
 });
 
 
