@@ -3,7 +3,7 @@ const path = require('path');
 const UserData = require(`../model/user-model`);
 const InvoiceData = require(`../model/invoice-model`);
 const { TrainingRequest } = require(`../model/work-order-model`);
-const { userListGen, createWorkOrder } = require('../contoller/admin-controller');
+const { userListGen, createWorkOrder, approveInvoice } = require('../contoller/admin-controller');
 
 const adminRouter = express.Router();
 
@@ -27,14 +27,11 @@ adminRouter.get(`/getpartners`, (req, res)=> {
 });
 
 adminRouter.post('/newrequest', (req, res)=> {
-
   var newRequest = req.body.trainingRequest;
 
   //Converting the start and end time to valid date objects for mongoose - combine date and time
-  // newRequest.sessionDetails.startTime = newRequest.sessionDetails.date + 'T' + newRequest.sessionDetails.startTime
-  // newRequest.sessionDetails.endTime = newRequest.sessionDetails.date + 'T' + newRequest.sessionDetails.endTime
-  
-  
+  newRequest.sessionDetails.startTime = newRequest.sessionDetails.date + 'T' + newRequest.sessionDetails.startTime
+  newRequest.sessionDetails.endTime = newRequest.sessionDetails.date + 'T' + newRequest.sessionDetails.endTime
 
   // split and save partner ID and name
   newRequest.trainingDetails.partnerId = newRequest.trainingDetails.partner.split(',')[0];
@@ -162,6 +159,30 @@ adminRouter.get(`/getinvoices`, (req, res)=> {
         message: `Server error while fetching invoices`
       });
     });
+});
+
+adminRouter.put('/approveinvoice', (req, res)=> {
+
+  InvoiceData.findById(req.body.invoiceId)
+    .then((data)=> {
+      // console.log(data);
+      approveInvoice(res, data);
+    }).catch((err)=> {
+      console.log('Error while fetching invoice data', err.message);
+    });
+
+  // InvoiceData.findByIdAndUpdate(req.body.invoiceId, {
+  //   $set : {
+  //     adminApproved: true,
+  //     invoiceDueDate: 2022-12-12
+  //   }
+  // }, { new: true }, (err, data)=> {
+  //   if(err) {
+  //     console.log('Error while updating Invoice data', err.message)
+  //   } else {
+  //     fs
+  //   }
+  // });
 });
 
 module.exports = adminRouter;
