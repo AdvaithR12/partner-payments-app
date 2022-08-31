@@ -24,18 +24,6 @@ export class PartnerWorkordersComponent implements OnInit {
 
   ngOnInit(): void {
     var userid = localStorage.getItem("userid")
-    // console.log(userid)
-    
-    this.partnerServices.getPartnerList()
-    .subscribe({
-      next: (succ)=> {
-
-        this.partners = succ;
-      },
-      error: (err)=> {
-        console.log(err);
-      }
-    })
 
     this.partnerServices.getWorkOrders(userid)
     .subscribe({
@@ -51,38 +39,7 @@ export class PartnerWorkordersComponent implements OnInit {
         alert(`Unknown error while fetching work orders`);
       }
     });
-
-    // this.adminServices.getTrainingRequests()
-    //   .subscribe({
-    //     next: (response)=> {
-    //       this.trainingRequests = response;
-    //     },
-    //     error: (err)=> {
-    //       console.log(err);
-    //     }
-    //   });
   }
-
-  // approve(requestId: any) {
-  //   if(confirm(`Create Work Order and forward the request to Finance Department? (This might take a few seconds)`)) {
-  //     this.adminServices.createWorkOrder(requestId)
-  //     .subscribe({
-  //       next: (response: any)=> {
-  //         if(response.success) {
-  //           alert(`Work Order successfully generated`)
-  //           const currentRoute = this.router.url;
-  //           this.router.navigateByUrl('/', { skipLocationChange: true })
-  //             .then(() => {
-  //               this.router.navigate([currentRoute]); // navigate to same route
-  //             }); 
-  //         }
-  //       },
-  //       error: (err)=> {
-  //         console.log('error', err);
-  //       }
-  //     });
-  //   }
-  // }
 
   viewWorkOrderPdf(workOrderId: any) {
     sessionStorage.setItem(`workOrderId`, workOrderId);

@@ -1,5 +1,6 @@
 const express = require(`express`);
 const UserData = require(`../model/user-model`);
+const InvoiceData = require(`../model/invoice-model`);
 const { TrainingRequest } = require(`../model/work-order-model`);
 const { userListGen, createWorkOrder } = require('../contoller/admin-controller');
 
@@ -35,9 +36,12 @@ adminRouter.post('/newrequest', (req, res)=> {
   // split and save partner ID and name
   newRequest.trainingDetails.partnerId = newRequest.trainingDetails.partner.split(',')[0];
   newRequest.trainingDetails.partnerName = newRequest.trainingDetails.partner.split(',')[1];
+  newRequest.trainingDetails.partnerEmail = newRequest.trainingDetails.partner.split(',')[2];
 
   newRequest.adminApproved = false;
   newRequest.financeApproved = false;
+
+  console.log(newRequest);
   var newRequestData = new TrainingRequest(newRequest);
 
   newRequestData.save({ timestamps: true })
@@ -48,7 +52,7 @@ adminRouter.post('/newrequest', (req, res)=> {
         message: 'New training request saved'
       });
     }).catch((err)=> {
-      console.log("Failed to add new training request");
+      console.log("Failed to add new training request", err);
       res.status(500).json({
         success: false,
         message: 'Unknown Error! New request not saved'
@@ -97,7 +101,7 @@ adminRouter.route(`/createworkorder`)
 
 adminRouter.get(`/getworkorders`, (req,res)=> {
 
-  TrainingRequest.find({ adminApproved: true  })
+  TrainingRequest.find(req.query)
     .then((succ)=> {
       res.status(200).json({
         success: true,
@@ -114,6 +118,23 @@ adminRouter.get(`/getworkorders`, (req,res)=> {
 
 adminRouter.get(`/getworkorder/:id`, (req, res)=> {
   console.log(req.params.id);
-})
+});
+
+adminRouter.get(`/getinvoices`, (req, res)=> {
+  
+  InvoiceData.find(req.query)
+    .then((succ)=> {
+      res.status(200).json({
+        success: true,
+        data: succ
+      })
+    }).catch((err)=> {
+      console.log('Error while fetching invoices');
+      res.status(500).json({
+        success: false,
+        message: `Server error while fetching invoices`
+      });
+    });
+});
 
 module.exports = adminRouter;

@@ -35,7 +35,7 @@ export class AdminNewRequestComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    this.adminServices.getPartnerList()
+    this.adminServices.getPartnerList() //load the list of partners to be displayed on the drop down list
       .subscribe({
         next: (succ)=> {
           this.partners = succ;
@@ -51,6 +51,7 @@ export class AdminNewRequestComponent implements OnInit {
   }
 
   saveRequest() {
+    
     this.adminServices.addNewRequest(this.trainingRequestForm.value)
       .subscribe({
         next: (response: any)=> {

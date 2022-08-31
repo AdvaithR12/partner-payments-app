@@ -42,6 +42,7 @@ export class PartnerTemplateComponent implements OnInit {
 
   signOut() {
     localStorage.clear();
+    sessionStorage.clear();
     this.router.navigate([''])
   }
 }

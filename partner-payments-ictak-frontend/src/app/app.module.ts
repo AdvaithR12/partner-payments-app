@@ -23,6 +23,8 @@ import { FinanceWorkOrdersComponent } from './finance/finance-work-orders/financ
 import { AdminRequestsComponent } from './admin/admin-requests/admin-requests.component';
 import { ProfileComponent } from './profile/profile.component';
 import { PartnerWorkordersComponent } from './partner/partner-workorders/partner-workorders.component';
+import { FinanceInvoicesComponent } from './finance/finance-invoices/finance-invoices.component';
+
 
 @NgModule({
   declarations: [
@@ -43,7 +45,8 @@ import { PartnerWorkordersComponent } from './partner/partner-workorders/partner
     FinanceWorkOrdersComponent,
     ProfileComponent,
     AdminRequestsComponent,
-    PartnerWorkordersComponent
+    PartnerWorkordersComponent,
+    FinanceInvoicesComponent
   ],
   imports: [
     BrowserModule,

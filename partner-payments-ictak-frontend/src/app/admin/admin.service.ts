@@ -12,22 +12,26 @@ export class AdminService {
 
   addNewRequest(trainingRequestData: any) {
     return this.http.post(`${this.server}/admin/newrequest`, { trainingRequest: trainingRequestData });
-  }
+  };
 
   getTrainingRequests() {
     return this.http.get(`${this.server}/admin/trainingrequests`);
-  }
+  };
 
   createWorkOrder(requestId: any) {
     return this.http.post(`${this.server}/admin/createworkorder`, { requestId: requestId });
-  }
+  };
 
   getPartnerList() {
     return this.http.get(`${this.server}/admin/getpartners`);
-  }
+  };
 
-  getWorkOrders() {
-    return this.http.get(`${this.server}/admin/getworkorders`)
-  }
+  getWorkOrders(approvalStatus: any) {
+    return this.http.get(`${this.server}/admin/getworkorders`, {params: approvalStatus})
+  };
+
+  getInvoices(approvalStatus: any) {
+    return this.http.get(`${this.server}/admin/getinvoices`,  { params: approvalStatus } );
+  };
   
 }

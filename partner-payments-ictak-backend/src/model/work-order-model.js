@@ -8,6 +8,7 @@ var TrainingRequestSchema = new Schema({
     topic: String,
     partnerId: String,
     partnerName: String,
+    partnerEmail: String
   },
   sessionDetails: {
     mode: String,
@@ -17,10 +18,14 @@ var TrainingRequestSchema = new Schema({
     endTime: Date
   },
   workOrderDetails : {
-    workOrderId: String,
     fileName: String,
     generatedDate: Date,
-    workOrderNumber: String
+    workOrderNumber: {
+      type: String,
+      unique: true,
+      index: true,
+      sparse: true
+    }
   }
 });
 

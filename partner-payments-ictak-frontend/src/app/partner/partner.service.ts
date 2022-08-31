@@ -6,7 +6,9 @@ import { Injectable } from '@angular/core';
 })
 export class PartnerService {
 
+
   server: string = 'http://localhost:8080/api'
+
 
   constructor( private http: HttpClient ) { }
 
@@ -18,12 +20,12 @@ export class PartnerService {
     return this.http.post<any>('${this.server}/partner/multipleFiles', data)
   }
 
-  
-  getPartnerList() {
-    return this.http.get(`${this.server}/partner/getpartners`);
-  }
-
   getWorkOrders(userId: any) {
     return this.http.get(`${this.server}/partner/getworkorders`, { params: { userId: userId } });
+
+  }
+
+  fetchWorkOrderData(workOrderNumber: any) {
+    return this.http.get<any>(`${this.server}/partner/workorder`, { params: { workOrderNumber: workOrderNumber } });
   }
 }
