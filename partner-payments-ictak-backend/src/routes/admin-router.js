@@ -30,9 +30,11 @@ adminRouter.post('/newrequest', (req, res)=> {
   var newRequest = req.body.trainingRequest;
 
   //Converting the start and end time to valid date objects for mongoose - combine date and time
-  newRequest.sessionDetails.startTime = newRequest.sessionDetails.date + 'T' + newRequest.sessionDetails.startTime
-  newRequest.sessionDetails.endTime = newRequest.sessionDetails.date + 'T' + newRequest.sessionDetails.endTime
+  // newRequest.sessionDetails.startTime = newRequest.sessionDetails.date + 'T' + newRequest.sessionDetails.startTime
+  // newRequest.sessionDetails.endTime = newRequest.sessionDetails.date + 'T' + newRequest.sessionDetails.endTime
   
+  
+
   // split and save partner ID and name
   newRequest.trainingDetails.partnerId = newRequest.trainingDetails.partner.split(',')[0];
   newRequest.trainingDetails.partnerName = newRequest.trainingDetails.partner.split(',')[1];
@@ -58,6 +60,27 @@ adminRouter.post('/newrequest', (req, res)=> {
         message: 'Unknown Error! New request not saved'
       });
     });
+});
+
+adminRouter.put('/updaterequest', (req, res)=> {
+  console.log(req.body);
+});
+
+adminRouter.get('/trainingrequest', (req, res)=> {
+  TrainingRequest.findById(req.query.requestId, (err, data)=> {
+    if(err) {
+      console.log(err.message);
+      res.status(500).json({
+        success: false,
+        message: err.message
+      });
+    } else {
+      res.status(200).json({
+        success: true,
+        data: data
+      });
+    }
+  });
 });
 
 adminRouter.get(`/trainingrequests`, (req,res)=> {

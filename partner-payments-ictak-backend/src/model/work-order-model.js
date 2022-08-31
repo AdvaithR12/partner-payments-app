@@ -27,7 +27,7 @@ var TrainingRequestSchema = new Schema({
       sparse: true
     }
   }
-});
+}, { timestamps: true });
 
 var WorkOrderCounterSchema = new Schema({
   year: Number,

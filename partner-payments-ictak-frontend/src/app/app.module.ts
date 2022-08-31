@@ -24,6 +24,7 @@ import { AdminRequestsComponent } from './admin/admin-requests/admin-requests.co
 import { ProfileComponent } from './profile/profile.component';
 import { PartnerWorkordersComponent } from './partner/partner-workorders/partner-workorders.component';
 import { FinanceInvoicesComponent } from './finance/finance-invoices/finance-invoices.component';
+import { AdminModifyRequestComponent } from './admin/admin-modify-request/admin-modify-request.component';
 
 
 @NgModule({
@@ -46,7 +47,8 @@ import { FinanceInvoicesComponent } from './finance/finance-invoices/finance-inv
     ProfileComponent,
     AdminRequestsComponent,
     PartnerWorkordersComponent,
-    FinanceInvoicesComponent
+    FinanceInvoicesComponent,
+    AdminModifyRequestComponent
   ],
   imports: [
     BrowserModule,

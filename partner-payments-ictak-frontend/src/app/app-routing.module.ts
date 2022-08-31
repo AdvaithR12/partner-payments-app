@@ -18,6 +18,7 @@ import { PartnerInvoiceComponent } from './partner/partner-invoice/partner-invoi
 import { PartnerWorkordersComponent } from './partner/partner-workorders/partner-workorders.component';
 import { FinanceInvoicesComponent } from './finance/finance-invoices/finance-invoices.component';
 import { FinanceWorkOrdersComponent } from './finance/finance-work-orders/finance-work-orders.component';
+import { AdminModifyRequestComponent } from './admin/admin-modify-request/admin-modify-request.component';
 
 const routes: Routes = [
   {
@@ -60,6 +61,10 @@ const routes: Routes = [
       {
         path: "profile",
         component: ProfileComponent
+      },
+      {
+        path: "modifyrequest",
+        component: AdminModifyRequestComponent
       },
     ]
   },

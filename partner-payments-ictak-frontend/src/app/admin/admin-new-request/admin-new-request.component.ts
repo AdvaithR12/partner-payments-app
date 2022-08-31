@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, ReactiveFormsModule} from '@angular/forms'
+import { FormGroup, FormControl, Validators} from '@angular/forms'
 import { Router } from '@angular/router';
 import { AdminService } from '../admin.service';
 
@@ -16,7 +16,6 @@ export class AdminNewRequestComponent implements OnInit {
   ) { }
 
   partners: any = [];
-
   textColor: string = '';
 
   trainingRequestForm = new FormGroup({

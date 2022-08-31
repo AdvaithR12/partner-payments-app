@@ -18,6 +18,10 @@ export class AdminService {
     return this.http.get(`${this.server}/admin/trainingrequests`);
   };
 
+  getTrainingRequest(requestId: any) {
+    return this.http.get(`${this.server}/admin/trainingrequest`, {params: {requestId: requestId}});
+  }
+
   createWorkOrder(requestId: any) {
     return this.http.post(`${this.server}/admin/createworkorder`, { requestId: requestId });
   };
@@ -33,5 +37,9 @@ export class AdminService {
   getInvoices(approvalStatus: any) {
     return this.http.get(`${this.server}/admin/getinvoices`,  { params: approvalStatus } );
   };
+
+  updateRequest(trainingRequestData: any) {
+    return this.http.put(`${this.server}/admin/updaterequest`, { trainingRequest: trainingRequestData });
+  }
   
 }
