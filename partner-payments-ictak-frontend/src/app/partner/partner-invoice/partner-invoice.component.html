@@ -1,7 +1,5 @@
 <div class="color">
 
-
-
   <form #invoiceForm="ngForm" (ngSubmit)="uploadInvoice()">
 
     <div class="formcontainer mb-5">   
@@ -32,11 +30,13 @@
               <select                
                 name="type"
                 class=" dropdown-toggle form-control" 
-                [(ngModel)]="invoiceData.invoicetype"
-                id="modeInput"required >
-                
+                [(ngModel)]="invoiceData.invoiceType"
+                id="modeInput"
+                required >
                   <option hidden disabled selected value> -- Select an option -- </option>
-                  <option *ngFor="let currentData of invoicetypes" [ngValue]="currentData">{{currentData}}</option>
+                  <option value=true >Advance</option>
+                  <option value=false>Post - Session</option>
+                  <!-- <option *ngFor="let currentData of invoicetypes" [ngValue]="currentData">{{currentData}}</option> -->
               </select>
               <hr>
 
@@ -46,16 +46,16 @@
                   <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
                   <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
                 </svg>
-                Work Order Id
+                Invoice Number
               </label>
               <input 
                 class="form-control" 
                 type="text" 
-                name="workorderid" 
-                placeholder="Workorder Id" 
-                [(ngModel)]="invoiceData.workorderid" 
+                name="invoiceid" 
+                placeholder="Invoice Id"
+                [(ngModel)]="invoiceData.invoiceNumber" 
                 required>
-              <hr>
+              <hr>     
 
               <label>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard-check" viewBox="0 0 16 16">
@@ -63,17 +63,18 @@
                   <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
                   <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
                 </svg>
-                Invoice Id
+                Work Order Number
               </label>
               <input 
+                (blur)="fetchWorkOrderData()"
                 class="form-control" 
                 type="text" 
-                name="invoiceid" 
-                placeholder="Invoice Id"
-                [(ngModel)]="invoiceData.invoiceid" 
+                name="workorderid" 
+                placeholder="Workorder Id" 
+                [(ngModel)]="invoiceData.workOrderNumber" 
                 required>
-              <hr>              
-              
+              <hr>
+
               <label class="">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-lines-fill" viewBox="0 0 16 16">
                   <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2z"/>
@@ -85,7 +86,7 @@
                 type="text" 
                 name="name" 
                 placeholder="Name" 
-                [(ngModel)]="invoiceData.name" 
+                [(ngModel)]="invoiceData.partnerName" 
                 required>
               <hr>
               <label>
@@ -100,9 +101,12 @@
                 placeholder="Email" 
                 type="email" 
                 name="email"
-              #email="ngModel" [class.is-invalid]="email.invalid && email.touched"
-              pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" required
-                [(ngModel)]="invoiceData.email">
+                #email="ngModel" 
+                [(ngModel)]="invoiceData.partnerEmail"
+                [class.is-invalid]="email.invalid && email.touched"
+                pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" 
+                required>
+                <!-- [disabled]="!!workOrderDataFetched" -->
               <span style="color: red; margin-top: -2%;" [class.d-none]="email.valid || email.untouched" >Enter a Valid Email<br></span>
               <hr>
               <label >
@@ -119,9 +123,9 @@
                 #contactnumber="ngModel" 
                 placeholder="Phone Number"  
                 minlength="10"
-              pattern="^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$"
-              [class.is-invalid]="contactnumber.invalid && contactnumber.touched"
-              [(ngModel)]="invoiceData.contactnumber"
+                pattern="^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$"
+                [class.is-invalid]="contactnumber.invalid && contactnumber.touched"
+                [(ngModel)]="invoiceData.contactNumber"
                 required>
               <span style="color: red; margin-top: -2%;" [class.d-none]="contactnumber.valid || contactnumber.untouched" >Enter a Valid Number <br></span>
               <hr>

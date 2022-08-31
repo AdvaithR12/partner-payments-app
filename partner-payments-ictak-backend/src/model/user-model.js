@@ -13,7 +13,6 @@ var UserSchema = new Schema({
     adminapproved : Boolean,
     additionalqualification : String,
     address : String,
-  
     gstnumber : String,
     heighestqualification: String,
     mobile : Number,
@@ -22,8 +21,6 @@ var UserSchema = new Schema({
     workexperience  : String,
     skills : Array
 });
-
-
 
 var userData = mongoose.model('UserData',UserSchema);
 

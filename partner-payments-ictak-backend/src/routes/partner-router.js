@@ -1,12 +1,13 @@
 const express = require(`express`);
-const invoiceData  = require('../model/invoice-model')
+const InvoiceData  = require('../model/invoice-model')
 const partnerRouter = express.Router();
 const multipleUpload = require('../contoller/partner-controller')
+const { TrainingRequest } = require(`../model/work-order-model`);
 
+partnerRouter.post('/invoice', (req,res)=> {
+  console.log('req', req.body);
 
-partnerRouter.post('/invoice', function(req,res){
-
-  var newInvoice = new invoiceData(req.body);
+  var newInvoice = new InvoiceData(req.body);
   newInvoice.save()
   .then((succ)=> {
     console.log('New invoice data added');
@@ -15,9 +16,8 @@ partnerRouter.post('/invoice', function(req,res){
       message: 'Invoice saved successfully'
     });
   }).catch((err)=> {
-      console.log('Invoice upload failed', error.message);
+    console.log('Invoice upload failed', error.message);
   });
-
 });
 
 partnerRouter.post('/multiplefiles', (req, res) => {
@@ -36,6 +36,23 @@ partnerRouter.post('/multiplefiles', (req, res) => {
       path:img
     })
   });
+
+});
+
+partnerRouter.get(`/workorder`, (req, res)=> {
+
+  TrainingRequest.find({ "workOrderDetails.workOrderNumber" : req.query.workOrderNumber.trim()})
+    .then((succ)=> {
+      res.status(200).json({
+        success: true,
+        data: succ[0]
+      });
+    }).catch((err)=> {
+      res.status(500).json({
+        success: false,
+        message: 'Error while fetching work order'
+      });
+    });
 
 });
 

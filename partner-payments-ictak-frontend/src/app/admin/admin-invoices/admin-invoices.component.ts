@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AdminService } from '../admin.service';
 
 @Component({
   selector: 'app-admin-invoices',
@@ -7,9 +8,41 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminInvoicesComponent implements OnInit {
 
-  constructor() { }
+  pendingInvoices: any = [];
+  approvedInvoices: any = [];
+
+  constructor(private adminServices: AdminService) { }
 
   ngOnInit(): void {
+
+    this.adminServices.getInvoices({ adminApproved: false })
+      .subscribe({
+        next: (succ: any)=> {
+          this.pendingInvoices = succ.data;
+        },
+        error: (err)=> {
+          console.log('Error getting pending invoices', err.message);
+        }
+      });
+
+    this.adminServices.getInvoices({ adminApproved: true })
+      .subscribe({
+        next: (succ: any)=> {
+          this.approvedInvoices = succ.data;
+        },
+        error: (err)=> {
+          console.log('Error getting approved invoices', err.message);
+        }
+      });
+
+  }
+
+  approve(invoiceId: any) {
+
+  }
+
+  viewInvoice(invoiceId: any) {
+
   }
 
 }

@@ -30,7 +30,7 @@ export class AdminRequestsComponent implements OnInit {
       }
     })
 
-    this.adminServices.getWorkOrders()
+    this.adminServices.getWorkOrders({ adminApproved: true })
     .subscribe({
       next: (data: any)=> {
         if(data.success) {

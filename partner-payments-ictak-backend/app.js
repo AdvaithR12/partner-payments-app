@@ -31,7 +31,7 @@ app.use(express.static(path.join(__dirname , '/src/assets/work-orders/template-f
 
 app.use(`/api/auth`, authRouter);
 app.use(`/api/admin`, adminRouter);
-app.use(`/partner`, partnerRouter);
+app.use(`/api/partner`, partnerRouter);
 
 app.listen(PORT, ()=> {
   console.log(`Hi, I'm listening at ${PORT}`);

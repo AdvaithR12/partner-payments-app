@@ -15,6 +15,8 @@ import { PartnerTemplateComponent } from './partner/partner-template/partner-tem
 import { AdminRequestsComponent } from './admin/admin-requests/admin-requests.component';
 import { ProfileComponent } from './profile/profile.component';
 import { PartnerInvoiceComponent } from './partner/partner-invoice/partner-invoice.component';
+import { FinanceInvoicesComponent } from './finance/finance-invoices/finance-invoices.component';
+import { FinanceWorkOrdersComponent } from './finance/finance-work-orders/finance-work-orders.component';
 
 const routes: Routes = [
   {
@@ -73,6 +75,14 @@ const routes: Routes = [
         path: "profile",
         component: ProfileComponent
       },
+      {
+        path: "invoices",
+        component: FinanceInvoicesComponent
+      },
+      {
+        path: "workorders",
+        component: FinanceWorkOrdersComponent
+      }
     ]
   },
   {

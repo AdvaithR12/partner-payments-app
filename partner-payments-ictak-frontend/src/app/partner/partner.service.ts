@@ -6,13 +6,19 @@ import { Injectable } from '@angular/core';
 })
 export class PartnerService {
 
+  server: string = 'http://localhost:8080/api';
+
   constructor( private http: HttpClient ) { }
 
   invoiceFormUpload(data: any) {
-    return this.http.post("http://localhost:8080/partner/invoice", data);
+    return this.http.post(`${this.server}/partner/invoice`, data);
   }
 
   invoiceFileUpload(data: any) {
-    return this.http.post<any>('http://localhost:8080/partner/multipleFiles', data)
+    return this.http.post<any>(`${this.server}/partner/multipleFiles`, data)
+  }
+
+  fetchWorkOrderData(workOrderNumber: any) {
+    return this.http.get<any>(`${this.server}/partner/workorder`, { params: { workOrderNumber: workOrderNumber } });
   }
 }
