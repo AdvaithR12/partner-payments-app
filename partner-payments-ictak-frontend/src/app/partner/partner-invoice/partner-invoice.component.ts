@@ -10,9 +10,17 @@ import { PartnerService } from '../partner.service';
 })
 export class PartnerInvoiceComponent implements OnInit {
 
+<<<<<<< HEAD
   invoiceData: any = { };
   workOrderDataFetched: Boolean = false;
   displayMultipleInvoices: Boolean = false;
+=======
+  invoiceData: any = {};
+
+  invoicetypes= ['Advance', 'Post-session']
+
+  displayMultipleInvoices!: Boolean;
+>>>>>>> main
 
   @ViewChild('multipleInput', { static: false }) multipleInput!: ElementRef;
 
