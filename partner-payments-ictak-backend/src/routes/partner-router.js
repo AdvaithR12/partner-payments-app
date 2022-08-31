@@ -1,8 +1,11 @@
 const express = require(`express`);
 const InvoiceData  = require('../model/invoice-model')
 const partnerRouter = express.Router();
-const multipleUpload = require('../contoller/partner-controller')
+
+const multipleUpload = require('../contoller/partner-controller');
+const UserData = require(`../model/user-model`);
 const { TrainingRequest } = require(`../model/work-order-model`);
+
 
 partnerRouter.post('/invoice', (req,res)=> {
   console.log('req', req.body);
@@ -37,6 +40,33 @@ partnerRouter.post('/multiplefiles', (req, res) => {
     })
   });
 
+});
+
+partnerRouter.get(`/getworkorders`, (req,res)=> {
+  console.log(req.query);
+  
+  var userId = req.query.userId
+
+  TrainingRequest.find({ 
+    $and:[
+      {"trainingDetails.partnerId" : userId },
+      {adminApproved: true},
+      { financeApproved: true }
+    ]
+  })
+    .then((succ)=> {
+      res.status(200).json({
+        success: true,
+        workOrders: succ
+      });
+    }).catch((err)=> {
+
+      console.log('Error on fetching work orders', err.message);
+      res.status(500).json({
+        success: false,
+        message: `Unknown error. Can't get list of work orders`
+      });
+    });
 });
 
 partnerRouter.get(`/workorder`, (req, res)=> {

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminTemplateComponent } from './admin/admin-template/admin-template.component';
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
@@ -15,6 +15,7 @@ import { PartnerTemplateComponent } from './partner/partner-template/partner-tem
 import { AdminRequestsComponent } from './admin/admin-requests/admin-requests.component';
 import { ProfileComponent } from './profile/profile.component';
 import { PartnerInvoiceComponent } from './partner/partner-invoice/partner-invoice.component';
+import { PartnerWorkordersComponent } from './partner/partner-workorders/partner-workorders.component';
 import { FinanceInvoicesComponent } from './finance/finance-invoices/finance-invoices.component';
 import { FinanceWorkOrdersComponent } from './finance/finance-work-orders/finance-work-orders.component';
 
@@ -102,6 +103,10 @@ const routes: Routes = [
         path: "invoice",
         component: PartnerInvoiceComponent
       },
+      {
+        path: "workorders",
+        component: PartnerWorkordersComponent
+      }
     ]
   }
 ];

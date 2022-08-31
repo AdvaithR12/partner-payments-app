@@ -23,12 +23,12 @@
               </svg>
             </span>
 
-            <div class="p-2 px-5">
+            <div class="p-2 px-5 mt-3">
 
               <label for="modeInput">Invoice Type</label>
               &nbsp;
               <select                
-                name="type"
+                name="invoicetype"
                 class=" dropdown-toggle form-control" 
                 [(ngModel)]="invoiceData.invoiceType"
                 id="modeInput"
@@ -38,6 +38,7 @@
                   <option value=false>Post - Session</option>
                   <!-- <option *ngFor="let currentData of invoicetypes" [ngValue]="currentData">{{currentData}}</option> -->
               </select>
+
               <hr>
 
               <label>
@@ -81,7 +82,7 @@
                 </svg>
                 Name
               </label> 
-              <input 
+              <input git 
                 class="form-control" 
                 type="text" 
                 name="name" 
@@ -149,7 +150,7 @@
                   name="invoices"
                   multiple (change)="selectMultipleInvoice($event)"
                   accept=".pdf,.jpeg,.jpg,.png" 
-                  required="true">    
+                  required="true">
                 <ng-template [ngIf]="displayMultipleInvoices" [ngIfElse]="elseMultipleInvoicesTemplate">
                   <div style="color:aquamarine" ><br>Invoice Uploaded Successfully
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
@@ -165,7 +166,7 @@
 
               </div>
               <button class="btn btn-danger w-100 mt-5 submit-button" [disabled]="invoiceForm.form.invalid" >Submit Form</button>
-              <!--  -->
+
             </div>
           </div>
             
