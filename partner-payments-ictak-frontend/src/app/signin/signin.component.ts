@@ -44,7 +44,7 @@ export class SigninComponent implements OnInit {
   redirectTo(user: any){
     var userType = user.userType;
     localStorage.setItem("usertype",userType);  //store usertype in localstorage
-    localStorage.setItem("userid",user._id);  //store userid in localstorage
+    localStorage.setItem("userid",user._id.toString());  //store userid in localstorage
 
     switch(userType) {  //'Admin', 'Finance Admin','Partner'
       case "Admin":

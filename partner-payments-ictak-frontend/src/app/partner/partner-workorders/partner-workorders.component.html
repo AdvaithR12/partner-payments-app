@@ -1,0 +1,54 @@
+<div class="container mb-5" style="color: black;">  
+
+    <div class=" fs-5">
+      <span class="border-bottom border-dark border-3 rounded shadow py-2 px-3">Work Orders ({{workOrders.length}})</span>
+    </div>
+    <br>
+    <div class="row d-flex justify-content-center align-items-center">
+      
+      <div class="row d-flex justify-content-center align-items-center ">
+  
+        <div class="row border-bottom fs-6 fw-bold text-uppercase border-2 border-dark mb-4 p-2  mx-2 my-2 d-flex align-items-center justify-content-center">
+          <div class="col ">
+            Work Order ID
+          </div>
+          <div class="col ">
+            Topic
+          </div>
+          <div class="col d-flex justify-content-center">
+            Work Order Date
+          </div>
+          <div class="col text-center">
+            Session Date & time
+          </div>
+          <div class="col d-flex align-items-center justify-content-center">
+            Action
+          </div>
+        </div> 
+  
+        <div *ngFor="let workOrder of workOrders" class="row  shadow mb-3 p-2  bg-dark bg-opacity-25  mx-2 my-1 d-flex align-items-center justify-content-center">
+          <div class="col ">
+            {{workOrder.workOrderDetails.workOrderNumber}}
+          </div>
+          <div class="col text-capitalize fw-bold">
+             {{workOrder.trainingDetails.topic}}
+          </div>
+          <div class="col text-capitalize  d-flex  justify-content-center">
+            <span>{{workOrder.workOrderDetails.generatedDate.toString().slice(8,10)}}/{{workOrder.workOrderDetails.generatedDate.toString().slice(5,7)}}/{{workOrder.workOrderDetails.generatedDate.toString().slice(0,4)}}</span>
+          </div>
+          <div class="col text-center">
+            <span>{{workOrder.sessionDetails.startTime.toString().slice(8,10)}}/{{workOrder.sessionDetails.startTime.toString().slice(5,7)}}/{{workOrder.sessionDetails.startTime.toString().slice(0,4)}}</span>
+            <br>
+            <span>{{workOrder.sessionDetails.startTime.toString().slice(11,16)}} PM</span>
+          </div>
+          <div class="col d-flex align-items-center justify-content-center">
+            <a (click)="viewWorkOrderPdf(workOrder._id)">
+              <button class="btn btn-primary mx-1">View Work Order</button></a>
+          </div>
+        </div>    
+  
+      </div>
+  
+    </div>
+  
+  </div>

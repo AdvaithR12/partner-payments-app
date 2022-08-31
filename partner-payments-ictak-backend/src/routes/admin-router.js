@@ -96,7 +96,8 @@ adminRouter.route(`/createworkorder`)
   });
 
 adminRouter.get(`/getworkorders`, (req,res)=> {
-  TrainingRequest.find({ adminApproved: true })
+
+  TrainingRequest.find({ adminApproved: true  })
     .then((succ)=> {
       res.status(200).json({
         success: true,
