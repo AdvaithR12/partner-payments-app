@@ -1,4 +1,5 @@
 const express = require(`express`);
+const path = require('path');
 const UserData = require(`../model/user-model`);
 const InvoiceData = require(`../model/invoice-model`);
 const { TrainingRequest } = require(`../model/work-order-model`);
@@ -141,6 +142,9 @@ adminRouter.get(`/getworkorders`, (req,res)=> {
 
 adminRouter.get(`/getworkorder/:id`, (req, res)=> {
   console.log(req.params.id);
+  // res.sendFile('E:/Career/K-DISC/CSFSD_Main_Project/Code/partner-payments-ictak/partner-payments-ictak-backend/src/assets/work-orders/generated/workorder_630e8140e86b20c4dcbb215d.pdf')
+  res.sendFile('workorder_630e8140e86b20c4dcbb215d.pdf')
+
 });
 
 adminRouter.get(`/getinvoices`, (req, res)=> {
