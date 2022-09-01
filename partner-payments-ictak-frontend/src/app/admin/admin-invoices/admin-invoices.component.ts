@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AdminService } from '../admin.service';
 
 @Component({
@@ -11,7 +12,10 @@ export class AdminInvoicesComponent implements OnInit {
   pendingInvoices: any = [];
   approvedInvoices: any = [];
 
-  constructor(private adminServices: AdminService) { }
+  constructor(
+    private adminServices: AdminService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
 
@@ -38,7 +42,26 @@ export class AdminInvoicesComponent implements OnInit {
   }
 
   approve(invoiceId: any) {
-
+    if(confirm(`Approve invoice and forward to finance for payment?`)) {
+      let daysForPayment = prompt('Enter the number of days before the payment should be made');
+      this.adminServices.approveInvoice(invoiceId, daysForPayment)
+      .subscribe({
+        next: (succ: any)=> {
+          console.log(succ);
+          if(succ.success) {
+            alert(`Invoice approved and forwarded to finance department`)
+            const currentRoute = this.router.url;
+            this.router.navigateByUrl('/', { skipLocationChange: true })
+              .then(() => {
+                this.router.navigate([currentRoute]); // navigate to same route
+              }); 
+          }
+        },
+        error: (err: any)=> {
+          console.log('Error while approving invoice', err.message);
+        }
+      });    
+    }
   }
 
   viewInvoice(invoiceId: any) {

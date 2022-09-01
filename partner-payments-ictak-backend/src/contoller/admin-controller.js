@@ -1,4 +1,6 @@
 const puppeteer = require('puppeteer');
+const fs = require('fs');
+const InvoiceData = require('../model/invoice-model');
 const { TrainingRequest, WorkOrderCounter } = require(`../model/work-order-model`);
 
 userListGen = (users)=> { // function to return the list of received users omitting some fields
@@ -17,7 +19,7 @@ userListGen = (users)=> { // function to return the list of received users omitt
 
   return userList;
 
-};
+}
 
 generateWorkOrderNumber = async ()=> {
   let date = new Date();
@@ -39,7 +41,7 @@ generateWorkOrderNumber = async ()=> {
       console.log('Error while generating work order number, A-C: L39', err);
     });
     return workOrderNumber
-};
+}
 
 generatePdf = async (requestId, workOrderNumber) => {
     let result = { 
@@ -77,7 +79,7 @@ generatePdf = async (requestId, workOrderNumber) => {
     await browser.close();
     return result;
 
-};
+}
 
 storeWorkOrderData = async (fileName, requestId, workOrderNumber)=> {
   let date = new Date();
@@ -93,7 +95,7 @@ storeWorkOrderData = async (fileName, requestId, workOrderNumber)=> {
       }
     }
   }, { new: true });
-};
+}
 
 createWorkOrder = async (req, res)=> {
 
@@ -115,6 +117,30 @@ createWorkOrder = async (req, res)=> {
     return { success: false }
   }
 
-};
+}
 
-module.exports = { userListGen, createWorkOrder };
+approveInvoice = async (res, data)=> {
+
+    InvoiceData.findByIdAndUpdate(data._id, {
+    $set : {
+      adminApproved: true,
+      invoiceDueDate: 2022-12-12
+    }
+  }, { new: true }, (err, data)=> {
+    if(err) {
+      console.log('Error while updating Invoice data', err.message)
+    } else {
+      fs.rename(`./src/assets/uploads/invoices/${data.fileName}`, `./src/assets/uploads/invoices/invoice_${data._id}.${data.fileName.split('.')[1]}`, (err)=> { //rename the invoice file name on approval and set the extension by extracting it from the uploaded filename
+        if(err) {
+          console.log('Error while renaming',  err.message);
+        } else {
+          res.status(200).json({
+            success: true
+          });
+        }
+      });
+    }
+  });
+}
+
+module.exports = { userListGen, createWorkOrder, approveInvoice };

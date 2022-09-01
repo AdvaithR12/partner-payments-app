@@ -12,9 +12,10 @@ var invoiceSchema = new Schema({
   invoiceType: Boolean,
   adminApproved: Boolean,
   paid: Boolean,
-  date: Date,
   fileName: String,
-  totalAmount: String
+  totalAmount: String,
+  invoiceDate: Date,
+  invoiceDueDate: Date
 });
 
 

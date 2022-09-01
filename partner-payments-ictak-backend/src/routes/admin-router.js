@@ -1,8 +1,9 @@
 const express = require(`express`);
+const path = require('path');
 const UserData = require(`../model/user-model`);
 const InvoiceData = require(`../model/invoice-model`);
 const { TrainingRequest } = require(`../model/work-order-model`);
-const { userListGen, createWorkOrder } = require('../contoller/admin-controller');
+const { userListGen, createWorkOrder, approveInvoice } = require('../contoller/admin-controller');
 
 const adminRouter = express.Router();
 
@@ -26,13 +27,12 @@ adminRouter.get(`/getpartners`, (req, res)=> {
 });
 
 adminRouter.post('/newrequest', (req, res)=> {
-
   var newRequest = req.body.trainingRequest;
 
   //Converting the start and end time to valid date objects for mongoose - combine date and time
   newRequest.sessionDetails.startTime = newRequest.sessionDetails.date + 'T' + newRequest.sessionDetails.startTime
   newRequest.sessionDetails.endTime = newRequest.sessionDetails.date + 'T' + newRequest.sessionDetails.endTime
-  
+
   // split and save partner ID and name
   newRequest.trainingDetails.partnerId = newRequest.trainingDetails.partner.split(',')[0];
   newRequest.trainingDetails.partnerName = newRequest.trainingDetails.partner.split(',')[1];
@@ -58,6 +58,27 @@ adminRouter.post('/newrequest', (req, res)=> {
         message: 'Unknown Error! New request not saved'
       });
     });
+});
+
+adminRouter.put('/updaterequest', (req, res)=> {
+  console.log(req.body);
+});
+
+adminRouter.get('/trainingrequest', (req, res)=> {
+  TrainingRequest.findById(req.query.requestId, (err, data)=> {
+    if(err) {
+      console.log(err.message);
+      res.status(500).json({
+        success: false,
+        message: err.message
+      });
+    } else {
+      res.status(200).json({
+        success: true,
+        data: data
+      });
+    }
+  });
 });
 
 adminRouter.get(`/trainingrequests`, (req,res)=> {
@@ -118,6 +139,9 @@ adminRouter.get(`/getworkorders`, (req,res)=> {
 
 adminRouter.get(`/getworkorder/:id`, (req, res)=> {
   console.log(req.params.id);
+  // res.sendFile('E:/Career/K-DISC/CSFSD_Main_Project/Code/partner-payments-ictak/partner-payments-ictak-backend/src/assets/work-orders/generated/workorder_630e8140e86b20c4dcbb215d.pdf')
+  res.sendFile('workorder_630e8140e86b20c4dcbb215d.pdf')
+
 });
 
 adminRouter.get(`/getinvoices`, (req, res)=> {
@@ -135,6 +159,30 @@ adminRouter.get(`/getinvoices`, (req, res)=> {
         message: `Server error while fetching invoices`
       });
     });
+});
+
+adminRouter.put('/approveinvoice', (req, res)=> {
+
+  InvoiceData.findById(req.body.invoiceId)
+    .then((data)=> {
+      // console.log(data);
+      approveInvoice(res, data);
+    }).catch((err)=> {
+      console.log('Error while fetching invoice data', err.message);
+    });
+
+  // InvoiceData.findByIdAndUpdate(req.body.invoiceId, {
+  //   $set : {
+  //     adminApproved: true,
+  //     invoiceDueDate: 2022-12-12
+  //   }
+  // }, { new: true }, (err, data)=> {
+  //   if(err) {
+  //     console.log('Error while updating Invoice data', err.message)
+  //   } else {
+  //     fs
+  //   }
+  // });
 });
 
 module.exports = adminRouter;
