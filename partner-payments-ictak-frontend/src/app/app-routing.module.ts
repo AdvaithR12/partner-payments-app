@@ -4,7 +4,6 @@ import { AdminTemplateComponent } from './admin/admin-template/admin-template.co
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
 import { AdminInvoicesComponent } from './admin/admin-invoices/admin-invoices.component';
 import { AdminNewRequestComponent } from './admin/admin-new-request/admin-new-request.component';
-import { AdminViewFileComponent } from './admin/admin-view-file/admin-view-file.component';
 import { MessagepageComponent } from './messagepage/messagepage.component';
 import { SigninComponent } from './signin/signin.component';
 import { SignupComponent } from './signup/signup.component';
@@ -19,6 +18,7 @@ import { PartnerWorkordersComponent } from './partner/partner-workorders/partner
 import { FinanceInvoicesComponent } from './finance/finance-invoices/finance-invoices.component';
 import { FinanceWorkOrdersComponent } from './finance/finance-work-orders/finance-work-orders.component';
 import { AdminModifyRequestComponent } from './admin/admin-modify-request/admin-modify-request.component';
+import { ViewFileComponent } from './view-file/view-file.component';
 
 const routes: Routes = [
   {
@@ -52,7 +52,7 @@ const routes: Routes = [
       },
       {
         path: 'requests/workorder',
-        component: AdminViewFileComponent
+        component: ViewFileComponent
       },
       {
         path: 'invoices',
@@ -60,7 +60,7 @@ const routes: Routes = [
       },
       {
         path: 'invoices/getinvoice',
-        component: AdminViewFileComponent
+        component: ViewFileComponent
       },
       {
         path: "profile",

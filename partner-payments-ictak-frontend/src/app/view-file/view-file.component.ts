@@ -1,18 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { AdminService } from '../admin.service';
 
 @Component({
-  selector: 'app-admin-view-file',
-  templateUrl: './admin-view-file.component.html',
-  styleUrls: ['./admin-view-file.component.css']
+  selector: 'app-view-file',
+  templateUrl: './view-file.component.html',
+  styleUrls: ['./view-file.component.css']
 })
-export class AdminViewFileComponent implements OnInit {
+export class ViewFileComponent implements OnInit {
 
   public workOrderUrl: SafeResourceUrl = '';
 
   constructor(
-    private adminServices: AdminService,
     private sanitizer: DomSanitizer 
   ) { }
 
@@ -20,5 +18,6 @@ export class AdminViewFileComponent implements OnInit {
     let goToUrl = sessionStorage.getItem('goToUrl');
     this.workOrderUrl =  this.sanitizer.bypassSecurityTrustResourceUrl(`${goToUrl}`);
   }
+
 
 }

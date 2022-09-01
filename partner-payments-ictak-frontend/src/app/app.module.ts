@@ -10,7 +10,6 @@ import { AdminTemplateComponent } from './admin/admin-template/admin-template.co
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
 import { AdminNewRequestComponent } from './admin/admin-new-request/admin-new-request.component';
 import { AdminInvoicesComponent } from './admin/admin-invoices/admin-invoices.component';
-import { AdminViewFileComponent } from './admin/admin-view-file/admin-view-file.component';
 import { SignupComponent } from './signup/signup.component';
 import { RouterModule } from '@angular/router';
 import { PartnerTemplateComponent } from './partner/partner-template/partner-template.component';
@@ -25,6 +24,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { PartnerWorkordersComponent } from './partner/partner-workorders/partner-workorders.component';
 import { FinanceInvoicesComponent } from './finance/finance-invoices/finance-invoices.component';
 import { AdminModifyRequestComponent } from './admin/admin-modify-request/admin-modify-request.component';
+import { ViewFileComponent } from './view-file/view-file.component';
 
 
 @NgModule({
@@ -35,7 +35,6 @@ import { AdminModifyRequestComponent } from './admin/admin-modify-request/admin-
     AdminDashboardComponent,
     AdminNewRequestComponent,
     AdminInvoicesComponent,
-    AdminViewFileComponent,
     SignupComponent,
     PartnerTemplateComponent,
     MessagepageComponent,
@@ -48,7 +47,8 @@ import { AdminModifyRequestComponent } from './admin/admin-modify-request/admin-
     AdminRequestsComponent,
     PartnerWorkordersComponent,
     FinanceInvoicesComponent,
-    AdminModifyRequestComponent
+    AdminModifyRequestComponent,
+    ViewFileComponent
   ],
   imports: [
     BrowserModule,
