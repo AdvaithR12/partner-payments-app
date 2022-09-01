@@ -2,6 +2,7 @@ import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { PartnerService } from '../partner.service';
+import { FormGroup, FormControl, Validators, ReactiveFormsModule} from '@angular/forms'
 
 @Component({
   selector: 'app-partner-invoice',
@@ -17,7 +18,8 @@ export class PartnerInvoiceComponent implements OnInit {
   @ViewChild('multipleInput', { static: false }) multipleInput!: ElementRef;
 
   images:any;
-  multipleInvoices=[]
+  multipleInvoices=[];
+  textColor: string = '';
 
   constructor( 
     private partnerServices: PartnerService,
@@ -26,6 +28,8 @@ export class PartnerInvoiceComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
+
 
   selectMultipleInvoice(event:any) {
     if(event.target.files.length > 0) {
