@@ -20,6 +20,12 @@
         <li routerLinkActive="activeLink" routerLink="invoice"><i class="fas fa-file-invoice-dollar"></i><a>Invoices</a></li>
         <li routerLinkActive="activeLink" routerLink="profile"><i class="fas fa-address-card"></i><a>Profile</a></li>
       </ul>
+
+      <ul>
+        <li type="button" style="cursor: pointer;" class="btn btn-danger border my-5 rounded shadow" (click)="signOut()">
+          <span><i class="fa-solid fa-arrow-right-from-bracket"></i> Sign Out</span>
+        </li>
+      </ul>
       <!-- <div class="row  border border-2 border-dark  bottom-link" >
           b4-col
       </div> -->
@@ -32,11 +38,11 @@
           &nbsp;
           <span>Help</span>
         </div> -->
-      <div style="cursor: pointer;" (click)="signOut()" class="my-2 border p-2 rounded shadow">
+      <!-- <div style="cursor: pointer;" (click)="signOut()" class="my-2 border p-2 rounded shadow">
         <i class="fa-solid fa-arrow-right-from-bracket"></i>
         &nbsp;
         <span>Sign Out</span>
-      </div>
+      </div> -->
     </div>
 
   </div>

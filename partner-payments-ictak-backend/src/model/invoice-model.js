@@ -5,11 +5,10 @@ const Schema =  mongoose.Schema;
 var invoiceSchema = new Schema({
   partnerName: String,
   partnerEmail: String,
-  contactNumber: Number,
   workOrderNumber: String,
-  workOrderId: String,
   invoiceNumber: String,
   invoiceType: Boolean,
+  invoiceId: String,
   adminApproved: Boolean,
   paid: Boolean,
   fileName: String,
