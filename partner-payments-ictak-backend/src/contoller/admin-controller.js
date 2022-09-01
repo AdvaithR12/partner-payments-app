@@ -3,6 +3,19 @@ const fs = require('fs');
 const InvoiceData = require('../model/invoice-model');
 const { TrainingRequest, WorkOrderCounter } = require(`../model/work-order-model`);
 
+let browser, page;
+(async () => {
+    if (page) return;
+    browser = await puppeteer.launch({ headless: true }); //launch new chromium instance
+    page = await browser.newPage(); //open new page in the chromium instance
+    await page.goto('http://localhost:8080/api/admin/createworkorder')
+})().then(()=> {
+  console.log('Puppeteer instance initiated');
+}).catch((err)=> {
+  console.log('Failed to initiate puppeteer', err.message);
+});
+
+
 userListGen = (users)=> { // function to return the list of received users omitting some fields
   var userList = [];
 
@@ -49,15 +62,6 @@ generatePdf = async (requestId, workOrderNumber) => {
       fileName:  false
     }
 
-    // launch a new chrome instance
-    const browser = await puppeteer.launch({
-      headless: true
-    })  
-  
-    const page = await browser.newPage();
-  
-    page.setViewport({width: 1440, height: 2000})
-  
     //await to connect to the page with the mentioned address - (if successful- try & generate the pdf present in the page mentioned url, if failed- show error), if connection failed, show error;;; Return generated = true only on successfull pdf generation. Return generated = false for all other cases.
     await page.goto('http://localhost:8080/api/admin/createworkorder')
       .then( async ()=> {
@@ -76,7 +80,7 @@ generatePdf = async (requestId, workOrderNumber) => {
         console.log('Error on connection, A-C: L74', err.message); //on connection failure
       });
     
-    await browser.close();
+    // await browser.close();
     return result;
 
 }
@@ -121,10 +125,11 @@ createWorkOrder = async (req, res)=> {
 
 approveInvoice = async (res, data)=> {
 
-    InvoiceData.findByIdAndUpdate(data._id, {
+  InvoiceData.findByIdAndUpdate(data._id, {
     $set : {
       adminApproved: true,
-      invoiceDueDate: 2022-12-12
+      invoiceDueDate: 2022-12-12,
+      fileName: `invoice_${data._id}.${data.fileName.split('.')[1]}`
     }
   }, { new: true }, (err, data)=> {
     if(err) {

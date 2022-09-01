@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AdminWorkOrderComponent } from './admin-work-order.component';
+import { AdminViewFileComponent } from './admin-view-file.component';
 
-describe('AdminWorkOrderComponent', () => {
-  let component: AdminWorkOrderComponent;
-  let fixture: ComponentFixture<AdminWorkOrderComponent>;
+describe('AdminViewFileComponent', () => {
+  let component: AdminViewFileComponent;
+  let fixture: ComponentFixture<AdminViewFileComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AdminWorkOrderComponent ]
+      declarations: [ AdminViewFileComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(AdminWorkOrderComponent);
+    fixture = TestBed.createComponent(AdminViewFileComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

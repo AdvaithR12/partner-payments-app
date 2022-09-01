@@ -83,7 +83,7 @@ export class AdminRequestsComponent implements OnInit {
   }
 
   viewWorkOrderPdf(workOrderId: any) {
-    sessionStorage.setItem(`workOrderId`, workOrderId);
+    sessionStorage.setItem(`goToUrl`, `http://localhost:8080/api/admin/getworkorder/${workOrderId}`);
     this.router.navigate(['admin/requests/workorder']);
   };
 
