@@ -131,7 +131,7 @@ approveInvoice = async (res, data)=> {
       invoiceDueDate: 2022-12-12,
       fileName: `invoice_${data._id}.${data.fileName.split('.')[1]}`
     }
-  }, { new: true }, (err, data)=> {
+  }, (err, data)=> {
     if(err) {
       console.log('Error while updating Invoice data', err.message)
     } else {
