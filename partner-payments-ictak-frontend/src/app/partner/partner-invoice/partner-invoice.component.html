@@ -1,28 +1,26 @@
 
 
-<div class="container-fluid ">
-  <!-- <div class="row d-flex justify-content-center ">
-    <div class="col-9  px-5 py-4 m-3  text-center fs-2 text-black rounded  ">
-      <span >Invoice Upload Form</span>    
-      <hr>   
+<div class="container-fluid">
+  <div class="row d-flex justify-content-center ">
+    <div class="col-9  px-5 py-4 m-3  text-center fs-2 text-black rounded" style="font-weight: bold;">
+      <span style="color: rgb(52, 51, 51);">Invoice Upload Form <i class="fa-solid fa-file-invoice-dollar"></i></span>      
     </div>
-  </div> -->
+  </div>
   <div class="row d-flex justify-content-center align-items-center">
 
     <div class="col-9 py-4 m-3  shadow rounded text-bg-dark bg-opacity-75">
       
       <form #invoiceForm = 'ngForm' (ngSubmit)="uploadInvoice()">
-        <!-- Partner Details Begin -->
+        <!-- Invoice Details Begin -->
         <section >
           <div class="d-flex my-4">
-            <span class="mx-auto">Invoice Upload</span>
+            <span class="mx-auto"> Invoice Details</span>
           </div>
           <div class="my-4">
             <div class="input-set">
               <label for="invoiceType">Invoice Type</label>
               &nbsp;
               <select
-
                 class="form-control"
                 name="type"
                 type="" 
@@ -35,27 +33,53 @@
               </select>
             </div>
             <div class="input-set">
-              <label for="workorderid">Work Order ID</label>
+              <label for="invoiceid">Invoice Id</label>
+              &nbsp;
+              <input 
+                (blur)="fetchWorkOrderData()"
+                class="form-control" 
+                type="text" 
+                name="invoiceid" 
+                placeholder="Invoice Id" 
+                [(ngModel)]="invoiceData.invoiceId" 
+                required>
+            </div>
+
+            <div class="input-set">
+              <label for="dateInput">Date</label>
+              <input 
+ 
+                class="form-control"
+                name="date"
+                type="date" 
+                [(ngModel)]="invoiceData.date"
+                id="dateInput" required >
+            </div>
+
+          </div>
+          <hr>
+        </section>
+
+        <!-- Work9 Details Begin -->
+        <section >
+          <div class="d-flex my-4">
+            <span class="mx-auto">Work Details</span>
+          </div>
+          <div style="border: 1px dashed white;" class="my-4 py-3 rounded">
+
+            <div class="input-set">
+              <label for="workorderNumber">Work Order Number</label>
               &nbsp;
               <input 
                 (blur)="fetchWorkOrderData()"
                 class="form-control" 
                 type="text" 
                 name="workorderid" 
-                placeholder="Workorder Id" 
+                placeholder="Workorder Number" 
                 [(ngModel)]="invoiceData.workOrderNumber" 
                 required>
             </div>
-          </div>
-          <hr>
-        </section>
 
-        <!-- Invoice Details Begin -->
-        <section >
-          <div class="d-flex my-4">
-            <span class="mx-auto">Invoice Details</span>
-          </div>
-          <div style="border: 1px dashed white;" class="my-4 py-3 rounded">
             <div class="input-set">
               <label for="emailId">Email Id</label>
               &nbsp;
@@ -87,7 +111,7 @@
 
             
             <div class="input-set">
-              <label for="dateInput">Session Date</label>
+              <label for="dateInput">Session taken On</label>
               <input 
  
                 class="form-control"
@@ -122,27 +146,24 @@
                 class="form-control"
                 multiple (change)="selectMultipleInvoice($event)"
                 accept=".pdf,.jpeg,.jpg,.png" 
-            required="true" >
+            required>
 
-            <!-- <ng-template [ngIf]="displayMultipleInvoices" [ngIfElse]="elseMultipleInvoicesTemplate">
-              <div style="color:aquamarine" ><br>Invoice Uploaded Successfully
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
-                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
-              </svg>
+            
+      </div>
+      <div style="text-align:center">
+      <ng-template [ngIf]="displayMultipleInvoices" [ngIfElse]="elseMultipleInvoicesTemplate">
+              <div  style="color:aquamarine"><br>Invoice Uploaded Successfully <i class="fa-solid fa-square-check"></i>
               </div>
             </ng-template>
           
             <ng-template #elseMultipleInvoicesTemplate>
-              <br><br>
-              <div class="text-warning">Please Upload Invoice</div>
-            </ng-template> -->
-      </div>
+              <br>
+              <div class="text-warning">Please Upload Invoice <i class="fa-solid fa-square-xmark"></i></div>
+            </ng-template></div>
       
         <!-- Submission Buttons Begin -->
         <section class="row d-flex justify-content-evenly mx-3 mt-5 mb-3">
-          <!-- <button [disabled]="trainingForm.invalid" (click)="saveRequest()" class="col-4 btn btn-success btn-lg">Save Request</button> -->
-            
-          <button class="btn btn-danger  mt-2 submit-button"  [disabled]="invoiceForm.form.invalid" >Submit Form</button>
+          <button class="btn btn-danger submit-button"  [disabled]="invoiceForm.form.invalid" >Submit Form</button>
         </section>
       </form>
     

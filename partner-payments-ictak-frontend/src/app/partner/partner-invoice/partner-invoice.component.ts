@@ -43,6 +43,7 @@ export class PartnerInvoiceComponent implements OnInit {
         next: (succ)=> {
           this.invoiceData.partnerName = succ.data.trainingDetails.partnerName;
           this.invoiceData.partnerEmail = succ.data.trainingDetails.partnerEmail;
+          // this.invoiceData.startTime = succ.data.trainingDetails.startTime;
           this.invoiceData.workOrderId = succ.data._id;
           this.workOrderDataFetched = true;
         },
@@ -76,15 +77,23 @@ export class PartnerInvoiceComponent implements OnInit {
     this.invoiceData.adminApproved = false;
 
     this.partnerServices.invoiceFormUpload(this.invoiceData)
-    .subscribe({
-      next: (succ: any)=> {
-        if(succ.success) {
-          this.router.navigate(['partner/dashboard'])
-        }
-      },
-      error: (err)=> {
-        console.log('Error', err);
-      }
-    });
-  }
+    // .subscribe({
+    //   next: (succ: any)=> {
+    //     if(succ.success) {
+    //       // this.router.navigate(['partner/dashboard'])
+    //     }
+    //   },
+    //   error: (err)=> {
+    //     console.log('Error', err);
+    //   }
+    // });
+    .subscribe(
+      (succ:any) => {
+        if (succ.success) {
+          // this.invoiceForm.reset();
+          setTimeout(() => {
+            window.location.replace('/partner/invoice');
+          }, 3000)}
+  })
+}
 }
