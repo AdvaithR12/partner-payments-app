@@ -17,11 +17,10 @@ export class AdminWorkOrderComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // let workOrderId = sessionStorage.getItem(`workOrderId`);
-    // console.log(`http://localhost:8080/api/admin/getworkorder/${workOrderId}`);
+    let workOrderId = sessionStorage.getItem(`workOrderId`);
+    console.log(`http://localhost:8080/api/admin/getworkorder/${workOrderId}`);
     
-    // this.workOrderUrl = `http://localhost:8080/workorder_630e8140e86b20c4dcbb215d.pdf`
-    this.workOrderUrl =  this.sanitizer.bypassSecurityTrustResourceUrl('http://localhost:8080/workorder_630e8140e86b20c4dcbb215d.pdf');
+    this.workOrderUrl =  this.sanitizer.bypassSecurityTrustResourceUrl(`http://localhost:8080/api/admin/getworkorder/${workOrderId}`);
   }
 
 }

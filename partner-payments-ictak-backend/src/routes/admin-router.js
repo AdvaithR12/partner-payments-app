@@ -1,4 +1,5 @@
 const express = require(`express`);
+const fs = require('fs');
 const path = require('path');
 const UserData = require(`../model/user-model`);
 const InvoiceData = require(`../model/invoice-model`);
@@ -41,7 +42,6 @@ adminRouter.post('/newrequest', (req, res)=> {
   newRequest.adminApproved = false;
   newRequest.financeApproved = false;
 
-  console.log(newRequest);
   var newRequestData = new TrainingRequest(newRequest);
 
   newRequestData.save({ timestamps: true })
@@ -138,10 +138,13 @@ adminRouter.get(`/getworkorders`, (req,res)=> {
 });
 
 adminRouter.get(`/getworkorder/:id`, (req, res)=> {
-  console.log(req.params.id, __dirname);
-  // res.sendFile('E:\Career\K-DISC\CSFSD_Main_Project\Code\partner-payments-ictak\partner-payments-ictak-backend\src\assets\work-orders\generated\workorder_630e8140e86b20c4dcbb215d.pdf')
-  // res.sendFile('workorder_630e8140e86b20c4dcbb215d.pdf')
-  res.sendFile(path.join(__dirname, '../assets/work-orders/generated/', 'workorder_630e8140e86b20c4dcbb215d.pdf'))
+
+  if(fs.existsSync(path.join(__dirname, '../assets/work-orders/generated/', `workorder_${req.params.id}.pdf`))) {
+    res.status(200).sendFile(path.join(__dirname, '../assets/work-orders/generated/', `workorder_${req.params.id}.pdf`));
+  } else {
+    console.log('File not found');
+    res.status(404).send('File not found');
+  }
 
 });
 
