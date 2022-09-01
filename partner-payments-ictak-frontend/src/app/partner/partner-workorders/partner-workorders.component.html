@@ -8,7 +8,7 @@
       
       <div class="row d-flex justify-content-center align-items-center ">
   
-        <div class="row border-bottom fs-6 fw-bold text-uppercase border-2 border-dark mb-4 p-2  mx-2 my-2 d-flex align-items-center justify-content-center">
+        <div class="row border-bottom fs-6 fw-bold text-center text-uppercase border-2 border-dark mb-4 p-2  mx-2 my-2 d-flex align-items-center justify-content-center">
           <div class="col ">
             Work Order ID
           </div>
@@ -19,14 +19,14 @@
             Work Order Date
           </div>
           <div class="col text-center">
-            Session Date & time
+            Session Date<br>& time
           </div>
           <div class="col d-flex align-items-center justify-content-center">
             Action
           </div>
         </div> 
   
-        <div *ngFor="let workOrder of workOrders" class="row  shadow mb-3 p-2  bg-dark bg-opacity-25  mx-2 my-1 d-flex align-items-center justify-content-center">
+        <div *ngFor="let workOrder of workOrders" class="row  text-center shadow mb-3 p-2  bg-dark bg-opacity-25  mx-2 my-1 d-flex align-items-center justify-content-center">
           <div class="col ">
             {{workOrder.workOrderDetails.workOrderNumber}}
           </div>

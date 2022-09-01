@@ -4,7 +4,7 @@ import { AdminTemplateComponent } from './admin/admin-template/admin-template.co
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
 import { AdminInvoicesComponent } from './admin/admin-invoices/admin-invoices.component';
 import { AdminNewRequestComponent } from './admin/admin-new-request/admin-new-request.component';
-import { AdminWorkOrderComponent } from './admin/admin-work-order/admin-work-order.component';
+import { AdminViewFileComponent } from './admin/admin-view-file/admin-view-file.component';
 import { MessagepageComponent } from './messagepage/messagepage.component';
 import { SigninComponent } from './signin/signin.component';
 import { SignupComponent } from './signup/signup.component';
@@ -51,12 +51,16 @@ const routes: Routes = [
         component: AdminRequestsComponent
       },
       {
-        path: 'workorder',
-        component: AdminWorkOrderComponent
+        path: 'requests/workorder',
+        component: AdminViewFileComponent
       },
       {
         path: 'invoices',
         component: AdminInvoicesComponent
+      },
+      {
+        path: 'invoices/getinvoice',
+        component: AdminViewFileComponent
       },
       {
         path: "profile",

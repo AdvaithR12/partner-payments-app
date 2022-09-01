@@ -1,4 +1,5 @@
 const express = require(`express`);
+const fs = require('fs');
 const path = require('path');
 const UserData = require(`../model/user-model`);
 const InvoiceData = require(`../model/invoice-model`);
@@ -41,7 +42,6 @@ adminRouter.post('/newrequest', (req, res)=> {
   newRequest.adminApproved = false;
   newRequest.financeApproved = false;
 
-  console.log(newRequest);
   var newRequestData = new TrainingRequest(newRequest);
 
   newRequestData.save({ timestamps: true })
@@ -112,7 +112,7 @@ adminRouter.route(`/createworkorder`)
           });
         }
       }).catch((err)=> {
-        console.log('New work order generation failed, A-R: L90', err.message);
+        console.log('New work order generation failed, A-R: L115', err.message);
         res.status(500).json({
           success: false,
           message: 'New work order generation failed'
@@ -138,9 +138,42 @@ adminRouter.get(`/getworkorders`, (req,res)=> {
 });
 
 adminRouter.get(`/getworkorder/:id`, (req, res)=> {
-  console.log(req.params.id);
-  // res.sendFile('E:/Career/K-DISC/CSFSD_Main_Project/Code/partner-payments-ictak/partner-payments-ictak-backend/src/assets/work-orders/generated/workorder_630e8140e86b20c4dcbb215d.pdf')
-  res.sendFile('workorder_630e8140e86b20c4dcbb215d.pdf')
+
+  if(fs.existsSync(path.join(__dirname, '../assets/work-orders/generated/', `workorder_${req.params.id}.pdf`))) {
+    res.status(200).sendFile(path.join(__dirname, '../assets/work-orders/generated/', `workorder_${req.params.id}.pdf`));
+  } else {
+    console.log('File not found');
+    res.status(404).send('File not found');
+  }
+
+});
+
+adminRouter.get('/getinvoice/:id', (req, res)=> {
+
+  console.log(req.params.id );
+
+  if(fs.existsSync((path.join(__dirname, '../assets/uploads/invoices', `${req.params.id}`)))) {
+    res.status(200).sendFile(path.join(__dirname, '../assets/uploads/invoices', `${req.params.id}`));
+  } else {
+    res.status(404).send('File not found');
+  }
+
+  // extensions.forEach((ext)=> {
+  //   // console.log((path.join(__dirname, '../assets/uploads/invoices', `invoice_${req.params.id}.${ext}`)));
+
+  //   console.log(fs.existsSync((path.join(__dirname, '../assets/uploads/invoices', `invoice_${req.params.id}.${ext}`))), ext)
+  // }); 
+
+  // console.log((path.join(__dirname, '../assets/uploads/invoices', `invoice_${req.params.id}`)));
+
+  // console.log(fs.existsSync((path.join(__dirname, '../assets/uploads/invoices', `invoice_${req.params.id}.pdf`))));
+
+  // if(fs.existsSync(path.join(__dirname, '../assets/uploads/invoices', `invoice_${req.params.id}.pdf`))) {
+  //   res.status(200).sendFile(path.join(__dirname, '../assets/uploads/invoices', `invoice_${req.params.id}.pdf`));
+  // } else {
+  //   console.log('File not found');
+  //   res.status(404).send('File not found');
+  // }
 
 });
 
@@ -171,18 +204,6 @@ adminRouter.put('/approveinvoice', (req, res)=> {
       console.log('Error while fetching invoice data', err.message);
     });
 
-  // InvoiceData.findByIdAndUpdate(req.body.invoiceId, {
-  //   $set : {
-  //     adminApproved: true,
-  //     invoiceDueDate: 2022-12-12
-  //   }
-  // }, { new: true }, (err, data)=> {
-  //   if(err) {
-  //     console.log('Error while updating Invoice data', err.message)
-  //   } else {
-  //     fs
-  //   }
-  // });
 });
 
 module.exports = adminRouter;

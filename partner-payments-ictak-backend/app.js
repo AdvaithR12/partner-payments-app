@@ -25,10 +25,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(bodyparser.urlencoded({extended:true}));
 
-app.set('views','./src/assets/work-orders/template-files/'); 
+//for work order pdf generation
+app.set('views','./src/assets/work-orders/template-files/');
 app.set('view engine','ejs'); 
 app.use(express.static(path.join(__dirname , '/src/assets/work-orders/template-files/'))); 
-app.use(express.static(path.join(__dirname , '/src/assets/work-orders/generated/'))); 
 
 app.use(`/api/auth`, authRouter);
 app.use(`/api/admin`, adminRouter);
@@ -37,4 +37,3 @@ app.use(`/api/partner`, partnerRouter);
 app.listen(PORT, ()=> {
   console.log(`Hi, I'm listening at ${PORT}`);
 });
-
