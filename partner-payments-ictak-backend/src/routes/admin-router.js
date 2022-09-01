@@ -93,7 +93,8 @@ adminRouter.get(`/trainingrequests`, (req,res)=> {
 
 adminRouter.route(`/createworkorder`)
   .get((req, res)=> {
-    res.render('template', {});
+    console.log(req.query);
+    res.render('template', req.query);
   })
   .post((req, res)=> {
     createWorkOrder(req, res)
@@ -105,14 +106,14 @@ adminRouter.route(`/createworkorder`)
             message: 'New work order generation successfull'
           });
         } else {
-          console.log('New work order generation failed, A-R: L83')
+          console.log('New work order generation failed, A-R: L109')
           res.status(500).json({
             success: false,
             message: 'New work order generation failed'
           });
         }
       }).catch((err)=> {
-        console.log('New work order generation failed, A-R: L115', err.message);
+        console.log('New work order generation failed, A-R: L116', err.message);
         res.status(500).json({
           success: false,
           message: 'New work order generation failed'

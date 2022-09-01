@@ -31,10 +31,10 @@
 		<div class="main-content">
 			<div class="d-flex my-3 date-wono">
 				<div class=" fw-bold me-2">
-					<em><span>29/08/2022</span></em>
+					<em><span><%= dated %> </span></em>
 				</div>
 				<div class="ms-auto fw-bold me-2">
-					<em>#.<span>WO/2022/08/0213</span></em>
+					<em>#.<span><%= workOrderNumber %> </span></em>
 				</div>
 			</div>
 	
@@ -48,7 +48,7 @@
 					<div>
 						<span>To,</span> <br>
 						<div style="padding-left: 32px;">
-							<span class="fw-bold">Tata Consultancy Services</span> <br>
+							<span class="fw-bold"><%= partnerName %> </span> <br>
 							<span>Thejaswini Building</span> <br>
 							<span>Thiruvananthapuram, Kerala</span> <br>
 							<span>India</span>
@@ -57,12 +57,12 @@
 			
 					<div class=" mt-3 d-flex">
 						<div>Sub:</div>
-						<div class="ms-1">Training session on the subject <span>Latest Trends in Software Development</span> at <span>Cochin University Of Science And Technology, Kalamassery</span></div>
+						<div class="ms-1">Training session on the subject <span><%= trainingTopic %> </span> at <span><%= trainingVenue %> </span></div>
 					</div>
 		
 					<div class=" mt-4">
 						<p>Dear Sir,</p>
-						<p class="mt-">With reference to the above subject and the previous discussions we had with your good self, we are pleased to release the work order with the work order No. <span>WO/2022/08/0213</span> under the following terms.</p>
+						<p class="mt-">With reference to the above subject and the previous discussions we had with your good self, we are pleased to release the work order with the work order No. <span><%= workOrderNumber %> </span> under the following terms.</p>
 					</div>
 				</div>
 		
@@ -73,26 +73,26 @@
 		
 				<table class="table table-borderless ">
 					<tbody>
-						<tr class="bg-secondary bg-opacity-25">
+						<tr class="bg-secondary bg-opacity-25  text-capitalize">
 							<th scope="row" class="bg-primary bg-opacity-25">Training Partner</th>
-							<td class="fw-bold">Tata Consultancy Services</td>
+							<td class="fw-bold"><%= partnerName %> </td>
 						</tr>
-						<tr class="bg-secondary bg-opacity-25">
+						<tr class="bg-secondary bg-opacity-25  text-capitalize">
 							<th scope="row" class="bg-primary bg-opacity-25">Programme</th>
-							<td>Latest Trends in Software Development</td>  
+							<td><%= trainingTopic %> </td>  
 						</tr>
 						<tr class="bg-secondary bg-opacity-25">
 							<th scope="row" class="bg-primary bg-opacity-25">Email ID</th>
-							<td>tataconsultancypartnertrainer@example.com</td>  
+							<td><%= partnerEmail %> </td>  
 						</tr>
-						<tr class="bg-secondary bg-opacity-25">
-							<th scope="row" class="bg-primary bg-opacity-25">Contact No.</th>
-							<td>+91-9876543210</td>  
+						<tr class="bg-secondary bg-opacity-25 text-capitalize">
+							<th scope="row" class="bg-primary bg-opacity-25">Training Mode</th>
+							<td><%= trainingMode %> </td>  
 						</tr>
 					</tbody>
 				</table>
 	
-				<table class="table table-borderless ms-1">
+				<table class="table table-borderless ms-1  text-capitalize">
 					<tbody>
 						<tr class="bg-secondary bg-opacity-25">
 							<th scope="row" class="bg-primary bg-opacity-25">Assigned By</th>
@@ -111,15 +111,8 @@
 							<td>Yes</td>
 						</tr>
 				</table>
-
-
 	
 			</div>
-				
-			<!-- <div class="title fs-5 my-3 mt-5">
-				<span class="border-bottom">Session Details</span>
-			</div> -->
-	
 			<div class="session-info">
 				
 				<table class="table table-border">
@@ -135,12 +128,12 @@
 					<tbody>
 						<tr>
 							<th scope="row" >1.</th>
-							<td>Latest Trends in Software Development <br><br><br></td> 
+							<td><%= trainingTopic %> <br><br><br></td> 
 							<td class="text-center">
 								<span>2.5</span>
 							</td> 
 							<td class="text-center">
-								<span>₹ 1000/-</span>
+								<span>₹ <%= hourlyPayment %> /-</span>
 							</td> 
 							<td class="text-center">
 								<span>₹ 2500/-</span>

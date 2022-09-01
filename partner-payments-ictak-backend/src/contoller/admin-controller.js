@@ -49,21 +49,36 @@ generateWorkOrderNumber = async ()=> {
     .then((succ)=> {
       let countStr = succ.count.toString()
       while (countStr.length < 4) countStr = "0" + countStr;
-      workOrderNumber = `WOD/${date.getMonth()+1}/${date.getFullYear()}/${countStr}`
+      workOrderNumber = `WO/${((date.getMonth()+1).toString().length == 2) ? (date.getMonth()+1).toString() : ('0'+(date.getMonth()+1).toString())}/${date.getFullYear()}/${countStr}`
     }).catch((err)=> {
-      console.log('Error while generating work order number, A-C: L39', err);
+      console.log('Error while generating work order number, A-C: L54', err.message);
     });
     return workOrderNumber
 }
 
-generatePdf = async (requestId, workOrderNumber) => {
+generatePdf = async (requestId, workOrderNumber, trainingRequest) => {
     let result = { 
       success: false,
       fileName:  false
     }
 
+    let date = new Date();
+    let today = `${date.getDate()}/${((date.getMonth()+1).toString().length == 2) ? (date.getMonth()+1).toString() : ('0'+(date.getMonth()+1).toString())}/${date.getFullYear().toString()}`;
+
+    let query = new URLSearchParams({ 
+      workOrderNumber: workOrderNumber,
+      partnerName: trainingRequest.trainingDetails.partnerName,
+      partnerEmail: trainingRequest.trainingDetails.partnerEmail,
+      trainingMode: trainingRequest.sessionDetails.mode,
+      hourlyPayment: trainingRequest.sessionDetails.hourlyPayment,
+      trainingTopic: trainingRequest.trainingDetails.topic,
+      trainingVenue: trainingRequest.sessionDetails.venue,
+      dated: today
+    });
+    var url = 'http://localhost:8080/api/admin/createworkorder/?' + query.toString();
+
     //await to connect to the page with the mentioned address - (if successful- try & generate the pdf present in the page mentioned url, if failed- show error), if connection failed, show error;;; Return generated = true only on successfull pdf generation. Return generated = false for all other cases.
-    await page.goto('http://localhost:8080/api/admin/createworkorder')
+    await page.goto(url)
       .then( async ()=> {
         await page.pdf({ // page to pdf if connection is successfull
           format: 'A4',
@@ -102,12 +117,18 @@ storeWorkOrderData = async (fileName, requestId, workOrderNumber)=> {
 }
 
 createWorkOrder = async (req, res)=> {
+  let trainingRequest = await TrainingRequest.findById(req.body.requestId)
+    .then((doc)=> {
+      return doc
+    }).catch((err)=> {
+      console.log('err', err.message);
+    });
 
   // call function to generate a Work Order Number.
   let workOrderNumber = await generateWorkOrderNumber(); 
 
   // call function to generate pdf and name it using the requestId
-  let pdfGenerationStatus = await generatePdf(req.body.requestId, workOrderNumber) 
+  let pdfGenerationStatus = await generatePdf(req.body.requestId, workOrderNumber, trainingRequest) 
 
   // await to store the generated work order data in db
   let storeWorkOrderStatus = await storeWorkOrderData(pdfGenerationStatus.fileName, req.body.requestId, workOrderNumber);
