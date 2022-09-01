@@ -138,9 +138,10 @@ adminRouter.get(`/getworkorders`, (req,res)=> {
 });
 
 adminRouter.get(`/getworkorder/:id`, (req, res)=> {
-  console.log(req.params.id);
-  // res.sendFile('E:/Career/K-DISC/CSFSD_Main_Project/Code/partner-payments-ictak/partner-payments-ictak-backend/src/assets/work-orders/generated/workorder_630e8140e86b20c4dcbb215d.pdf')
-  res.sendFile('workorder_630e8140e86b20c4dcbb215d.pdf')
+  console.log(req.params.id, __dirname);
+  // res.sendFile('E:\Career\K-DISC\CSFSD_Main_Project\Code\partner-payments-ictak\partner-payments-ictak-backend\src\assets\work-orders\generated\workorder_630e8140e86b20c4dcbb215d.pdf')
+  // res.sendFile('workorder_630e8140e86b20c4dcbb215d.pdf')
+  res.sendFile(path.join(__dirname, '../assets/work-orders/generated/', 'workorder_630e8140e86b20c4dcbb215d.pdf'))
 
 });
 
@@ -171,18 +172,6 @@ adminRouter.put('/approveinvoice', (req, res)=> {
       console.log('Error while fetching invoice data', err.message);
     });
 
-  // InvoiceData.findByIdAndUpdate(req.body.invoiceId, {
-  //   $set : {
-  //     adminApproved: true,
-  //     invoiceDueDate: 2022-12-12
-  //   }
-  // }, { new: true }, (err, data)=> {
-  //   if(err) {
-  //     console.log('Error while updating Invoice data', err.message)
-  //   } else {
-  //     fs
-  //   }
-  // });
 });
 
 module.exports = adminRouter;

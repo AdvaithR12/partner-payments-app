@@ -84,7 +84,7 @@ export class AdminRequestsComponent implements OnInit {
 
   viewWorkOrderPdf(workOrderId: any) {
     sessionStorage.setItem(`workOrderId`, workOrderId);
-    this.router.navigate(['admin/workorder']);
+    this.router.navigate(['admin/requests/workorder']);
   };
 
 }

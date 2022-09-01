@@ -51,7 +51,7 @@ const routes: Routes = [
         component: AdminRequestsComponent
       },
       {
-        path: 'workorder',
+        path: 'requests/workorder',
         component: AdminWorkOrderComponent
       },
       {
