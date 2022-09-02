@@ -2,6 +2,7 @@ const puppeteer = require('puppeteer');
 const fs = require('fs');
 const InvoiceData = require('../model/invoice-model');
 const { TrainingRequest, WorkOrderCounter } = require(`../model/work-order-model`);
+const { log } = require('console');
 
 let browser, page;
 (async () => {
@@ -144,12 +145,12 @@ createWorkOrder = async (req, res)=> {
 
 }
 
-approveInvoice = async (res, data)=> {
-
+approveInvoice = async (req, res, data)=> {
+  console.log(req.body)
   InvoiceData.findByIdAndUpdate(data._id, {
     $set : {
       adminApproved: true,
-      invoiceDueDate: 2022-12-12,
+      invoiceDueDate: req.body.dueDate,
       fileName: `invoice_${data._id}.${data.fileName.split('.')[1]}`
     }
   }, (err, data)=> {

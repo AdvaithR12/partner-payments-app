@@ -23,8 +23,7 @@ export class AdminInvoicesComponent implements OnInit {
       .subscribe({
         next: (succ: any)=> {
           this.pendingInvoices = succ.data;
-          console.log(this.pendingInvoices);
-        },
+          },
         error: (err)=> {
           console.log('Error getting pending invoices', err.message);
         }
@@ -44,24 +43,44 @@ export class AdminInvoicesComponent implements OnInit {
 
   approve(invoiceId: any) {
     if(confirm(`Approve invoice and forward to finance for payment?`)) {
-      let daysForPayment = prompt('Enter the number of days before the payment should be made');
-      this.adminServices.approveInvoice(invoiceId, daysForPayment)
-      .subscribe({
-        next: (succ: any)=> {
-          console.log(succ);
-          if(succ.success) {
-            alert(`Invoice approved and forwarded to finance department`)
-            const currentRoute = this.router.url; // function to reload the current component
-            this.router.navigateByUrl('/', { skipLocationChange: true })
-              .then(() => {
-                this.router.navigate([currentRoute]); // navigate to same route
-              }); 
+      let dueDate: string | null = prompt('Enter the due date for payment: (YYYY-MM-DD)');
+      let d = new Date();
+      if(dueDate) {
+        if(dueDate.length == 10) {
+          let year = parseInt(dueDate.slice(0,4)); let thisYear = d.getFullYear();
+          let month = parseInt(dueDate.slice(5,7)); let thisMonth = d.getMonth()+1;
+          let date = parseInt(dueDate.slice(8,10)); let today = d. getDate();
+
+          if(isNaN(year) || isNaN(month) || isNaN(date)) {
+            alert('Invalid due date. (Encountered letters) Please enter the due date in the prescribed format!');
+          } else if(month > 12 || date > 31) {
+            alert('Invalid due date. (Invalid month or date) Please enter the due date in the prescribed format!');
+          } else if((year < thisYear) || (year == thisYear && month < thisMonth) || (year == thisYear && month == thisMonth && date < today)) {
+            alert(`Due date can't be a past date`);
+          } else {
+            this.adminServices.approveInvoice(invoiceId, dueDate)
+            .subscribe({
+              next: (succ: any)=> {
+                if(succ.success) {
+                  alert(`Invoice approved and forwarded to finance department`)
+                  const currentRoute = this.router.url; // function to reload the current component
+                  this.router.navigateByUrl('/', { skipLocationChange: true })
+                    .then(() => {
+                      this.router.navigate([currentRoute]); // navigate to same route
+                    }); 
+                }
+              },
+              error: (err: any)=> {
+                console.log('Error while approving invoice', err.message);
+              }
+            }); 
           }
-        },
-        error: (err: any)=> {
-          console.log('Error while approving invoice', err.message);
-        }
-      });    
+        }else {
+          alert('Invalid due date. Please enter the due date in the prescribed format and prescribed length!');
+        }         
+      }else {
+        alert(`Due date can't be empty`);
+      } 
     }
   }
 

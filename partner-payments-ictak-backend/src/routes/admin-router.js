@@ -194,7 +194,7 @@ adminRouter.put('/approveinvoice', (req, res)=> {
   InvoiceData.findById(req.body.invoiceId)
     .then((data)=> {
       // console.log(data);
-      approveInvoice(res, data);
+      approveInvoice(req, res, data);
     }).catch((err)=> {
       console.log('Error while fetching invoice data', err.message);
     });
