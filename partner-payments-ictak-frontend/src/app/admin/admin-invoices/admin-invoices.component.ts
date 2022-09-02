@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AdminService } from '../admin.service';
 
 @Component({
@@ -11,7 +12,10 @@ export class AdminInvoicesComponent implements OnInit {
   pendingInvoices: any = [];
   approvedInvoices: any = [];
 
-  constructor(private adminServices: AdminService) { }
+  constructor(
+    private adminServices: AdminService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
 
@@ -19,6 +23,7 @@ export class AdminInvoicesComponent implements OnInit {
       .subscribe({
         next: (succ: any)=> {
           this.pendingInvoices = succ.data;
+          console.log(this.pendingInvoices);
         },
         error: (err)=> {
           console.log('Error getting pending invoices', err.message);
@@ -29,6 +34,7 @@ export class AdminInvoicesComponent implements OnInit {
       .subscribe({
         next: (succ: any)=> {
           this.approvedInvoices = succ.data;
+          console.log(this.approvedInvoices);
         },
         error: (err)=> {
           console.log('Error getting approved invoices', err.message);
@@ -38,11 +44,31 @@ export class AdminInvoicesComponent implements OnInit {
   }
 
   approve(invoiceId: any) {
-
+    if(confirm(`Approve invoice and forward to finance for payment?`)) {
+      let daysForPayment = prompt('Enter the number of days before the payment should be made');
+      this.adminServices.approveInvoice(invoiceId, daysForPayment)
+      .subscribe({
+        next: (succ: any)=> {
+          console.log(succ);
+          if(succ.success) {
+            alert(`Invoice approved and forwarded to finance department`)
+            const currentRoute = this.router.url; // function to reload the current component
+            this.router.navigateByUrl('/', { skipLocationChange: true })
+              .then(() => {
+                this.router.navigate([currentRoute]); // navigate to same route
+              }); 
+          }
+        },
+        error: (err: any)=> {
+          console.log('Error while approving invoice', err.message);
+        }
+      });    
+    }
   }
 
   viewInvoice(invoiceId: any) {
-
+    sessionStorage.setItem(`goToUrl`, `http://localhost:8080/api/admin/getinvoice/${invoiceId}`);
+    this.router.navigate(['admin/invoices/getinvoice']);
   }
 
 }

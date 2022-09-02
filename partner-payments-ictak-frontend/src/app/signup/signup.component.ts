@@ -32,7 +32,7 @@ export class SignupComponent implements OnInit {
           //localStorage.setItem('token',res.token)
           //this.router.navigate(['products'])
           if(res.success == true) {
-            //alert('New user added');
+            alert('Signup successfull. Login now!');
             this.router.navigate(['']);
           } else {
             alert(res.message);

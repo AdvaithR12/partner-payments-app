@@ -8,7 +8,6 @@ const { TrainingRequest } = require(`../model/work-order-model`);
 
 
 partnerRouter.post('/invoice', (req,res)=> {
-  console.log('req', req.body);
 
   var newInvoice = new InvoiceData(req.body);
   newInvoice.save()
@@ -21,6 +20,7 @@ partnerRouter.post('/invoice', (req,res)=> {
   }).catch((err)=> {
     console.log('Invoice upload failed', error.message);
   });
+  
 });
 
 partnerRouter.post('/multiplefiles', (req, res) => {
@@ -43,8 +43,6 @@ partnerRouter.post('/multiplefiles', (req, res) => {
 });
 
 partnerRouter.get(`/getworkorders`, (req,res)=> {
-  console.log(req.query);
-  
   var userId = req.query.userId
 
   TrainingRequest.find({ 

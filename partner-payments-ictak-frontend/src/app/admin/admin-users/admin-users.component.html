@@ -2,57 +2,48 @@
 
     <div class="row d-flex justify-content-center ">
       <div class="col-5  px-5 py-2 mx-3  text-center fs-2 text-black rounded  ">
-        <span>INVOICES</span>       
+        <span>userprofS</span>       
         <hr>
       </div>
     </div>
   
     <div style="font-size:large;">
-      <span class="border-bottom border-dark border-3 rounded shadow py-2 px-3">Pending Invoices ({{pendingInvoices.length}})</span>
+      <span class="border-bottom border-dark border-3 rounded shadow py-2 px-3">Pending Users ({{pendingUserlist.length}})</span>
     </div>
     <br>
     <div class="row mt-2 d-flex justify-content-center align-items-center">
       
       <div class="row d-flex justify-content-center align-items-center ">
   
-        <div *ngIf="(pendingInvoices.length != 0)" class="row text-center border-bottom fs-6 fw-bold text-uppercase border-2 border-dark mb-4 p-2  mx-2 my-2 d-flex align-items-center justify-content-center">
+        <div *ngIf="(pendingUserlist.length != 0)" class="row text-center border-bottom fs-6 fw-bold text-uppercase border-2 border-dark mb-4 p-2  mx-2 my-2 d-flex align-items-center justify-content-center">
           <div class="col ">
-            Partner
+            Name
           </div>
           <div class="col ">
-            Invoice Date
+            Email
           </div>
           <div class="col d-flex justify-content-center">
-            Due Date
-          </div>
-          <div class="col text-center">
-            Work Order Number
+            Usertype
           </div>
           <div class="col d-flex align-items-center justify-content-center">
             Action
           </div>
         </div> 
   
-        <div *ngFor="let invoice of pendingInvoices" class="row text-center shadow bg-dark bg-opacity-25 mb-3 p-2  mx-2 my-1 d-flex align-items-center justify-content-center">
+        <div *ngFor="let userprof of pendingUserlist" class="row text-center shadow bg-dark bg-opacity-25 mb-3 p-2  mx-2 my-1 d-flex align-items-center justify-content-center">
           <div class="col">
-            {{invoice.partnerName}}
-          </div>
-          <div class="col text-capitalize">
-            invoice date
-          </div>
-          <div class="col text-capitalize  d-flex  justify-content-center">
-            due date
+            {{userprof.fullname}}
           </div>
           <div class="col text-center">
-            {{invoice.workOrderNumber}}
+            {{userprof.email}}
+          </div>
+          <div class="col text-center">
+            {{userprof.userType}}
           </div>
           <div class="col ">
             <div class="d-flex justify-content-center">
-              <a (click)="approve(invoice._id)"><button  style="width: 10.5rem;" class="btn btn-success px-5 mb-2">Approve</button></a>
-            </div>
-            <div class="d-flex justify-content-center">
-              <a><button style="width: 5rem;" class="btn btn-primary mx-1">View</button></a>
-              <a><button style="width: 5rem;" class="btn btn-danger mx-1">Reject</button></a>
+              <a ><button  style="width: 10.5rem;" class="btn btn-success px-5 my-auto">Approve</button></a>
+              <!-- (click)="approve(userprof._id)" -->
             </div>
           </div>
         </div>    
@@ -64,20 +55,20 @@
     <br>
     <br>
   
-    <div style="font-size:large;">
-      <span class="border-bottom border-dark border-3 rounded shadow py-2 px-3">Approved Invoices ({{approvedInvoices.length}})</span>
+    <!-- <div style="font-size:large;">
+      <span class="border-bottom border-dark border-3 rounded shadow py-2 px-3">Approved userprofs ({{approveduserprofs.length}})</span>
     </div>
     <br>
     <div class="row d-flex justify-content-center align-items-center">
       
       <div class="row d-flex justify-content-center align-items-center ">
   
-        <div *ngIf="(approvedInvoices.length != 0)" class="row text-center border-bottom fs-6 fw-bold text-uppercase border-2 border-dark mb-4 p-2  mx-2 my-2 d-flex align-items-center justify-content-center">
+        <div *ngIf="(approveduserprofs.length != 0)" class="row text-center border-bottom fs-6 fw-bold text-uppercase border-2 border-dark mb-4 p-2  mx-2 my-2 d-flex align-items-center justify-content-center">
           <div class="col ">
             Partner
           </div>
           <div class="col ">
-            Invoice Date
+            userprof Date
           </div>
           <div class="col d-flex justify-content-center">
             Due Date
@@ -90,21 +81,21 @@
           </div>
         </div> 
   
-        <div *ngFor="let invoice of approvedInvoices" class="row text-center shadow bg-dark bg-opacity-25 mb-3 p-2  mx-2 my-1 d-flex align-items-center justify-content-center">
+        <div *ngFor="let userprof of approveduserprofs" class="row text-center shadow bg-dark bg-opacity-25 mb-3 p-2  mx-2 my-1 d-flex align-items-center justify-content-center">
           <div class="col">
-            {{invoice.partnerName}}
+            {{userprof.partnerName}}
           </div>
           <div class="col text-capitalize">
-            invoice date
+            userprof date
           </div>
           <div class="col text-capitalize  d-flex  justify-content-center">
             due date
           </div>
           <div class="col text-center">
-            {{invoice.workOrderNumber}}
+            {{userprof.workOrderNumber}}
           </div>
           <div class="col d-flex align-items-center justify-content-center">
-            <a (click)="viewInvoice(invoice._id)">
+            <a (click)="viewuserprof(userprof._id)">
               <button class="btn btn-primary mx-1">View Work Order</button>
             </a>
           </div>
@@ -112,7 +103,7 @@
   
       </div>
   
-    </div>
+    </div> -->
   
   </div>
   

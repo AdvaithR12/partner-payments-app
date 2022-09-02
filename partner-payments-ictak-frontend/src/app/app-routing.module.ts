@@ -4,7 +4,6 @@ import { AdminTemplateComponent } from './admin/admin-template/admin-template.co
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
 import { AdminInvoicesComponent } from './admin/admin-invoices/admin-invoices.component';
 import { AdminNewRequestComponent } from './admin/admin-new-request/admin-new-request.component';
-import { AdminWorkOrderComponent } from './admin/admin-work-order/admin-work-order.component';
 import { MessagepageComponent } from './messagepage/messagepage.component';
 import { SigninComponent } from './signin/signin.component';
 import { SignupComponent } from './signup/signup.component';
@@ -18,7 +17,9 @@ import { PartnerInvoiceComponent } from './partner/partner-invoice/partner-invoi
 import { PartnerWorkordersComponent } from './partner/partner-workorders/partner-workorders.component';
 import { FinanceInvoicesComponent } from './finance/finance-invoices/finance-invoices.component';
 import { FinanceWorkOrdersComponent } from './finance/finance-work-orders/finance-work-orders.component';
-
+import { AdminModifyRequestComponent } from './admin/admin-modify-request/admin-modify-request.component';
+import { ViewFileComponent } from './view-file/view-file.component';
+import { AdminUsersComponent } from './admin/admin-users/admin-users.component';
 const routes: Routes = [
   {
     path: '',
@@ -50,17 +51,29 @@ const routes: Routes = [
         component: AdminRequestsComponent
       },
       {
-        path: 'workorder',
-        component: AdminWorkOrderComponent
+        path: 'requests/workorder',
+        component: ViewFileComponent
       },
       {
         path: 'invoices',
         component: AdminInvoicesComponent
       },
       {
+        path: 'invoices/getinvoice',
+        component: ViewFileComponent
+      },
+      {
         path: "profile",
         component: ProfileComponent
       },
+      {
+        path: "modifyrequest",
+        component: AdminModifyRequestComponent
+      },
+      {
+        path: 'userlist',
+        component: AdminUsersComponent
+      }
     ]
   },
   {

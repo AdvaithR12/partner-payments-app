@@ -53,7 +53,7 @@
             <a (click)="approve(request._id)"><button class="btn btn-success px-5 mb-2">Approve</button></a>
           </div>
           <div class="d-flex justify-content-center">
-            <a><button class="btn btn-warning mx-1">Modify</button></a>
+            <a><button (click)="modifyRequest(request._id)" class="btn btn-warning mx-1">Modify</button></a>
             <a><button class="btn btn-danger mx-1">Reject</button></a>
           </div>
         </div>
@@ -111,7 +111,8 @@
         </div>
         <div class="col d-flex align-items-center justify-content-center">
           <a (click)="viewWorkOrderPdf(workOrder._id)">
-            <button class="btn btn-primary mx-1">View Work Order</button></a>
+            <button class="btn btn-primary mx-1">View Work Order</button>
+          </a>
         </div>
       </div>    
 

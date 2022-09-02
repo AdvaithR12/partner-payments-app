@@ -75,11 +75,16 @@ export class AdminRequestsComponent implements OnInit {
         }
       });
     }
+  };
+
+  modifyRequest(requestId: any) {
+    sessionStorage.setItem('editRequestId', requestId);
+    this.router.navigate(['admin/modifyrequest']);
   }
 
   viewWorkOrderPdf(workOrderId: any) {
-    sessionStorage.setItem(`workOrderId`, workOrderId);
-    this.router.navigate(['admin/workorder']);
-  }
+    sessionStorage.setItem(`goToUrl`, `http://localhost:8080/api/admin/getworkorder/${workOrderId}`);
+    this.router.navigate(['admin/requests/workorder']);
+  };
 
 }

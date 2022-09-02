@@ -1,5 +1,20 @@
 const puppeteer = require('puppeteer');
+const fs = require('fs');
+const InvoiceData = require('../model/invoice-model');
 const { TrainingRequest, WorkOrderCounter } = require(`../model/work-order-model`);
+
+let browser, page;
+(async () => {
+    if (page) return;
+    browser = await puppeteer.launch({ headless: true }); //launch new chromium instance
+    page = await browser.newPage(); //open new page in the chromium instance
+    // await page.goto('http://localhost:8080/api/admin/createworkorder')
+})().then(()=> {
+  console.log('Puppeteer instance initiated');
+}).catch((err)=> {
+  console.log('Failed to initiate puppeteer', err.message);
+});
+
 
 userListGen = (users)=> { // function to return the list of received users omitting some fields
   var userList = [];
@@ -17,7 +32,7 @@ userListGen = (users)=> { // function to return the list of received users omitt
 
   return userList;
 
-};
+}
 
 generateWorkOrderNumber = async ()=> {
   let date = new Date();
@@ -34,30 +49,36 @@ generateWorkOrderNumber = async ()=> {
     .then((succ)=> {
       let countStr = succ.count.toString()
       while (countStr.length < 4) countStr = "0" + countStr;
-      workOrderNumber = `WOD/${date.getMonth()+1}/${date.getFullYear()}/${countStr}`
+      workOrderNumber = `WO/${((date.getMonth()+1).toString().length == 2) ? (date.getMonth()+1).toString() : ('0'+(date.getMonth()+1).toString())}/${date.getFullYear()}/${countStr}`
     }).catch((err)=> {
-      console.log('Error while generating work order number, A-C: L39', err);
+      console.log('Error while generating work order number, A-C: L54', err.message);
     });
     return workOrderNumber
-};
+}
 
-generatePdf = async (requestId, workOrderNumber) => {
+generatePdf = async (requestId, workOrderNumber, trainingRequest) => {
     let result = { 
       success: false,
       fileName:  false
     }
 
-    // launch a new chrome instance
-    const browser = await puppeteer.launch({
-      headless: true
-    })  
-  
-    const page = await browser.newPage();
-  
-    page.setViewport({width: 1440, height: 2000})
-  
+    let date = new Date();
+    let today = `${date.getDate()}/${((date.getMonth()+1).toString().length == 2) ? (date.getMonth()+1).toString() : ('0'+(date.getMonth()+1).toString())}/${date.getFullYear().toString()}`;
+
+    let query = new URLSearchParams({ 
+      workOrderNumber: workOrderNumber,
+      partnerName: trainingRequest.trainingDetails.partnerName,
+      partnerEmail: trainingRequest.trainingDetails.partnerEmail,
+      trainingMode: trainingRequest.sessionDetails.mode,
+      hourlyPayment: trainingRequest.sessionDetails.hourlyPayment,
+      trainingTopic: trainingRequest.trainingDetails.topic,
+      trainingVenue: trainingRequest.sessionDetails.venue,
+      dated: today
+    });
+    var url = 'http://localhost:8080/api/admin/createworkorder/?' + query.toString();
+
     //await to connect to the page with the mentioned address - (if successful- try & generate the pdf present in the page mentioned url, if failed- show error), if connection failed, show error;;; Return generated = true only on successfull pdf generation. Return generated = false for all other cases.
-    await page.goto('http://localhost:8080/api/admin/createworkorder')
+    await page.goto(url)
       .then( async ()=> {
         await page.pdf({ // page to pdf if connection is successfull
           format: 'A4',
@@ -74,10 +95,10 @@ generatePdf = async (requestId, workOrderNumber) => {
         console.log('Error on connection, A-C: L74', err.message); //on connection failure
       });
     
-    await browser.close();
+    // await browser.close();
     return result;
 
-};
+}
 
 storeWorkOrderData = async (fileName, requestId, workOrderNumber)=> {
   let date = new Date();
@@ -93,15 +114,21 @@ storeWorkOrderData = async (fileName, requestId, workOrderNumber)=> {
       }
     }
   }, { new: true });
-};
+}
 
 createWorkOrder = async (req, res)=> {
+  let trainingRequest = await TrainingRequest.findById(req.body.requestId)
+    .then((doc)=> {
+      return doc
+    }).catch((err)=> {
+      console.log('err', err.message);
+    });
 
   // call function to generate a Work Order Number.
   let workOrderNumber = await generateWorkOrderNumber(); 
 
   // call function to generate pdf and name it using the requestId
-  let pdfGenerationStatus = await generatePdf(req.body.requestId, workOrderNumber) 
+  let pdfGenerationStatus = await generatePdf(req.body.requestId, workOrderNumber, trainingRequest) 
 
   // await to store the generated work order data in db
   let storeWorkOrderStatus = await storeWorkOrderData(pdfGenerationStatus.fileName, req.body.requestId, workOrderNumber);
@@ -115,6 +142,31 @@ createWorkOrder = async (req, res)=> {
     return { success: false }
   }
 
-};
+}
 
-module.exports = { userListGen, createWorkOrder };
+approveInvoice = async (res, data)=> {
+
+  InvoiceData.findByIdAndUpdate(data._id, {
+    $set : {
+      adminApproved: true,
+      invoiceDueDate: 2022-12-12,
+      fileName: `invoice_${data._id}.${data.fileName.split('.')[1]}`
+    }
+  }, (err, data)=> {
+    if(err) {
+      console.log('Error while updating Invoice data', err.message)
+    } else {
+      fs.rename(`./src/assets/uploads/invoices/${data.fileName}`, `./src/assets/uploads/invoices/invoice_${data._id}.${data.fileName.split('.')[1]}`, (err)=> { //rename the invoice file name on approval and set the extension by extracting it from the uploaded filename
+        if(err) {
+          console.log('Error while renaming',  err.message);
+        } else {
+          res.status(200).json({
+            success: true
+          });
+        }
+      });
+    }
+  });
+}
+
+module.exports = { userListGen, createWorkOrder, approveInvoice };

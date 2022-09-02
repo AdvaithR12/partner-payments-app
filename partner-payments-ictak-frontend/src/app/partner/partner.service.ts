@@ -13,11 +13,11 @@ export class PartnerService {
   constructor( private http: HttpClient ) { }
 
   invoiceFormUpload(data: any) {
-    return this.http.post("${this.server}/partner/invoice", data);
+    return this.http.post(`${this.server}/partner/invoice`, data);
   }
 
   invoiceFileUpload(data: any) {
-    return this.http.post<any>('${this.server}/partner/multipleFiles', data)
+    return this.http.post<any>(`${this.server}/partner/multipleFiles`, data)
   }
 
   getWorkOrders(userId: any) {

@@ -1,7 +1,7 @@
 <div class="container ">
   <div class="row d-flex justify-content-center ">
-    <div class="col-9  px-5 py-4 m-3  text-center fs-2 text-black rounded  ">
-      <span >NEW TRAINING REQUEST</span>    
+    <div class="col-6  px-5 py-4 m-3  text-center fs-2 text-black rounded  ">
+      <span >Modify Request</span>    
       <hr>   
     </div>
   </div>
@@ -142,8 +142,8 @@
 
         <!-- Submission Buttons Begin -->
         <section class="row d-flex justify-content-evenly mx-3 mt-5 mb-3">
-          <button [disabled]="trainingForm.invalid" (click)="saveRequest()" class="col-4 btn btn-success btn-lg">Save Request</button>
-          <button (click)="saveRequest()" class="col-4 btn btn-success btn-lg">Save Request</button>
+          <button [disabled]="trainingForm.invalid" (click)="saveModifiedRequest()" class="col-4 btn btn-warning btn-lg">Save Request</button>
+          <button (click)="saveModifiedRequest()" class="col-4 btn btn-warning btn-lg">Update Request</button>
         </section>
         <!-- Submission Buttons End -->
       </form>

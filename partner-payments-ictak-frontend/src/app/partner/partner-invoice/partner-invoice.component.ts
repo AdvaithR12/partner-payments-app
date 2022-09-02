@@ -2,6 +2,7 @@ import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { PartnerService } from '../partner.service';
+import { FormGroup, FormControl, Validators, ReactiveFormsModule} from '@angular/forms'
 
 @Component({
   selector: 'app-partner-invoice',
@@ -17,12 +18,18 @@ export class PartnerInvoiceComponent implements OnInit {
   @ViewChild('multipleInput', { static: false }) multipleInput!: ElementRef;
 
   images:any;
-  multipleInvoices=[]
+  multipleInvoices=[];
+  textColor: string = '';
 
-  constructor( private partnerServices: PartnerService ) { }
+  constructor( 
+    private partnerServices: PartnerService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
   }
+
+
 
   selectMultipleInvoice(event:any) {
     if(event.target.files.length > 0) {
@@ -34,22 +41,20 @@ export class PartnerInvoiceComponent implements OnInit {
       this.partnerServices.fetchWorkOrderData(this.invoiceData.workOrderNumber)
       .subscribe({
         next: (succ)=> {
-          console.log(succ);
           this.invoiceData.partnerName = succ.data.trainingDetails.partnerName;
           this.invoiceData.partnerEmail = succ.data.trainingDetails.partnerEmail;
+          // this.invoiceData.startTime = succ.data.trainingDetails.startTime;
           this.invoiceData.workOrderId = succ.data._id;
           this.workOrderDataFetched = true;
         },
         error: (err)=> {
-          console.log('Error', err.message);
-          
+          // console.log('Error', err.message);
         }
       });
   }
 
   uploadInvoice() {
     const formdata = new FormData()
-
     for (let img of this.multipleInvoices) {
       formdata.append('files',img)
     }
@@ -59,6 +64,8 @@ export class PartnerInvoiceComponent implements OnInit {
       .subscribe((res) => {
         this.multipleInput.nativeElement.value = ""
         this.invoiceFormUpload(res.path[0])
+        console.log(res.path[0]);
+        
         this.displayMultipleInvoices=true
       });
 
@@ -66,19 +73,27 @@ export class PartnerInvoiceComponent implements OnInit {
 
   invoiceFormUpload(invoiceFileName: any) {
     this.invoiceData.fileName = invoiceFileName;
-    this.invoiceData.paid = false;
+    this.invoiceData.paid = this.invoiceData.invoiceType
     this.invoiceData.adminApproved = false;
 
     this.partnerServices.invoiceFormUpload(this.invoiceData)
-    .subscribe({
-      next: (succ: any)=> {
-        if(succ.success) {
-          console.log('success')
-        }
-      },
-      error: (err)=> {
-        console.log('Error', err);
-      }
-    });
-  }
+    // .subscribe({
+    //   next: (succ: any)=> {
+    //     if(succ.success) {
+    //       // this.router.navigate(['partner/dashboard'])
+    //     }
+    //   },
+    //   error: (err)=> {
+    //     console.log('Error', err);
+    //   }
+    // });
+    .subscribe(
+      (succ:any) => {
+        if (succ.success) {
+          // this.invoiceForm.reset();
+          setTimeout(() => {
+            window.location.replace('/partner/invoice');
+          }, 3000)}
+  })
+}
 }
