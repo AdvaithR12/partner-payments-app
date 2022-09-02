@@ -3,7 +3,6 @@ const UserData = require(`../model/user-model`);
 const fs = require('fs');
 const path = require('path');
 const InvoiceData = require(`../model/invoice-model`);
-const UserData = require(`../model/user-model`);
 const { TrainingRequest } = require(`../model/work-order-model`);
 const { userListGen, createWorkOrder, approveInvoice } = require('../contoller/admin-controller');
 
