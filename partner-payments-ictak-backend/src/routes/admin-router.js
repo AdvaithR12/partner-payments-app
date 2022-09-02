@@ -27,16 +27,11 @@ adminRouter.get(`/getpartners`, (req, res)=> {
     });
 });
 
-//adminRouter.get(`/getworkorder/:id`, (req, res)=> {
- // console.log(req.params.id);
-//});
-
 adminRouter.get(`/getuserlist`, (req, res)=> {
 
   UserData.find({adminapproved: false})
   .then((succ)=> {
     let userList = userListGen(succ); 
-    console.log(userList);
     res.status(200).json({
       success: true,
       data: userList
@@ -45,7 +40,6 @@ adminRouter.get(`/getuserlist`, (req, res)=> {
     console.log(err);
   });
 });
-
 
 adminRouter.post('/newrequest', (req, res)=> {
   var newRequest = req.body.trainingRequest;

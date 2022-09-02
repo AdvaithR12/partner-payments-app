@@ -19,8 +19,6 @@ export class AdminUsersComponent implements OnInit {
       .subscribe({
         next: (succ: any)=> {
           this.pendingUserlist = succ.data;
-          console.log(this.pendingUserlist);
-          
         },
         error: (err)=> {
           console.log('Error getting pending user list', err.message);
