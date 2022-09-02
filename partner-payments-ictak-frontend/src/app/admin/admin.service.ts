@@ -43,7 +43,10 @@ export class AdminService {
   }
 
   approveInvoice(invoiceId: any, daysForPayment: any) {
-    return this.http.put(`${this.server}/admin/approveinvoice`, { invoiceId: invoiceId, daysForPayment: daysForPayment });
+    return this.http.put(`${this.server}/admin/approveinvoice`, { 
+      invoiceId: invoiceId, 
+      daysForPayment: daysForPayment 
+    });
   }
   //user approval list
   getUserlist() {

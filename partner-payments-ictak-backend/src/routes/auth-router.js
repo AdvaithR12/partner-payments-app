@@ -69,7 +69,7 @@ authRouter.post('/updateProfile',function(req,res) {  /*verifyToken,/insert*/
   console.log(req.body)
   id=req.body._id;
 //userType
-       
+
 additionalqualification = req.body.additionalqualification,
 address =  req.body.address,
 gstnumber = req.body.gstnumber,

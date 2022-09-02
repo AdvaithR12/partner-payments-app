@@ -8,7 +8,7 @@ let browser, page;
     if (page) return;
     browser = await puppeteer.launch({ headless: true }); //launch new chromium instance
     page = await browser.newPage(); //open new page in the chromium instance
-    // await page.goto('http://localhost:8080/api/admin/createworkorder')
+    await page.goto('http://localhost:8080/api/admin/')
 })().then(()=> {
   console.log('Puppeteer instance initiated');
 }).catch((err)=> {
@@ -63,7 +63,7 @@ generatePdf = async (requestId, workOrderNumber, trainingRequest) => {
     }
 
     let date = new Date();
-    let today = `${date.getDate()}/${((date.getMonth()+1).toString().length == 2) ? (date.getMonth()+1).toString() : ('0'+(date.getMonth()+1).toString())}/${date.getFullYear().toString()}`;
+    let today = `${((date.getDate()).toString().length == 2) ? (date.getDate()).toString() : ('0'+(date.getDate()).toString())}/${((date.getMonth()+1).toString().length == 2) ? (date.getMonth()+1).toString() : ('0'+(date.getMonth()+1).toString())}/${date.getFullYear().toString()}`;
 
     let query = new URLSearchParams({ 
       workOrderNumber: workOrderNumber,

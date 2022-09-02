@@ -2,8 +2,8 @@ const express = require(`express`);
 const UserData = require(`../model/user-model`);
 const fs = require('fs');
 const path = require('path');
-//const UserData = require(`../model/user-model`);
 const InvoiceData = require(`../model/invoice-model`);
+const UserData = require(`../model/user-model`);
 const { TrainingRequest } = require(`../model/work-order-model`);
 const { userListGen, createWorkOrder, approveInvoice } = require('../contoller/admin-controller');
 
@@ -114,7 +114,6 @@ adminRouter.get(`/trainingrequests`, (req,res)=> {
 
 adminRouter.route(`/createworkorder`)
   .get((req, res)=> {
-    console.log(req.query);
     res.render('template', req.query);
   })
   .post((req, res)=> {
