@@ -90,6 +90,10 @@ const routes: Routes = [
         component: FinanceInvoicesComponent
       },
       {
+        path: 'invoices/getinvoice',
+        component: ViewFileComponent
+      },
+      {
         path: "workorders",
         component: FinanceWorkOrdersComponent
       }
