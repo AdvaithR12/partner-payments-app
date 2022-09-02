@@ -1,5 +1,7 @@
+import { JsonPipe } from '@angular/common';
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/auth.service';
 
 @Component({
   selector: 'app-admin-template',
@@ -8,10 +10,27 @@ import { Router } from '@angular/router';
 })
 export class AdminTemplateComponent implements OnInit {
   @ViewChild('viewChildHook', {static: true}) sideBar!: ElementRef;
+
+  loggedInUser: any = {}
   
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router,
+    private authServices: AuthService
+    ) { }
 
   ngOnInit(): void {
+
+    let userId = localStorage.getItem('userid');
+    this.authServices.getUserProfile(userId)
+      .subscribe({
+        next: (data)=> {
+          this.loggedInUser =JSON.parse(JSON.stringify(data));
+        },
+        error: (err)=> {
+          console.log(`Can't find user`, err.message);
+        }
+      });
+
   }
 
   wrapper: string = 'wrapper';
