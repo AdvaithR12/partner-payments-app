@@ -1,5 +1,5 @@
 const express = require(`express`);
-const UserData = require(`../model/user-model`);
+const {UserData, UserList }= require(`../model/user-model`);
 const InvoiceData = require(`../model/invoice-model`);
 const { TrainingRequest } = require(`../model/work-order-model`);
 const { userListGen, createWorkOrder } = require('../contoller/admin-controller');
@@ -24,6 +24,24 @@ adminRouter.get(`/getpartners`, (req, res)=> {
       console.log(err);
     });
 });
+
+//adminRouter.get(`/getworkorder/:id`, (req, res)=> {
+ // console.log(req.params.id);
+//});
+
+adminRouter.get(`/getuserlist/:type`, (req, res)=> {
+  const approved = req.params.type;
+  UserData.find(
+    {"adminapproved":approved}
+  )
+    .then((succ)=> {
+      let userList =  succ 
+      res.status(200).send(userList);
+    }).catch((err)=> {
+      console.log(err);
+    });
+});
+
 
 adminRouter.post('/newrequest', (req, res)=> {
 
