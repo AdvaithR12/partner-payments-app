@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AdminService } from 'src/app/admin/admin.service';
+import { FinanceService} from 'src/app/finance/finance.service';
 
 @Component({
   selector: 'app-finance-work-orders',
@@ -14,7 +15,8 @@ export class FinanceWorkOrdersComponent implements OnInit {
   financeApprovedWorkOrders: any = [];
 
   constructor( 
-    private adminServices: AdminService,
+    private adminServices : AdminService,
+    private financeServices: FinanceService,
     private router: Router 
   ) { }
 
@@ -77,19 +79,51 @@ export class FinanceWorkOrdersComponent implements OnInit {
     localStorage.setItem(`workOrderId`, workOrderId);
     this.router.navigate(['admin/workorder']);
   }
-
-  //Reject
-  rejectworkorder(requestId: any){
-
-  }
-
   //Approve
   approveworkorder(requestId: any){
-
+    this.financeServices.setworkorder(requestId, true)
+      .subscribe({
+        next: (succ: any)=> {
+          console.log(succ);
+          if(succ.success) {
+            alert(`Work order approved`)
+            const currentRoute = this.router.url; // function to reload the current component
+            this.router.navigateByUrl('/', { skipLocationChange: true })
+              .then(() => {
+                this.router.navigate([currentRoute]); // navigate to same route
+              }); 
+          }
+        },
+        error: (err: any)=> {
+          console.log('Error while approving work order', err.message);
+        }
+      }); 
   }
 
-  //Vie
-  viewworkorder(requestId: any){
+   //Reject
+   rejectworkorder(requestId: any){
+    this.financeServices.setworkorder(requestId, false)
+      .subscribe({
+        next: (succ: any)=> {
+          console.log(succ);
+          if(succ.success) {
+            alert(`Work order rejected`)
+            const currentRoute = this.router.url; // function to reload the current component
+            this.router.navigateByUrl('/', { skipLocationChange: true })
+              .then(() => {
+                this.router.navigate([currentRoute]); // navigate to same route
+              }); 
+          }
+        },
+        error: (err: any)=> {
+          console.log('Error while rejecting work order ', err.message);
+        }
+      }); 
+  }
 
+  //View
+  viewworkorder(workOrderId: any){
+    sessionStorage.setItem(`goToUrl`, `http://localhost:8080/api/admin/getworkorder/${workOrderId}`);
+    this.router.navigate(['finance/workorders/getworkorder']);
   }
 }
