@@ -107,6 +107,7 @@ adminRouter.get(`/trainingrequests`, (req,res)=> {
 
 adminRouter.route(`/createworkorder`)
   .get((req, res)=> {
+    // res.render('template', {});
     res.render('template', req.query);
   })
   .post((req, res)=> {
@@ -119,14 +120,14 @@ adminRouter.route(`/createworkorder`)
             message: 'New work order generation successfull'
           });
         } else {
-          console.log('New work order generation failed, A-R: L109')
+          console.log('New work order generation failed, A-R: L83')
           res.status(500).json({
             success: false,
             message: 'New work order generation failed'
           });
         }
       }).catch((err)=> {
-        console.log('New work order generation failed, A-R: L116', err.message);
+        console.log('New work order generation failed, A-R: L115', err.message);
         res.status(500).json({
           success: false,
           message: 'New work order generation failed'
@@ -164,11 +165,30 @@ adminRouter.get(`/getworkorder/:id`, (req, res)=> {
 
 adminRouter.get('/getinvoice/:id', (req, res)=> {
 
-  if(fs.existsSync((path.join(__dirname, '../assets/uploads/invoices', `${req.params.id}`)))) { //check if the requested file exists in the file system.
-    res.status(200).sendFile(path.join(__dirname, '../assets/uploads/invoices', `${req.params.id}`)); //send the file if it exists
+  console.log(req.params.id );
+
+  if(fs.existsSync((path.join(__dirname, '../assets/uploads/invoices', `${req.params.id}`)))) {
+    res.status(200).sendFile(path.join(__dirname, '../assets/uploads/invoices', `${req.params.id}`));
   } else {
-    res.status(404).send('File not found'); // send 400 if it doesnt
+    res.status(404).send('File not found');
   }
+
+  // extensions.forEach((ext)=> {
+  //   // console.log((path.join(__dirname, '../assets/uploads/invoices', `invoice_${req.params.id}.${ext}`)));
+
+  //   console.log(fs.existsSync((path.join(__dirname, '../assets/uploads/invoices', `invoice_${req.params.id}.${ext}`))), ext)
+  // }); 
+
+  // console.log((path.join(__dirname, '../assets/uploads/invoices', `invoice_${req.params.id}`)));
+
+  // console.log(fs.existsSync((path.join(__dirname, '../assets/uploads/invoices', `invoice_${req.params.id}.pdf`))));
+
+  // if(fs.existsSync(path.join(__dirname, '../assets/uploads/invoices', `invoice_${req.params.id}.pdf`))) {
+  //   res.status(200).sendFile(path.join(__dirname, '../assets/uploads/invoices', `invoice_${req.params.id}.pdf`));
+  // } else {
+  //   console.log('File not found');
+  //   res.status(404).send('File not found');
+  // }
 
 });
 

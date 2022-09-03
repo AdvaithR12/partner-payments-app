@@ -5,7 +5,8 @@ const mongoose = require('mongoose');
 const bodyparser = require('body-parser');  
 const authRouter = require(`./src/routes/auth-router`);
 const adminRouter = require(`./src/routes/admin-router`);
-const partnerRouter = require('./src/routes/partner-router')
+const partnerRouter = require('./src/routes/partner-router');
+const financeRouter = require('./src/routes/finance-router')
 
 const app = new express();
 const PORT = process.env.PORT || 8080;
@@ -33,6 +34,7 @@ app.use(express.static(path.join(__dirname , '/src/assets/work-orders/template-f
 app.use(`/api/auth`, authRouter);
 app.use(`/api/admin`, adminRouter);
 app.use(`/api/partner`, partnerRouter);
+app.use(`/api/finance`, financeRouter);
 
 app.listen(PORT, ()=> {
   console.log(`Hi, I'm listening at ${PORT}`);
