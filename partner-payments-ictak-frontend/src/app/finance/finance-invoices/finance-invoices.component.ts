@@ -19,7 +19,7 @@ export class FinanceInvoicesComponent implements OnInit {
 
   ngOnInit(): void {
 
-  this.financeServices.getInvoices(true)
+  this.financeServices.getInvoices(false)
     .subscribe({
       next: (succ: any)=> {
         this.approvedInvoices = succ.data;
@@ -30,7 +30,7 @@ export class FinanceInvoicesComponent implements OnInit {
       }
     });
 
-    this.financeServices.getInvoices(false)
+    this.financeServices.getInvoices(true)
     .subscribe({
       next: (succ: any)=> {
         this.advanceInvoices = succ.data;
