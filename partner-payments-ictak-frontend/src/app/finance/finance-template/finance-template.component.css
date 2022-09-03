@@ -210,9 +210,16 @@ flex-grow: 0; */
   line-height: 25px;
 }
 
+#signout-button li {
+  /* background: linear-gradient(to right, #c04c4c 50%, white 50%); */
+  background-size: 200% 100%;
+  background-position: right bottom;
+  transition: all .25s ease-in-out;
+}
 
 #signout-button li:hover {
-  background-color: #000000;
-  transition: cubic-bezier(0.075, 0.82, 0.165, 1);
+  background-color: #c04c4c;  
+  background-position: left bottom;
+
   
 }

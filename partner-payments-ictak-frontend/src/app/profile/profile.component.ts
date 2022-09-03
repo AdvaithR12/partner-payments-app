@@ -14,17 +14,13 @@ export class ProfileComponent implements OnInit {
     fullname: '',
     address:'',
     mobile:'',
-   
     userType:'',
     partnertype:'',
-
     pannumber:'',
     heighestqualification:'',
     additionalqualification:'',
     workexperience:'',
-
     gstnumber:'',
-    
     skills:['html','css','bootstarp','angular','node','express','mongo'],
     }
     
@@ -63,20 +59,26 @@ export class ProfileComponent implements OnInit {
 }
 
 updateProfile(){
-  console.log('updateProfile()',this.userdetail);
+
   this.auth.updateUserProfile(this.userdetail)
     .subscribe({
       next: (succ: any)=> {
         alert('Profile Updated');
-        if(succ.userType == 'Partner') {
-          this.router.navigate(['partner/dashboard']);
-        } else if(succ.userType == 'Admin') {
-          this.router.navigate(['admin/dashboard']);
-        } else {
-          this.router.navigate(['finance/dashboard']);
-        }
+        // if(succ.userType == 'Partner') {
+        //   this.router.navigate(['partner/dashboard']);
+        // } else if(succ.userType == 'Admin') {
+        //   this.router.navigate(['admin/dashboard']);
+        // } else {
+        //   this.router.navigate(['finance/dashboard']);
+        // }
+        const currentRoute = this.router.url;
+        this.router.navigateByUrl('/', { skipLocationChange: true })
+          .then(() => {
+            this.router.navigate([currentRoute]); // navigate to same route
+          });
       }
     });
+
 }
 showAddSkill(){
   const addSkillDiv = document.getElementById('addedittech');
@@ -87,14 +89,14 @@ showAddSkill(){
 deleteSkill(o:any) {
   const index = this.userdetail.skills.indexOf(o);
   this.userdetail.skills.splice(index, 1);
- }
- editSkill(o:any) {
-  console.log(o);
- }
+} 
+// editSkill(o:any) {
+//   console.log(o);
+//  }
  saveSkill(){
    //don't add if the skill already in tab, otherwise 
    //add the details as  a row to table skilltable and hide div
-   if(this.newlyaddedskill !=''){
+  if(this.newlyaddedskill !=''){
     if(this.userdetail.skills.indexOf(this.newlyaddedskill)<0){
       this.userdetail.skills.push(this.newlyaddedskill);
     }
@@ -102,8 +104,8 @@ deleteSkill(o:any) {
     if(addSkillDiv != null){
       addSkillDiv.style.display = 'none';
     }
-   }
- }
+  }
+}
 
 
   ngOnInit(): void {
@@ -111,7 +113,6 @@ deleteSkill(o:any) {
     var userid = localStorage.getItem("userid"); 
     this.auth.getUserProfile(userid).subscribe((data)=>{
       this.userdetail = JSON.parse(JSON.stringify(data));
-      console.log('profile',this.userdetail);
       if(this.userdetail.partnertype === 'Company')
       this.showPartnerInfo(this.userdetail.partnertype);
     })

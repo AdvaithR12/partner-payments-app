@@ -25,7 +25,7 @@ export class AuthService {
     workexperience  : null,
     skills : []
   }
-  
+
   constructor( private http: HttpClient ) { }
 
   addUser(user:any) {
@@ -35,11 +35,13 @@ export class AuthService {
   logUser(user:any) {
     return this.http.post(`${this.server}/auth/signin`, user);
   }
+
   getUserProfile(id:any){
     return this.http.get(`${this.server}/auth/findprofile/`+id);
   }
+
   updateUserProfile(user:any){
-    console.log(' updateUserProfile() in service',user);
     return this.http.post<any>(`${this.server}/auth/updateProfile`,user);
   }
+
 }
