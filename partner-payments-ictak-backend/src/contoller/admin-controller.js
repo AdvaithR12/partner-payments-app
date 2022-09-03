@@ -2,13 +2,14 @@ const puppeteer = require('puppeteer');
 const fs = require('fs');
 const InvoiceData = require('../model/invoice-model');
 const { TrainingRequest, WorkOrderCounter } = require(`../model/work-order-model`);
+const { log } = require('console');
 
 let browser, page;
 (async () => {
     if (page) return;
     browser = await puppeteer.launch({ headless: true }); //launch new chromium instance
     page = await browser.newPage(); //open new page in the chromium instance
-    await page.goto('http://localhost:8080/api/admin/createworkorder')
+    await page.goto('http://localhost:8080/api/admin/')
 })().then(()=> {
   console.log('Puppeteer instance initiated');
 }).catch((err)=> {
@@ -63,7 +64,7 @@ generatePdf = async (requestId, workOrderNumber, trainingRequest) => {
     }
 
     let date = new Date();
-    let today = `${date.getDate()}/${((date.getMonth()+1).toString().length == 2) ? (date.getMonth()+1).toString() : ('0'+(date.getMonth()+1).toString())}/${date.getFullYear().toString()}`;
+    let today = `${((date.getDate()).toString().length == 2) ? (date.getDate()).toString() : ('0'+(date.getDate()).toString())}/${((date.getMonth()+1).toString().length == 2) ? (date.getMonth()+1).toString() : ('0'+(date.getMonth()+1).toString())}/${date.getFullYear().toString()}`;
 
     let query = new URLSearchParams({ 
       workOrderNumber: workOrderNumber,
@@ -144,12 +145,12 @@ createWorkOrder = async (req, res)=> {
 
 }
 
-approveInvoice = async (res, data)=> {
-
+approveInvoice = async (req, res, data)=> {
+  console.log(req.body)
   InvoiceData.findByIdAndUpdate(data._id, {
     $set : {
       adminApproved: true,
-      invoiceDueDate: 2022-12-12,
+      invoiceDueDate: req.body.dueDate,
       fileName: `invoice_${data._id}.${data.fileName.split('.')[1]}`
     }
   }, (err, data)=> {

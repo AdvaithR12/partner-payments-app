@@ -1,7 +1,7 @@
 const express = require(`express`);
+const UserData = require(`../model/user-model`);
 const fs = require('fs');
 const path = require('path');
-const UserData = require(`../model/user-model`);
 const InvoiceData = require(`../model/invoice-model`);
 const { TrainingRequest } = require(`../model/work-order-model`);
 const { userListGen, createWorkOrder, approveInvoice } = require('../contoller/admin-controller');
@@ -25,6 +25,20 @@ adminRouter.get(`/getpartners`, (req, res)=> {
     }).catch((err)=> {
       console.log(err);
     });
+});
+
+adminRouter.get(`/getuserlist`, (req, res)=> {
+
+  UserData.find({adminapproved: false})
+  .then((succ)=> {
+    let userList = userListGen(succ); 
+    res.status(200).json({
+      success: true,
+      data: userList
+    });
+  }).catch((err)=> {
+    console.log(err);
+  });
 });
 
 adminRouter.post('/newrequest', (req, res)=> {
@@ -93,7 +107,8 @@ adminRouter.get(`/trainingrequests`, (req,res)=> {
 
 adminRouter.route(`/createworkorder`)
   .get((req, res)=> {
-    res.render('template', {});
+    // res.render('template', {});
+    res.render('template', req.query);
   })
   .post((req, res)=> {
     createWorkOrder(req, res)
@@ -199,7 +214,7 @@ adminRouter.put('/approveinvoice', (req, res)=> {
   InvoiceData.findById(req.body.invoiceId)
     .then((data)=> {
       // console.log(data);
-      approveInvoice(res, data);
+      approveInvoice(req, res, data);
     }).catch((err)=> {
       console.log('Error while fetching invoice data', err.message);
     });

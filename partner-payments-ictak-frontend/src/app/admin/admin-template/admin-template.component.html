@@ -4,7 +4,7 @@
     <div class="container my-2 sidebar-logo bg-gradient rounded bg-opacity-25 p-1">
       <div class="row ">
         <div class="col-5">
-          <img routerLink="" class="rounded-2" height="90px" src="../../../assets/logo/ict-logo.png" alt="">
+          <img style="cursor: pointer;" routerLink="/admin/dashboard" class="rounded-2" height="90px" src="../../../assets/logo/ict-logo.png" alt="">
         </div>
         <div class="col-6 m-auto ">
           <h4 class="text-left fw-bold ">Partner Payment Portal</h4>
@@ -19,7 +19,7 @@
         <li routerLinkActive="activeLink" routerLink="requests"><i class="fas fa-calendar-plus"></i><a>Training Requests</a></li>
         <!-- <li routerLinkActive="activeLink" routerLink="workorders"><i class="fas fa-chalkboard-teacher"></i><a>Work Orders</a></li> -->
         <li routerLinkActive="activeLink" routerLink="invoices"><i class="fas fa-file-invoice-dollar"></i><a>Invoices</a></li>
-        <li routerLinkActive="activeLink" routerLink="portalusers"><i class="fas fa-user"></i><a>Portal Users</a></li>
+        <li routerLinkActive="activeLink" routerLink="userlist"><i class="fas fa-user"></i><a>Portal Users</a></li>
         <li routerLinkActive="activeLink" routerLink="profile"><i class="fas fa-address-card"></i><a>Profile</a></li>
         <br>
       </ul>
@@ -73,7 +73,7 @@
               <li id="profile-icon" class="nav-item  ms-3 me-1 container d-flex align-items-center justify-content-between bg-light bg-opacity-75 shadow">
                 <div class="row align-items-center justify-content-between">
                   <img class="col-3  img-fluid img-circle me-2" src="../../../assets/logo/photo_2020-08-21_02-20-28.jpg" alt="">
-                  <span class="col">Muhammad Ismail I R</span>
+                  <span class="col">{{loggedInUser.fullname}}</span>
                   <a href="" class="col-1 nav-link dropdown-toggle"></a>
                 </div>
               </li>

@@ -23,6 +23,7 @@ import { AdminRequestsComponent } from './admin/admin-requests/admin-requests.co
 import { ProfileComponent } from './profile/profile.component';
 import { PartnerWorkordersComponent } from './partner/partner-workorders/partner-workorders.component';
 import { FinanceInvoicesComponent } from './finance/finance-invoices/finance-invoices.component';
+import { AdminUsersComponent } from './admin/admin-users/admin-users.component';
 import { AdminModifyRequestComponent } from './admin/admin-modify-request/admin-modify-request.component';
 import { ViewFileComponent } from './view-file/view-file.component';
 
@@ -47,6 +48,7 @@ import { ViewFileComponent } from './view-file/view-file.component';
     AdminRequestsComponent,
     PartnerWorkordersComponent,
     FinanceInvoicesComponent,
+    AdminUsersComponent,
     AdminModifyRequestComponent,
     ViewFileComponent
   ],

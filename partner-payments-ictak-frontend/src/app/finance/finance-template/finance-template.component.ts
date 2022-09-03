@@ -1,5 +1,6 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/auth.service';
 
 @Component({
   selector: 'app-finance-template',
@@ -7,12 +8,28 @@ import { Router } from '@angular/router';
   styleUrls: ['./finance-template.component.css']
 })
 export class FinanceTemplateComponent implements OnInit {
-  
   @ViewChild('viewChildHook', {static: true}) sideBar!: ElementRef;
   
-  constructor(private router: Router) { }
+  loggedInUser: any = {};
+
+  constructor(
+    private router: Router,
+    private authServices: AuthService
+    ) { }
 
   ngOnInit(): void {
+
+    let userId = localStorage.getItem('userid');
+    this.authServices.getUserProfile(userId)
+      .subscribe({
+        next: (data)=> {
+          this.loggedInUser =JSON.parse(JSON.stringify(data));
+        },
+        error: (err)=> {
+          console.log(`Can't find user`, err.message);
+        }
+      });
+
   }
 
   

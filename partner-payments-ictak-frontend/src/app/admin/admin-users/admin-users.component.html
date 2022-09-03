@@ -1,0 +1,109 @@
+<div class="container mb-5">  
+
+    <div class="row d-flex justify-content-center ">
+      <div class="col-5  px-5 py-2 mx-3  text-center fs-2 text-black rounded  ">
+        <span>New Users</span>       
+        <hr>
+      </div>
+    </div>
+  
+    <div style="font-size:large;">
+      <span class="border-bottom border-dark border-3 rounded shadow py-2 px-3">Pending Users ({{pendingUserlist.length}})</span>
+    </div>
+    <br>
+    <div class="row mt-2 d-flex justify-content-center align-items-center">
+      
+      <div class="row d-flex justify-content-center align-items-center ">
+  
+        <div *ngIf="(pendingUserlist.length != 0)" class="row text-center border-bottom fs-6 fw-bold text-uppercase border-2 border-dark mb-4 p-2  mx-2 my-2 d-flex align-items-center justify-content-center">
+          <div class="col ">
+            Name
+          </div>
+          <div class="col ">
+            Email
+          </div>
+          <div class="col d-flex justify-content-center">
+            Usertype
+          </div>
+          <div class="col d-flex align-items-center justify-content-center">
+            Action
+          </div>
+        </div> 
+  
+        <div *ngFor="let userprof of pendingUserlist" class="row text-center shadow bg-dark bg-opacity-25 mb-3 p-2  mx-2 my-1 d-flex align-items-center justify-content-center">
+          <div class="col">
+            {{userprof.fullname}}
+          </div>
+          <div class="col text-center">
+            {{userprof.email}}
+          </div>
+          <div class="col text-center">
+            {{userprof.userType}}
+          </div>
+          <div class="col ">
+            <div class="d-flex justify-content-center">
+              <a ><button  style="width: 10.5rem;" class="btn btn-success px-5 my-auto">Approve</button></a>
+              <!-- (click)="approve(userprof._id)" -->
+            </div>
+          </div>
+        </div>    
+  
+      </div>
+  
+    </div>
+  
+    <br>
+    <br>
+  
+    <!-- <div style="font-size:large;">
+      <span class="border-bottom border-dark border-3 rounded shadow py-2 px-3">Approved userprofs ({{approveduserprofs.length}})</span>
+    </div>
+    <br>
+    <div class="row d-flex justify-content-center align-items-center">
+      
+      <div class="row d-flex justify-content-center align-items-center ">
+  
+        <div *ngIf="(approveduserprofs.length != 0)" class="row text-center border-bottom fs-6 fw-bold text-uppercase border-2 border-dark mb-4 p-2  mx-2 my-2 d-flex align-items-center justify-content-center">
+          <div class="col ">
+            Partner
+          </div>
+          <div class="col ">
+            userprof Date
+          </div>
+          <div class="col d-flex justify-content-center">
+            Due Date
+          </div>
+          <div class="col text-center">
+            Work Order Number
+          </div>
+          <div class="col d-flex align-items-center justify-content-center">
+            Action
+          </div>
+        </div> 
+  
+        <div *ngFor="let userprof of approveduserprofs" class="row text-center shadow bg-dark bg-opacity-25 mb-3 p-2  mx-2 my-1 d-flex align-items-center justify-content-center">
+          <div class="col">
+            {{userprof.partnerName}}
+          </div>
+          <div class="col text-capitalize">
+            userprof date
+          </div>
+          <div class="col text-capitalize  d-flex  justify-content-center">
+            due date
+          </div>
+          <div class="col text-center">
+            {{userprof.workOrderNumber}}
+          </div>
+          <div class="col d-flex align-items-center justify-content-center">
+            <a (click)="viewuserprof(userprof._id)">
+              <button class="btn btn-primary mx-1">View Work Order</button>
+            </a>
+          </div>
+        </div>    
+  
+      </div>
+  
+    </div> -->
+  
+  </div>
+  

@@ -1,5 +1,6 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/auth.service';
 
 @Component({
   selector: 'app-partner-template',
@@ -8,9 +9,26 @@ import { Router } from '@angular/router';
 })
 export class PartnerTemplateComponent implements OnInit {
   @ViewChild('viewChildHook', {static: true}) sideBar!: ElementRef;
-  constructor( private router: Router) { }
 
+  loggedInUser: any = { };
+
+  constructor(
+    private router: Router,
+    private authServices: AuthService
+    ) { }
   ngOnInit(): void {
+
+    let userId = localStorage.getItem('userid');
+    this.authServices.getUserProfile(userId)
+      .subscribe({
+        next: (data: any)=> {
+          this.loggedInUser =JSON.parse(JSON.stringify(data));
+        },
+        error: (err: any)=> {
+          console.log(`Can't find user`, err.message);
+        }
+      });
+
   }
 
   

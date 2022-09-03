@@ -19,7 +19,7 @@ import { FinanceInvoicesComponent } from './finance/finance-invoices/finance-inv
 import { FinanceWorkOrdersComponent } from './finance/finance-work-orders/finance-work-orders.component';
 import { AdminModifyRequestComponent } from './admin/admin-modify-request/admin-modify-request.component';
 import { ViewFileComponent } from './view-file/view-file.component';
-
+import { AdminUsersComponent } from './admin/admin-users/admin-users.component';
 const routes: Routes = [
   {
     path: '',
@@ -70,6 +70,10 @@ const routes: Routes = [
         path: "modifyrequest",
         component: AdminModifyRequestComponent
       },
+      {
+        path: 'userlist',
+        component: AdminUsersComponent
+      }
     ]
   },
   {
