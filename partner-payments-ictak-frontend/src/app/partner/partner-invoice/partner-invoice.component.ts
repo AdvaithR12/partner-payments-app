@@ -64,8 +64,6 @@ export class PartnerInvoiceComponent implements OnInit {
       .subscribe((res) => {
         this.multipleInput.nativeElement.value = ""
         this.invoiceFormUpload(res.path[0])
-        console.log(res.path[0]);
-        
         this.displayMultipleInvoices=true
       });
 

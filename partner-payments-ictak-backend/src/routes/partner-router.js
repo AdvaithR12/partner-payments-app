@@ -1,9 +1,9 @@
 const express = require(`express`);
 const InvoiceData  = require('../model/invoice-model')
 const partnerRouter = express.Router();
-
+const fs = require('fs');
+const path = require('path');
 const multipleUpload = require('../contoller/partner-controller');
-const UserData = require(`../model/user-model`);
 const { TrainingRequest } = require(`../model/work-order-model`);
 
 
@@ -81,6 +81,17 @@ partnerRouter.get(`/workorder`, (req, res)=> {
         message: 'Error while fetching work order'
       });
     });
+
+});
+
+partnerRouter.get(`/getworkorder/:id`, (req, res)=> {
+
+  if(fs.existsSync(path.join(__dirname, '../assets/work-orders/generated/', `workorder_${req.params.id}.pdf`))) {
+    res.status(200).sendFile(path.join(__dirname, '../assets/work-orders/generated/', `workorder_${req.params.id}.pdf`));
+  } else {
+    console.log('File not found');
+    res.status(404).send('File not found');
+  }
 
 });
 

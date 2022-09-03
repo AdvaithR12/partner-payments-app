@@ -209,3 +209,10 @@ flex-grow: 0; */
   color: #000000;
   line-height: 25px;
 }
+
+
+#signout-button li:hover {
+  background-color: #000000;
+  transition: cubic-bezier(0.075, 0.82, 0.165, 1);
+  
+}

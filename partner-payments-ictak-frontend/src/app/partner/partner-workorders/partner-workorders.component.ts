@@ -42,8 +42,8 @@ export class PartnerWorkordersComponent implements OnInit {
   }
 
   viewWorkOrderPdf(workOrderId: any) {
-    sessionStorage.setItem(`workOrderId`, workOrderId);
-    this.router.navigate(['admin/workorder']);
+    sessionStorage.setItem(`goToUrl`, `http://localhost:8080/api/partner/getworkorder/${workOrderId}`);
+    this.router.navigate(['partner/requests/workorder']);
   }
 
 }

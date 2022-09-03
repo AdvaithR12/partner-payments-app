@@ -42,10 +42,10 @@ export class AdminService {
     return this.http.put(`${this.server}/admin/updaterequest`, { trainingRequest: trainingRequestData });
   }
 
-  approveInvoice(invoiceId: any, daysForPayment: any) {
+  approveInvoice(invoiceId: any, dueDate: any) {
     return this.http.put(`${this.server}/admin/approveinvoice`, { 
       invoiceId: invoiceId, 
-      daysForPayment: daysForPayment 
+      dueDate: dueDate 
     });
   }
   //user approval list
