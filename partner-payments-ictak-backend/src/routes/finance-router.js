@@ -2,6 +2,7 @@ const express = require(`express`);
 const fs = require('fs');
 const path = require('path');
 const InvoiceData = require(`../model/invoice-model`);
+const { TrainingRequest } = require(`../model/work-order-model`);
 
 const financeRouter = express.Router();
 
@@ -39,6 +40,31 @@ financeRouter.get(`/getinvoices`, (req, res)=> {
           message: `Server error while fetching invoices`
         });
       });
+
+});
+
+financeRouter.put('/setworkorder', (req,res) =>{  /*verifyToken,/insert*/ 
+  // console.log('Backend',req.body);
+  const id = req.body.id;
+  const isapproved = req.body.financeApproved;
+  console.log(id, isapproved);
+  TrainingRequest.findByIdAndUpdate({"_id":id},
+  {$set:{
+    "financeApproved":isapproved
+}})
+.then((success)=> {
+  console.log('success', success);
+  res.status(200).json({
+    success: true,
+    message: 'Work order updated successfully'
+  });
+})
+.catch((err)=> {
+  res.json({
+    success: false,
+    message: 'Work order updated failed',
+  });
+});
 
 });
 

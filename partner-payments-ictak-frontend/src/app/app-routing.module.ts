@@ -101,6 +101,10 @@ const routes: Routes = [
         path: "workorders",
         component: FinanceWorkOrdersComponent
       },
+      {
+        path: 'workorders/getworkorder',
+        component: ViewFileComponent
+      }
     ]
   },
   {
@@ -125,7 +129,7 @@ const routes: Routes = [
         component: PartnerWorkordersComponent
       },
       {
-        path: 'requests/workorder',
+        path: 'workorders/getworkorder',
         component: ViewFileComponent
       },
     ]
