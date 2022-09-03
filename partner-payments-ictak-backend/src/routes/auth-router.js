@@ -104,5 +104,19 @@ UserData.findByIdAndUpdate({"_id":id},
 });
 });
 
+authRouter.get('/findprofile/:id', (req,res) =>{  /*verifyToken,/insert*/ 
+  const id = req.params.id;
+  UserData.findOne({"_id":id}) 
+  .then((user)=>{
+    res.send(user);
+  })
+  .catch((err)=> {
+    res.json({
+      success: false,
+      message: "Some error occurred",
+    });
+  });
+});
+
 
 module.exports = authRouter;
