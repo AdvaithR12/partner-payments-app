@@ -52,8 +52,8 @@ export class FinanceWorkOrdersComponent implements OnInit {
 
   }
 
-  approve(requestId: any) {
-    if(confirm(`Create Work Order and forward the request to Finance Department? (This might take a few seconds)`)) {
+  approve_old(requestId: any) {
+      if(confirm(`Create Work Order and forward the request to Finance Department? (This might take a few seconds)`)) {
       this.adminServices.createWorkOrder(requestId)
       .subscribe({
         next: (response: any)=> {
@@ -78,4 +78,18 @@ export class FinanceWorkOrdersComponent implements OnInit {
     this.router.navigate(['admin/workorder']);
   }
 
+  //Reject
+  rejectworkorder(requestId: any){
+
+  }
+
+  //Approve
+  approveworkorder(requestId: any){
+
+  }
+
+  //Vie
+  viewworkorder(requestId: any){
+
+  }
 }

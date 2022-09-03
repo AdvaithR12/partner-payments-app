@@ -28,5 +28,24 @@ export class AdminUsersComponent implements OnInit {
       });
 
   }
-
+  approveuser(id:any){
+    this.adminServices.approveuser(id)
+      .subscribe({
+        next: (succ: any)=> {
+          console.log(succ);
+          if(succ.success) {
+            alert(`User account approved`)
+            const currentRoute = this.router.url; // function to reload the current component
+            this.router.navigateByUrl('/', { skipLocationChange: true })
+              .then(() => {
+                this.router.navigate([currentRoute]); // navigate to same route
+              }); 
+          }
+        },
+        error: (err: any)=> {
+          console.log('Error while approving user account', err.message);
+        }
+      }); 
+    
+  }
 }

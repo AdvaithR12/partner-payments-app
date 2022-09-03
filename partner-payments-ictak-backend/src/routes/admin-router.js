@@ -207,4 +207,38 @@ adminRouter.put('/approveinvoice', (req, res)=> {
 
 });
 
+// adminRouter.put('/approveuser/:id', (req, res)=> {
+
+//   UserData.findById(req.params.id)
+//     .then((data)=> {
+//       // console.log(data);
+//       approveInvoice(res, data);
+//     }).catch((err)=> {
+//       console.log('Error while fetching invoice data', err.message);
+//     });
+
+// });
+
+//findprofile
+adminRouter.put('/approveuser', (req,res) =>{  /*verifyToken,/insert*/ 
+  const id = req.body.id;
+  UserData.findByIdAndUpdate({"_id":id},
+  {$set:{
+    "adminapproved":true,
+}})
+.then((success)=> {
+  console.log('success', success);
+  res.status(200).json({
+    success: true,
+    message: 'User account approved successfully'
+  });
+})
+.catch((err)=> {
+  res.json({
+    success: false,
+    message: 'User account approval failed',
+  });
+});
+
+});
 module.exports = adminRouter;

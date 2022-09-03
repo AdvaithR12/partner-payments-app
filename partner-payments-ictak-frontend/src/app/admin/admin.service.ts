@@ -52,4 +52,9 @@ export class AdminService {
   getUserlist() {
     return this.http.get(`${this.server}/admin/getuserlist`);
   }
+  approveuser(id:any){
+    return this.http.put(`${this.server}/admin/approveuser/`,{
+      id: id
+    });
+  }
 }
