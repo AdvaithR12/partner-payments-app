@@ -23,7 +23,6 @@ export class FinanceInvoicesComponent implements OnInit {
     .subscribe({
       next: (succ: any)=> {
         this.approvedInvoices = succ.data;
-        console.log(this.approvedInvoices);
       },
       error: (err)=> {
         console.log('Error getting approved invoices', err.message);
@@ -34,8 +33,6 @@ export class FinanceInvoicesComponent implements OnInit {
     .subscribe({
       next: (succ: any)=> {
         this.advanceInvoices = succ.data;
-        console.log(this.advanceInvoices);
-        
       },
       error: (err)=> {
         console.log('Error getting advance invoices', err.message);

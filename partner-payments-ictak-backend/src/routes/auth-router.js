@@ -65,8 +65,6 @@ authRouter.post('/signup',function(req,res) {  /*verifyToken,/insert*/
 });
 
 authRouter.post('/updateProfile',function(req,res) {  /*verifyToken,/insert*/ 
-  console.log('router. updateProfile');
-  console.log(req.body)
   id=req.body._id;
 //userType
 
@@ -90,9 +88,8 @@ UserData.findByIdAndUpdate({"_id":id},
     "partnertype":partnertype,
     "skills":skills,
     "workexperience" : workexperience
-}})
+}}, { new: true })
 .then((success)=> {
-  console.log('success', success);
   res.status(200).json({
     success: true,
     userType: req.body.userType,
@@ -106,7 +103,7 @@ UserData.findByIdAndUpdate({"_id":id},
   });
 });
 });
-//findprofile
+
 authRouter.get('/findprofile/:id', (req,res) =>{  /*verifyToken,/insert*/ 
   const id = req.params.id;
   UserData.findOne({"_id":id}) 
@@ -120,5 +117,6 @@ authRouter.get('/findprofile/:id', (req,res) =>{  /*verifyToken,/insert*/
     });
   });
 });
+
 
 module.exports = authRouter;
