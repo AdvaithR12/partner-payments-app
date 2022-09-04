@@ -26,6 +26,7 @@ import { FinanceInvoicesComponent } from './finance/finance-invoices/finance-inv
 import { AdminUsersComponent } from './admin/admin-users/admin-users.component';
 import { AdminModifyRequestComponent } from './admin/admin-modify-request/admin-modify-request.component';
 import { ViewFileComponent } from './view-file/view-file.component';
+import { FinanceRemittanceComponent } from './finance/finance-remittance/finance-remittance.component';
 
 
 @NgModule({
@@ -50,7 +51,8 @@ import { ViewFileComponent } from './view-file/view-file.component';
     FinanceInvoicesComponent,
     AdminUsersComponent,
     AdminModifyRequestComponent,
-    ViewFileComponent
+    ViewFileComponent,
+    FinanceRemittanceComponent
   ],
   imports: [
     BrowserModule,

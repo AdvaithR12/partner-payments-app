@@ -14,4 +14,11 @@ export class FinanceService {
     return this.http.get(`${this.server}/finance/getinvoices`,  { params: { 'invoiceType': invoiceType} });
   }
 
+  remittanceForm(data:any, newinvoiceId:any){
+    return this.http.put<any>(`${this.server}/finance/remittance`, {
+      data: data,
+      newinvoiceId: newinvoiceId
+    })
+  }
+
 }

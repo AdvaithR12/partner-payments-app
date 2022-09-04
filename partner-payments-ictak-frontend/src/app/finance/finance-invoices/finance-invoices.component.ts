@@ -35,6 +35,7 @@ export class FinanceInvoicesComponent implements OnInit {
       next: (succ: any)=> {
         this.advanceInvoices = succ.data;
         console.log(this.advanceInvoices);
+        
       },
       error: (err)=> {
         console.log('Error getting advance invoices', err.message);
@@ -42,6 +43,10 @@ export class FinanceInvoicesComponent implements OnInit {
     });
   }
 
+  remittanceForm(invoice_Id: any){
+    sessionStorage.setItem("Id",invoice_Id.toString())
+    this.router.navigate(['finance/remittance']);
+  }
 
   viewInvoice(invoiceId: any) {
     sessionStorage.setItem(`goToUrl`, `http://localhost:8080/api/finance/getinvoice/${invoiceId}`);

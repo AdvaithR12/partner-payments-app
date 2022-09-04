@@ -113,8 +113,9 @@
           </div>
 
           <div class="col d-flex align-items-center justify-content-center">
-            <a (click)="viewInvoice(invoice.fileName)">
-              <button class="btn btn-primary mx-1">View Invoice</button>
+            <a >
+              <button class="btn btn-primary mx-1" (click)="viewInvoice(invoice.fileName)">View Invoice</button>
+              <button class="btn btn-success mx-1 mt-2" (click)="remittanceForm(invoice._id)">Remittance</button>
             </a>
           </div>
         </div>    

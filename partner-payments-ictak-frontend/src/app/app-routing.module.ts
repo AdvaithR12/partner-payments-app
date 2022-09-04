@@ -20,6 +20,7 @@ import { FinanceWorkOrdersComponent } from './finance/finance-work-orders/financ
 import { AdminModifyRequestComponent } from './admin/admin-modify-request/admin-modify-request.component';
 import { ViewFileComponent } from './view-file/view-file.component';
 import { AdminUsersComponent } from './admin/admin-users/admin-users.component';
+import { FinanceRemittanceComponent } from './finance/finance-remittance/finance-remittance.component';
 const routes: Routes = [
   {
     path: '',
@@ -101,6 +102,10 @@ const routes: Routes = [
         path: "workorders",
         component: FinanceWorkOrdersComponent
       },
+      {
+        path:"remittance",
+        component: FinanceRemittanceComponent
+      }
     ]
   },
   {

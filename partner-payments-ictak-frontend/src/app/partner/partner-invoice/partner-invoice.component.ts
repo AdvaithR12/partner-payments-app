@@ -89,6 +89,7 @@ export class PartnerInvoiceComponent implements OnInit {
       (succ:any) => {
         if (succ.success) {
           // this.invoiceForm.reset();
+          // localStorage.setItem("Id", this.invoiceData._id.toString() )
           setTimeout(() => {
             window.location.replace('/partner/invoice');
           }, 3000)}
