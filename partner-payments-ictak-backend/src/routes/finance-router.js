@@ -5,6 +5,7 @@ const UserData = require(`../model/user-model`);
 const InvoiceData = require(`../model/invoice-model`);
 const { TrainingRequest } = require(`../model/work-order-model`);
 const RemittanceData = require(`../model/finance-model`);
+const { isDate } = require('util/types');
 const financeRouter = express.Router();
 
 financeRouter.get(`/`, (req, res)=> {
@@ -26,6 +27,7 @@ financeRouter.get(`/getinvoices`, (req, res)=> {
     InvoiceData.find({ 
         $and:[
           { adminApproved: true },
+          {paid: false},
           { invoiceType: req.query.invoiceType }
         ]
       })
@@ -68,7 +70,7 @@ financeRouter.put('/setworkorder', (req,res) =>{  /*verifyToken,/insert*/
 
 });
 
-financeRouter.put('/remittance', (req,res)=> {
+financeRouter.post('/remittance', (req,res)=> {
   
   var newRemittance = new RemittanceData(req.body.data);
   newRemittance.save()
@@ -82,6 +84,30 @@ financeRouter.put('/remittance', (req,res)=> {
       console.log('failed', err.message);
     });
 
+    var invoiceId = req.body.invoiceId;
+
+    var current_date=new Date();
+
+    InvoiceData.findByIdAndUpdate({"_id": invoiceId},
+    {$set:{
+      "paid": true,
+      "paymentDate": current_date
+    }})
+    .then((success)=> {
+      console.log('success', success);
+      res.status(200).json({
+        success: true,
+        message: 'payment updated successfully'
+      });
+      
+    }).catch((err)=> {
+      res.json({
+        success: false,
+        message: 'payment update failed',
+      });
+    });
+
+    
 });
 
 module.exports = financeRouter;

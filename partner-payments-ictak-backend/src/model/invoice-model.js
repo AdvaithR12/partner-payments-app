@@ -6,6 +6,7 @@ var invoiceSchema = new Schema({
   partnerName: String,
   partnerEmail: String,
   workOrderNumber: String,
+  workOrderId: String,
   invoiceNumber: String,
   invoiceType: Boolean,
   invoiceId: String,
@@ -14,7 +15,8 @@ var invoiceSchema = new Schema({
   fileName: String,
   totalAmount: String,
   invoiceDate: Date,
-  invoiceDueDate: Date
+  invoiceDueDate: Date,
+  paymentDate: Date
 });
 
 

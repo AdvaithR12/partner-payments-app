@@ -40,8 +40,9 @@ export class FinanceInvoicesComponent implements OnInit {
     });
   }
 
-  remittanceForm(invoice_Id: any){
-    sessionStorage.setItem("Id",invoice_Id.toString())
+  remittanceForm(invoiceId: any, workOrderId: any){
+    sessionStorage.setItem("invoiceId",invoiceId.toString())
+
     this.router.navigate(['finance/remittance']);
   }
 

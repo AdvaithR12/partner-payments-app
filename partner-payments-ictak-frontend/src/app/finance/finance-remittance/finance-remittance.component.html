@@ -18,13 +18,13 @@
 
                 
               <div class="input-set">
-                <label for="invoiceId">Invoice ID</label>
+                <label for="invoiceId">Invoice Number</label>
                 <input
                 class="form-control" 
                 type="text" 
                 name="invoiceid" 
                 placeholder="" 
-                [(ngModel)]="remittanceDetails.invoiceId" 
+                [(ngModel)]="remittanceDetails.invoiceNumber" 
                 required>
               </div>
 
@@ -113,6 +113,7 @@
           <!-- Submission Buttons Begin -->
           <section class="row d-flex justify-content-evenly mx-3 mt-5 mb-3">
             <button class="btn btn-danger submit-button" [disabled]="remittanceForm.form.invalid" >Submit Form</button>
+            <button class="btn btn-danger submit-button" >Submit Form</button>
           </section>
         </div>
     </form>

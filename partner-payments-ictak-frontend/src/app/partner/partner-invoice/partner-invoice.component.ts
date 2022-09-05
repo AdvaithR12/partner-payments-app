@@ -91,7 +91,11 @@ export class PartnerInvoiceComponent implements OnInit {
           // this.invoiceForm.reset();
           // localStorage.setItem("Id", this.invoiceData._id.toString() )
           setTimeout(() => {
-            window.location.replace('/partner/invoice');
+            const currentRoute = this.router.url;
+            this.router.navigateByUrl('/', { skipLocationChange: true })
+              .then(() => {
+                this.router.navigate([currentRoute]); // navigate to same route
+              }); 
           }, 3000)}
   })
 }

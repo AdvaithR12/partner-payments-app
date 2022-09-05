@@ -27,10 +27,11 @@ export class FinanceService {
     });
   } 
 
-  remittanceForm(data:any, newinvoiceId:any){
-    return this.http.put<any>(`${this.server}/finance/remittance`, {
+  remittanceForm(data:any, invoiceId:any, workOrderId: any){
+    return this.http.post<any>(`${this.server}/finance/remittance`, {
       data: data,
-      newinvoiceId: newinvoiceId
+      invoiceId: invoiceId,
+      workOrderId: workOrderId
     })
   }
 

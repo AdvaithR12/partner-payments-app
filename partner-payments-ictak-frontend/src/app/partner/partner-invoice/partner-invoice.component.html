@@ -33,15 +33,15 @@
               </select>
             </div>
             <div class="input-set">
-              <label for="invoiceid">Invoice Id</label>
+              <label for="invoiceid">Invoice Number</label>
               &nbsp;
               <input 
                 (blur)="fetchWorkOrderData()"
                 class="form-control" 
                 type="text" 
-                name="invoiceid" 
-                placeholder="Invoice Id" 
-                [(ngModel)]="invoiceData.invoiceId" 
+                name="invoiceNumber" 
+                placeholder="Invoice Number" 
+                [(ngModel)]="invoiceData.invoiceNumber" 
                 required>
             </div>
 

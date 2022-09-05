@@ -20,10 +20,12 @@ export class FinanceRemittanceComponent implements OnInit {
   submitForm(){
     // console.log(this.remittanceDetails)
 
-   const newinvoiceId =  sessionStorage.getItem("Id")
-    console.log(newinvoiceId)
+   const invoiceId =  sessionStorage.getItem("invoiceId")
+   const workOrderId =  sessionStorage.getItem("workOrderId")
+    console.log(invoiceId)
+    console.log(workOrderId)
 
-    this.financeservices.remittanceForm(this.remittanceDetails, newinvoiceId)
+    this.financeservices.remittanceForm(this.remittanceDetails, invoiceId, workOrderId)
         .subscribe({
       next: (succ: any)=> {
         if(succ.success) {
