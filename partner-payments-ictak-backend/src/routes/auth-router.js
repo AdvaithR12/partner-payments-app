@@ -1,5 +1,10 @@
 const express = require(`express`);
+const passport = require(`passport`)
 const UserData = require(`../model/user-model`);
+const authController = require('../contoller/auth-controller');
+
+const crypto = require('crypto');
+const jwt = require('jsonwebtoken')
 // const User = require('../model/user-model');
 
 const authRouter = express.Router();
@@ -9,59 +14,69 @@ authRouter.get(`/`, (req, res)=> {
 });
 
 authRouter.post(`/signin`, (req, res)=> {
-  var email = req.body.email.trim();
-  var password = req.body.password.trim();
 
-  UserData.find({"email":email})
-    .then((user)=> {
-      if(user.length == 0) {
-        res.status(200).json({
-          success: false,
-          message: 'User Not found'
-        });
-      } else if(user[0].password != password) {
-        res.status(200).json({
-          success: false,
-          message: `Invalid Password`        
-        });
-      } else {
-        res.status(200).json({
-          success: true,
-          message: `Authenticated User` ,
-          user: user[0]
-        });
-      }
-    }).catch((err)=> {
-      console.log('auth-router.js:16 - err', err);
-    });
+  passport.authenticate('local', (err, user, info)=> {
+    
+    if(err) {
+      res.status(404).json(err)
+      return;
+    }
+
+    if(user) {
+      token = user.generateJwt();
+      res.status(200).json({
+        token: token
+      });
+    } else {
+      res.status(401).json(info);
+    }
+
+  });
+
+  // var email = req.body.email.trim();
+  // var password = req.body.password.trim();
+
+  // UserData.find({"email":email})
+  //   .then((user)=> {
+  //     if(user.length == 0) {
+  //       res.status(200).json({
+  //         success: false,
+  //         message: 'User Not found'
+  //       });
+  //     } else if(user[0].password != password) {
+  //       res.status(200).json({
+  //         success: false,
+  //         message: `Invalid Password`        
+  //       });
+  //     } else {
+  //       res.status(200).json({
+  //         success: true,
+  //         message: `Authenticated User` ,
+  //         user: user[0]
+  //       });
+  //     }
+  //   }).catch((err)=> {
+  //     console.log('auth-router.js:16 - err', err);
+  //   });
 });
 
-authRouter.post('/signup',function(req,res) {  /*verifyToken,/insert*/ 
-  // console.log(req.body);
-
-  var user = {       
-    fullname : req.body.name,
-    email : req.body.email,
-    password : req.body.password,
-    userType : req.body.userType,
-    adminapproved : false
-  }
-
-  var newUser = new UserData(user);  //create an instance of your model
-  newUser.save() 
-  .then((success)=> {
-    console.log('New User added')
-    res.status(200).json({
-      success: true,
-      message: 'User Addition Successfull'
+authRouter.post('/signup', (req,res)=> {  /*verifyToken,/insert*/ 
+  
+  authController.addNewUser(req)
+    .then((succ)=> {
+      if(succ.success) {
+        res.status(200).json(succ);
+      } else {
+        res.status(409).json(succ);
+      }
+    }).catch((err)=> {
+      console.log('Some unknown error', err.message);
+      res.status(500).json({
+        success: false,
+        message: 'Unknown error while signing up'
+      });
     });
-  })
-  .catch((err)=> {
-    res.json({
-      success: false,
-      message: `${err.code==11000 ? 'Email ID already registered' : 'Add user failed'}`,
-    });
-  });
+
 });
 
 authRouter.post('/updateProfile',function(req,res) {  /*verifyToken,/insert*/ 
@@ -120,3 +135,27 @@ authRouter.get('/findprofile/:id', (req,res) =>{  /*verifyToken,/insert*/
 
 
 module.exports = authRouter;
+
+
+
+// passport.authenticate('local', function(err, user, info){
+//   var token;
+
+//   // If Passport throws/catches an error
+//   if (err) {
+//     res.status(404).json(err);
+//     return;
+//   }
+
+//   // If a user is found
+//   if(user){
+//     token = user.generateJwt();
+//     res.status(200);
+//     res.json({
+//       "token" : token
+//     });
+//   } else {
+//     // If user is not found
+//     res.status(401).json(info);
+//   }
+// })(req, res);
