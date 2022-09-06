@@ -15,23 +15,42 @@ authRouter.get(`/`, (req, res)=> {
 
 authRouter.post(`/signin`, (req, res)=> {
 
-  passport.authenticate('local', (err, user, info)=> {
-    
-    if(err) {
-      res.status(404).json(err)
-      return;
-    }
-
-    if(user) {
-      token = user.generateJwt();
-      res.status(200).json({
-        token: token
+  authController.loginUser(req)
+    .then((succ)=> {
+      console.log('succ',succ);
+      if(succ.success) {
+        res.status(200).json(succ);
+      } else {
+        res.status(401).json(succ);
+      }
+    }).catch((err)=> {
+      console.log("auth-router.js ~ line 27 ~ .then ~ err", err.message)
+      console.log('Error while trying to log in!', err.message);
+      res.status(401).json({
+        success: false,
+        message: 'Unknown error while signing in'
       });
-    } else {
-      res.status(401).json(info);
-    }
+    });
 
-  });
+  // passport.authenticate('local', (err, user, info)=> {
+    
+  //   if(err) { //If there is an error with passport
+  //     console.log('Error thrown with passport', err.message);
+  //     res.status(404).json(err)
+  //     return;
+  //   }
+  //   if(user) {
+  //     console.log(user);
+  //     token = user.generateJwt();
+  //     res.status(200).json({
+  //       token: token
+  //     });
+  //   } else {
+  //     console.log(info);
+  //     res.status(401).json(info);
+  //   }
+
+  // });
 
   // var email = req.body.email.trim();
   // var password = req.body.password.trim();
@@ -60,7 +79,7 @@ authRouter.post(`/signin`, (req, res)=> {
   //   });
 });
 
-authRouter.post('/signup', (req,res)=> {  /*verifyToken,/insert*/ 
+authRouter.post('/signup', (req,res)=> {
   
   authController.addNewUser(req)
     .then((succ)=> {
@@ -79,7 +98,7 @@ authRouter.post('/signup', (req,res)=> {  /*verifyToken,/insert*/
 
 });
 
-authRouter.post('/updateProfile',function(req,res) {  /*verifyToken,/insert*/ 
+authRouter.post('/updateProfile',function(req,res) {  
   id=req.body._id;
 //userType
 
@@ -119,7 +138,7 @@ UserData.findByIdAndUpdate({"_id":id},
 });
 });
 
-authRouter.get('/findprofile/:id', (req,res) =>{  /*verifyToken,/insert*/ 
+authRouter.get('/findprofile/:id', (req,res) =>{  
   const id = req.params.id;
   UserData.findOne({"_id":id}) 
   .then((user)=>{

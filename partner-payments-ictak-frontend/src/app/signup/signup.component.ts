@@ -20,24 +20,30 @@ export class SignupComponent implements OnInit {
     password:'',
     userType:'Admin',
     adminapproved: false
-    }
+  }
   retypePassword :string = '';
   usertypes= ['Admin', 'Finance Admin','Partner']
   
   addUser() {    
+
     if(this.loginuser.password == this.retypePassword) {
       this.auth.addUser(this.loginuser)
-      .subscribe(
-        res=>{
-          //localStorage.setItem('token',res.token)
-          //this.router.navigate(['products'])
-          if(res.success == true) {
-            alert('Signup successfull. Login now!');
+      .subscribe({
+        next: (succ: any)=> {
+          if(succ.success) {
+            alert('Sign Up successful. Proceed to sign in and use your account!');
             this.router.navigate(['']);
-          } else {
-            alert(res.message);
           }
-        })
+        },
+        error: (err: any)=> {
+          alert(`${err.error.message}, Try again`);
+          const currentRoute = this.router.url; // function to reload the current component
+          this.router.navigateByUrl('/', { skipLocationChange: true })
+            .then(() => {
+              this.router.navigate([currentRoute]); // navigate to same route
+            }); 
+        }
+      });
     } else {
       alert(`Passwords doesn't match`)
     }

@@ -11,7 +11,6 @@ const adminRouter = require(`./src/routes/admin-router`);
 const partnerRouter = require('./src/routes/partner-router');
 const financeRouter = require('./src/routes/finance-router')
 
-
 const app = new express();
 
 const PORT = process.env.PORT || 8080;

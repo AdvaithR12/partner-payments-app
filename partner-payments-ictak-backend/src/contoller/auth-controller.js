@@ -1,28 +1,28 @@
-const passport = require('passport');
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken')
+const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const UserData = require(`../model/user-model`);
 
-// passport.use(new LocalStrategy({
-//   usernameField: 'email'
-// }, (email, password, done)=> {
-//   UserData.findOne({ email: email }, (err, user)=> {
-//     if(err) return done(err); // return error if any
-//     if(!user) { // return null if no user found
-//       return done(null, false, {
-//         message: 'User not found' 
-//       });
-//     }
-//     if(!user.validatePassword(password)) { // return  if invalid password
-//       return done(null, false, {
-//         message: 'Invalid Password'
-//       });
-//     }
-//     return done(null, user)
-//   })
-// }
-// ));
+passport.use(new LocalStrategy({
+  usernameField: 'email'
+}, (email, password, done)=> {
+  UserData.findOne({ email: email }, (err, user)=> {
+    if(err) return done(err); // return error if any
+    if(!user) { // return null if no user found
+      return done(null, false, {
+        message: 'User not found' 
+      });
+    }
+    if(validatePassword(user, password)) { // return  if invalid password
+      return done(null, false, {
+        message: 'Invalid Password'
+      });
+    }
+    return done(null, user)
+  })
+}
+));
 
 encryptPassword = (password)=> {
   let salt = crypto.randomBytes(16).toString('hex');
@@ -45,6 +45,11 @@ generateJwt = (user)=> {
   }, "MY_SECRET"); // DO NOT KEEP YOUR SECRET IN THE CODE!
 }
 
+validatePassword = (user, password)=> {
+  var hash = crypto.pbkdf2Sync(password, user.salt, 1000, 64, 'sha512').toString('hex');
+  return user.hash === hash;
+};
+
 module.exports.addNewUser = async (req)=> {
 
   let user = {       
@@ -61,7 +66,7 @@ module.exports.addNewUser = async (req)=> {
 
   let newUser = new UserData(user);
 
-  let saveStatus = newUser.save()
+  let saveUserStatus = newUser.save()
     .then((user)=>{
       let token = generateJwt(user)
         console.log('New user added');
@@ -79,6 +84,37 @@ module.exports.addNewUser = async (req)=> {
       }
     });
 
-  return saveStatus
+  return saveUserStatus
+
+}
+
+module.exports.loginUser = async (req)=> {
+
+  let fetchedUser = await UserData.findOne({ email: req.body.email });
+
+  if(fetchedUser) {
+    userAuthenticated = validatePassword(fetchedUser, req.body.password);
+  } else {
+    return {
+      success: false,
+      message: 'User not found'
+    }
+  }
+
+  if(userAuthenticated) {
+    let token = generateJwt(fetchedUser);
+    console.log('ffffffff');
+    return {
+      success: true,
+      user: fetchedUser,
+      token: token,
+      message: 'User authenticated'
+    } 
+  } else {
+    return {
+      success: false,
+      message: 'Incorrect password'
+    }
+  }
 
 }
