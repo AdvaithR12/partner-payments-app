@@ -40,7 +40,9 @@ generateJwt = (user)=> {
   return jwt.sign({
     _id: user._id,
     email: user.email,
-    name: user.name,
+    name: user.fullname,
+    userType: user.userType,
+    adminapproved: user.adminapproved,
     exp: parseInt(expiry.getTime() / 1000),
   }, "MY_SECRET"); // DO NOT KEEP YOUR SECRET IN THE CODE!
 }
@@ -103,11 +105,10 @@ module.exports.loginUser = async (req)=> {
 
   if(userAuthenticated) {
     let token = generateJwt(fetchedUser);
-    console.log('ffffffff');
     return {
       success: true,
-      user: fetchedUser,
       token: token,
+      userId: fetchedUser._id,
       message: 'User authenticated'
     } 
   } else {

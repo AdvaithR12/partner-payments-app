@@ -44,4 +44,32 @@ export class AuthService {
     return this.http.post<any>(`${this.server}/auth/updateProfile`,user);
   }
 
+  loggedIn(userType: any): boolean {
+    let userId = localStorage.getItem('userid');
+    let token = localStorage.getItem('user-token');
+
+    if(userId && token) {
+      try {
+        var userData = JSON.parse(window.atob(token.split('.')[1]));
+        var tokenHeader = JSON.parse(window.atob(token.split('.')[0]));
+      } catch {
+        console.error(`Tampered token`);
+        return false;
+      }
+    } else {
+      return false;
+    }
+
+    if(JSON.stringify(tokenHeader) == JSON.stringify({alg: 'HS256', typ: 'JWT'})) {
+      if(userData._id == userId) {
+        return userData.userType == userType;
+      } else {
+        return false;
+      }
+    } else {
+      console.error(`Tampered token`);
+      return false;
+    }
+  }
+
 }

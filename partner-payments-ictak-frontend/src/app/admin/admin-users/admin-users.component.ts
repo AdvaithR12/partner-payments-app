@@ -30,7 +30,6 @@ export class AdminUsersComponent implements OnInit {
     this.adminServices.approveuser(id)
       .subscribe({
         next: (succ: any)=> {
-          console.log(succ);
           if(succ.success) {
             alert(`User account approved`)
             const currentRoute = this.router.url; // function to reload the current component
