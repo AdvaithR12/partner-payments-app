@@ -72,7 +72,7 @@ export class PartnerInvoiceComponent implements OnInit {
   invoiceFormUpload(invoiceFileName: any) {
     this.invoiceData.fileName = invoiceFileName;
     this.invoiceData.paid = this.invoiceData.invoiceType
-    this.invoiceData.adminApproved = false;
+    //this.invoiceData.adminApproved = false;
 
     this.partnerServices.invoiceFormUpload(this.invoiceData)
     // .subscribe({

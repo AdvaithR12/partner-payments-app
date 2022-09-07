@@ -193,20 +193,30 @@ adminRouter.get('/getinvoice/:id', (req, res)=> {
 });
 
 adminRouter.get(`/getinvoices`, (req, res)=> {
+  var qry = req.query;
+  console.log('param value',qry.adminApproved);
+  if(qry.adminApproved == false || qry.adminApproved == 'false'){
+    qry = {adminApproved: { $exists: false }}
+  }
   
-  InvoiceData.find(req.query)
+  //if(req.query.adminApproved)
+  //{adminApproved: { $exists: false }}
+  console.log('getinvoices',qry);
+  
+  InvoiceData.find(qry)//req.query
     .then((succ)=> {
       res.status(200).json({
         success: true,
         data: succ
       })
     }).catch((err)=> {
-      console.log('Error while fetching invoices');
+      console.log('Error while fetching invoices',err);
       res.status(500).json({
         success: false,
         message: `Server error while fetching invoices`
       });
     });
+    
 });
 
 adminRouter.put('/approveinvoice', (req, res)=> {
@@ -218,6 +228,28 @@ adminRouter.put('/approveinvoice', (req, res)=> {
     }).catch((err)=> {
       console.log('Error while fetching invoice data', err.message);
     });
+
+});
+//denyinvoice
+adminRouter.put('/denyinvoice', (req, res)=> {
+    const id = req.body.invoiceId;
+    InvoiceData.findByIdAndUpdate({"_id":id},
+    {$set:{
+      "adminApproved":false,
+    }})
+  .then((success)=> {
+    console.log('success', success);
+    res.status(200).json({
+      success: true,
+      message: 'Invoice denied successfully'
+    });
+  })
+  .catch((err)=> {
+    res.json({
+      success: false,
+      message: 'Invoice deniel  failed',
+    });
+  });
 
 });
 

@@ -35,6 +35,7 @@ export class AdminService {
   }
 
   getInvoices(approvalStatus: any) {
+    console.log('inside service',approvalStatus);
     return this.http.get(`${this.server}/admin/getinvoices`,  { params: approvalStatus } );
   }
 
@@ -46,6 +47,11 @@ export class AdminService {
     return this.http.put(`${this.server}/admin/approveinvoice`, { 
       invoiceId: invoiceId, 
       dueDate: dueDate 
+    });
+  }
+  denyInvoice(invoiceId: any) {
+    return this.http.put(`${this.server}/admin/denyinvoice`, { 
+      invoiceId: invoiceId
     });
   }
   //user approval list
