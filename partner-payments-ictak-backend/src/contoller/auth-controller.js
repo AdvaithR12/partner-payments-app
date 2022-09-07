@@ -44,7 +44,7 @@ generateJwt = (user)=> {
     userType: user.userType,
     adminapproved: user.adminapproved,
     exp: parseInt(expiry.getTime() / 1000),
-  }, "MY_SECRET"); // DO NOT KEEP YOUR SECRET IN THE CODE!
+  }, process.env.JWT_SECRET); // DO NOT KEEP YOUR SECRET IN THE CODE!
 }
 
 validatePassword = (user, password)=> {
@@ -117,5 +117,39 @@ module.exports.loginUser = async (req)=> {
       message: 'Incorrect password'
     }
   }
+
+}
+
+module.exports.verifyToken = (req, res, next)=> {
+
+  if(!req.headers.authorization) {
+    console.log('No auth header');
+    return res.status(401).json({
+      success: false,
+      message: `Unauthorized request`
+    });
+  }
+
+  let token = req.headers.authorization.split(':')[1];
+  if(token == 'null') {
+    return res.status(401).json({
+      success: false,
+      message: `Unauthorized request`
+    });
+  }
+
+  jwt.verify(token, process.env.JWT_SECRET, (err, userData)=> {
+    if(err) {
+      console.log('ERROR:--> JWT Verification', err.message);
+      return res.status(401).json({
+        success: false,
+        error: err.message,
+        message: 'Unauthorized request'
+      });
+    } else {
+      req.userData = userData;
+      next();
+    }
+  }); 
 
 }

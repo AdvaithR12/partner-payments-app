@@ -17,7 +17,6 @@ authRouter.post(`/signin`, (req, res)=> {
 
   authController.loginUser(req)
     .then((succ)=> {
-      console.log('succ',succ);
       if(succ.success) {
         res.status(200).json(succ);
       } else {

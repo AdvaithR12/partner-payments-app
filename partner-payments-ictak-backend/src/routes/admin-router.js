@@ -5,6 +5,7 @@ const path = require('path');
 const InvoiceData = require(`../model/invoice-model`);
 const { TrainingRequest } = require(`../model/work-order-model`);
 const { userListGen, createWorkOrder, approveInvoice } = require('../contoller/admin-controller');
+const { verifyToken } = require('../contoller/auth-controller');
 
 const adminRouter = express.Router();
 
@@ -221,38 +222,24 @@ adminRouter.put('/approveinvoice', (req, res)=> {
 
 });
 
-// adminRouter.put('/approveuser/:id', (req, res)=> {
-
-//   UserData.findById(req.params.id)
-//     .then((data)=> {
-//       // console.log(data);
-//       approveInvoice(res, data);
-//     }).catch((err)=> {
-//       console.log('Error while fetching invoice data', err.message);
-//     });
-
-// });
-
-//findprofile
-adminRouter.put('/approveuser', (req,res) =>{  /*verifyToken,/insert*/ 
+adminRouter.put('/approveuser',verifyToken, (req,res) =>{  
   const id = req.body.id;
+  
   UserData.findByIdAndUpdate({"_id":id},
   {$set:{
     "adminapproved":true,
-}})
-.then((success)=> {
-  console.log('success', success);
-  res.status(200).json({
-    success: true,
-    message: 'User account approved successfully'
+    }}).then((success)=> {
+      console.log('User approved');
+      res.status(200).json({
+        success: true,
+        message: 'User account approved successfully'
+      });
+    }).catch((err)=> {
+      res.json({
+        success: false,
+        message: 'User account approval failed',
+      });
   });
-})
-.catch((err)=> {
-  res.json({
-    success: false,
-    message: 'User account approval failed',
-  });
-});
 
 });
 module.exports = adminRouter;

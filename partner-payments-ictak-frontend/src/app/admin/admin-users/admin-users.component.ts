@@ -26,8 +26,10 @@ export class AdminUsersComponent implements OnInit {
       });
 
   }
-  approveuser(id:any){
-    this.adminServices.approveuser(id)
+  approveuser(id:any, email:any, userType:any){
+
+    if(confirm(`Approve and authorize the user (${email}) to access the portal as ${userType}`)) {
+      this.adminServices.approveuser(id)
       .subscribe({
         next: (succ: any)=> {
           if(succ.success) {
@@ -37,12 +39,16 @@ export class AdminUsersComponent implements OnInit {
               .then(() => {
                 this.router.navigate([currentRoute]); // navigate to same route
               }); 
+          } else {
+            alert(succ.message)
           }
         },
         error: (err: any)=> {
           console.log('Error while approving user account', err.message);
+          alert(err.error.message)
         }
       }); 
+    }
     
   }
 }
