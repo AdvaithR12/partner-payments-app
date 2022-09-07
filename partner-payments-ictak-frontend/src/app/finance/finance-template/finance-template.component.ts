@@ -60,9 +60,11 @@ export class FinanceTemplateComponent implements OnInit {
   }
 
   signOut() {
-    localStorage.clear();
-    sessionStorage.clear();
-    this.router.navigate([''])
+    if(confirm('Are you sure to sign out?')) {
+      localStorage.clear();
+      sessionStorage.clear();
+      this.router.navigate(['']);
+    }
   }
 
 }

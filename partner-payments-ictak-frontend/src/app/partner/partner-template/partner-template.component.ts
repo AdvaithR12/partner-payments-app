@@ -16,6 +16,7 @@ export class PartnerTemplateComponent implements OnInit {
     private router: Router,
     private authServices: AuthService
     ) { }
+
   ngOnInit(): void {
 
     let userId = localStorage.getItem('userid');
@@ -31,7 +32,6 @@ export class PartnerTemplateComponent implements OnInit {
 
   }
 
-  
   wrapper: string = 'wrapper';
   sideBarVisibility: string = 'block';
   mainContentMarginLeft: string = "250px";
@@ -59,8 +59,11 @@ export class PartnerTemplateComponent implements OnInit {
   }
 
   signOut() {
-    localStorage.clear();
-    sessionStorage.clear();
-    this.router.navigate([''])
+    if(confirm('Are you sure to sign out?')) {
+      localStorage.clear();
+      sessionStorage.clear();
+      this.router.navigate(['']);
+    }
   }
+
 }

@@ -4,14 +4,10 @@ const fs = require('fs');
 const path = require('path');
 const InvoiceData = require(`../model/invoice-model`);
 const { TrainingRequest } = require(`../model/work-order-model`);
-const { userListGen, createWorkOrder, approveInvoice } = require('../contoller/admin-controller');
 const { verifyToken } = require('../contoller/auth-controller');
+const { userListGen, createWorkOrder, approveInvoice } = require('../contoller/admin-controller');
 
 const adminRouter = express.Router();
-
-adminRouter.get(`/`, (req, res)=> {
-  res.send(`Hi I'm listening at /auth`);
-});
 
 adminRouter.get(`/getpartners`, (req, res)=> {
   UserData.find({
@@ -108,10 +104,8 @@ adminRouter.get(`/trainingrequests`, (req,res)=> {
 
 adminRouter.route(`/createworkorder`)
   .get((req, res)=> {
-    // res.render('template', {});
     res.render('template', req.query);
-  })
-  .post((req, res)=> {
+  }).post((req, res)=> {
     createWorkOrder(req, res)
       .then((succ)=> {
         if(succ.success) {
@@ -121,7 +115,7 @@ adminRouter.route(`/createworkorder`)
             message: 'New work order generation successfull'
           });
         } else {
-          console.log('New work order generation failed, A-R: L83')
+          console.log(`New work order generation failed, file: admin-router.js ~ line 118 ~ .then ~ else`)
           res.status(500).json({
             success: false,
             message: 'New work order generation failed'
@@ -134,7 +128,7 @@ adminRouter.route(`/createworkorder`)
           message: 'New work order generation failed'
         });
       });
-  });
+});
 
 adminRouter.get(`/getworkorders`, (req,res)=> {
 
@@ -242,4 +236,5 @@ adminRouter.put('/approveuser',verifyToken, (req,res) =>{
   });
 
 });
+
 module.exports = adminRouter;
