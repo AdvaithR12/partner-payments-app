@@ -25,6 +25,12 @@ var TrainingRequestSchema = new Schema({
     startTime: Date,
     endTime: Date
   },
+  paymentDetails: {
+    durationHrs: Number,
+    totalAmount: Number,
+    includingGst: Boolean,
+    includingTds: Boolean
+  },
   workOrderDetails : {
     fileName: String,
     generatedDate: Date,
@@ -34,12 +40,6 @@ var TrainingRequestSchema = new Schema({
       index: true,
       sparse: true
     }
-  },
-  paymentDetails: {
-    durationHrs: Number,
-    totalAmount: Number,
-    includingGst: Boolean,
-    includingTds: Boolean
   }
 }, { timestamps: true });
 

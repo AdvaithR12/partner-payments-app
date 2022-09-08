@@ -4,26 +4,6 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const UserData = require(`../model/user-model`);
 
-passport.use(new LocalStrategy({
-  usernameField: 'email'
-}, (email, password, done)=> {
-  UserData.findOne({ email: email }, (err, user)=> {
-    if(err) return done(err); // return error if any
-    if(!user) { // return null if no user found
-      return done(null, false, {
-        message: 'User not found' 
-      });
-    }
-    if(validatePassword(user, password)) { // return  if invalid password
-      return done(null, false, {
-        message: 'Invalid Password'
-      });
-    }
-    return done(null, user)
-  })
-}
-));
-
 encryptPassword = (password)=> {
   let salt = crypto.randomBytes(16).toString('hex');
   let hash = crypto.pbkdf2Sync(password, salt, 1000, 64, 'sha512').toString('hex');

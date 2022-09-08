@@ -50,12 +50,19 @@ generatePdf = async (requestId, workOrderNumber, trainingRequest) => {
 
     let query = new URLSearchParams({ 
       workOrderNumber: workOrderNumber,
-      partnerName: trainingRequest.trainingDetails.partnerName,
-      partnerEmail: trainingRequest.trainingDetails.partnerEmail,
+      partnerName: trainingRequest.partnerDetails.partnerName,
+      partnerEmail: trainingRequest.partnerDetails.partnerEmail,
+      partnerGst: trainingRequest.partnerDetails.partnerGst,
+      partnerAddress: trainingRequest.partnerDetails.partnerAddress,
       trainingMode: trainingRequest.sessionDetails.mode,
       hourlyPayment: trainingRequest.sessionDetails.hourlyPayment,
       trainingTopic: trainingRequest.trainingDetails.topic,
       trainingVenue: trainingRequest.sessionDetails.venue,
+      durationHrs: trainingRequest.paymentDetails.durationHrs,
+      totalAmount: trainingRequest.paymentDetails.totalAmount,
+      includingGst: `${trainingRequest.paymentDetails.includingGst? 'Yes' : 'No'}`,
+      includingTds: `${trainingRequest.paymentDetails.includingTds? 'Yes' : 'No'}`,
+      assignedBy: trainingRequest.assignedBy,
       dated: today
     });
     var url = 'http://localhost:8080/api/admin/createworkorder/?' + query.toString();
