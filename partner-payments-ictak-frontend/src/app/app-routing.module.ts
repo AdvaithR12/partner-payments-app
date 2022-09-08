@@ -20,6 +20,8 @@ import { FinanceWorkOrdersComponent } from './finance/finance-work-orders/financ
 import { AdminModifyRequestComponent } from './admin/admin-modify-request/admin-modify-request.component';
 import { ViewFileComponent } from './view-file/view-file.component';
 import { AdminUsersComponent } from './admin/admin-users/admin-users.component';
+import { FinanceRemittanceComponent } from './finance/finance-remittance/finance-remittance.component'; 
+import { AdminPaymentsComponent } from './admin/admin-payments/admin-payments.component';
 import { AdminGuard } from './guards/admin.guard';
 import { PartnerGuard } from './guards/partner.guard';
 import { FinanceGuard } from './guards/finance.guard';
@@ -63,6 +65,10 @@ const routes: Routes = [
         component: AdminInvoicesComponent
       },
       {
+        path: 'payments',
+        component: AdminPaymentsComponent
+      },
+      {
         path: 'invoices/getinvoice',
         component: ViewFileComponent
       },
@@ -99,6 +105,10 @@ const routes: Routes = [
         component: FinanceInvoicesComponent
       },
       {
+        path: 'payments',
+        component: AdminPaymentsComponent
+      },
+      {
         path: 'invoices/getinvoice',
         component: ViewFileComponent
       },
@@ -109,6 +119,10 @@ const routes: Routes = [
       {
         path: 'workorders/getworkorder',
         component: ViewFileComponent
+      },
+      {
+        path: 'remittance',
+        component: FinanceRemittanceComponent
       }
     ]
   },

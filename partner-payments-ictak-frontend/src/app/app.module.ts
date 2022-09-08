@@ -26,6 +26,8 @@ import { FinanceInvoicesComponent } from './finance/finance-invoices/finance-inv
 import { AdminUsersComponent } from './admin/admin-users/admin-users.component';
 import { AdminModifyRequestComponent } from './admin/admin-modify-request/admin-modify-request.component';
 import { ViewFileComponent } from './view-file/view-file.component';
+import { FinanceRemittanceComponent } from './finance/finance-remittance/finance-remittance.component';
+import { AdminPaymentsComponent } from './admin/admin-payments/admin-payments.component';
 import { TokenInterceptorService } from './token-interceptor.service';
 
 
@@ -51,7 +53,9 @@ import { TokenInterceptorService } from './token-interceptor.service';
     FinanceInvoicesComponent,
     AdminUsersComponent,
     AdminModifyRequestComponent,
-    ViewFileComponent
+    ViewFileComponent,
+    FinanceRemittanceComponent,
+    AdminPaymentsComponent
   ],
   imports: [
     BrowserModule,

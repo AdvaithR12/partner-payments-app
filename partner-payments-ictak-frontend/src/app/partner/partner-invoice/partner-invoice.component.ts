@@ -73,6 +73,8 @@ export class PartnerInvoiceComponent implements OnInit {
     this.invoiceData.fileName = invoiceFileName;
     this.invoiceData.paid = this.invoiceData.invoiceType
     this.invoiceData.adminApproved = false;
+    console.log('invoiceData', this.invoiceData);
+    
 
     this.partnerServices.invoiceFormUpload(this.invoiceData)
     // .subscribe({
@@ -89,8 +91,13 @@ export class PartnerInvoiceComponent implements OnInit {
       (succ:any) => {
         if (succ.success) {
           // this.invoiceForm.reset();
+          // localStorage.setItem("Id", this.invoiceData._id.toString() )
           setTimeout(() => {
-            window.location.replace('/partner/invoice');
+            const currentRoute = this.router.url;
+            this.router.navigateByUrl('/', { skipLocationChange: true })
+              .then(() => {
+                this.router.navigate([currentRoute]); // navigate to same route
+              }); 
           }, 3000)}
   })
 }
