@@ -22,7 +22,9 @@ import { ViewFileComponent } from './view-file/view-file.component';
 import { AdminUsersComponent } from './admin/admin-users/admin-users.component';
 import { FinanceRemittanceComponent } from './finance/finance-remittance/finance-remittance.component'; 
 import { AdminPaymentsComponent } from './admin/admin-payments/admin-payments.component';
-
+import { AdminGuard } from './guards/admin.guard';
+import { PartnerGuard } from './guards/partner.guard';
+import { FinanceGuard } from './guards/finance.guard';
 const routes: Routes = [
   {
     path: '',
@@ -40,6 +42,7 @@ const routes: Routes = [
   {
     path: 'admin',
     component: AdminTemplateComponent,
+    canActivate: [AdminGuard] ,
     children: [
       {
         path: 'dashboard',
@@ -86,6 +89,7 @@ const routes: Routes = [
   {
     path: 'finance',
     component: FinanceTemplateComponent,
+    canActivate: [FinanceGuard] ,
     children: [
         
       {
@@ -125,6 +129,7 @@ const routes: Routes = [
   {
     path: 'partner',
     component: PartnerTemplateComponent,
+    canActivate: [PartnerGuard] ,
     children: [
         
       {

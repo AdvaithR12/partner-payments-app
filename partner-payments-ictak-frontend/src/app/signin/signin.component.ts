@@ -24,27 +24,36 @@ export class SigninComponent implements OnInit {
   logUser(user:any){
     
     this.auth.logUser(user)
-    .subscribe((data: any)=>{
-      
-      this.result = JSON.parse(JSON.stringify(data));
-      
-      if(this.result.success) {
-      if(!this.result.user.adminapproved) {   //if not approved by Admin then redirect to common message page
-          localStorage.setItem("isadminapproved","false");
-          this.router.navigate(['unauthorized']);
-        } else {
-          this.redirectTo(this.result.user);
+      .subscribe({
+        next: (data: any)=> {        
+          this.result = JSON.parse(JSON.stringify(data));
+          let token = this.result.token
+          let userData = JSON.parse(window.atob(token.split('.')[1]))
+          
+          if(this.result.success) {
+            if(!userData.adminapproved) {   //if not approved by Admin then redirect to common message page
+              this.router.navigate(['unauthorized']);
+            } else {
+              localStorage.setItem('user-token', token);
+              localStorage.setItem("userid",this.result.userId.toString());  //store userid in localstorage
+              localStorage.setItem('user-name', userData.name)
+              this.redirectTo(userData);
+            }
+          } else {
+            alert(this.result.message);
+          }
+        },
+        error: (err: any)=> {
+          console.error('Error while signing in!', err.message);
+          alert(err.error.message);
         }
-      } else {
-        alert(this.result.message);
-      }    
-    });
+      });
+      
   }
 
   redirectTo(user: any){
     var userType = user.userType;
-    localStorage.setItem("usertype",userType);  //store usertype in localstorage
-    localStorage.setItem("userid",user._id.toString());  //store userid in localstorage
+    // localStorage.setItem("usertype",userType);  //store usertype in localstorage
 
     switch(userType) {  //'Admin', 'Finance Admin','Partner'
       case "Admin":

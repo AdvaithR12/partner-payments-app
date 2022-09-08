@@ -48,11 +48,14 @@
 					<div>
 						<span>To,</span> <br>
 						<div style="padding-left: 32px;">
-							<span class="fw-bold"><%= partnerName %> </span> <br>
-							<span>Thejaswini Building</span> <br>
+							<span class="fw-bold"><%= partnerName %>,</span> <br>
+							<div>
+								<%= partnerAddress %>
+							</div>
+							<!-- <span>Thejaswini Building</span> <br>
 							<span>Thiruvananthapuram, Kerala</span> <br>
 							<span>India</span>
-						</div>
+						</div> -->
 					</div>
 			
 					<div class=" mt-3 d-flex">
@@ -96,19 +99,19 @@
 					<tbody>
 						<tr class="bg-secondary bg-opacity-25">
 							<th scope="row" class="bg-primary bg-opacity-25">Assigned By</th>
-							<td>Muhammad Ismail I R</td>  
+							<td><%= assignedBy %></td>  
 						</tr>
 						<tr class="bg-secondary bg-opacity-25">
 							<th scope="row" class="bg-primary bg-opacity-25">GST No.</th>
-							<td>32ABJFA5427J1ZN</td>
+							<td><%= partnerGst %></td>
 						</tr>
 						<tr class="bg-secondary bg-opacity-25">
 							<th scope="row" class="bg-primary bg-opacity-25">GST Included</th>
-							<td>No</td>
+							<td><%= includingGst %></td>
 						</tr>
 						<tr class="bg-secondary bg-opacity-25">
 							<th scope="row" class="bg-primary bg-opacity-25">TDS Included</th>
-							<td>Yes</td>
+							<td><%= includingTds %></td>
 						</tr>
 				</table>
 	
@@ -130,13 +133,13 @@
 							<th scope="row" >1.</th>
 							<td><%= trainingTopic %> <br><br><br></td> 
 							<td class="text-center">
-								<span>2.5</span>
+								<span><%= durationHrs %></span>
 							</td> 
 							<td class="text-center">
 								<span>₹ <%= hourlyPayment %> /-</span>
 							</td> 
 							<td class="text-center">
-								<span>₹ 2500/-</span>
+								<span>₹ <%= totalAmount %>/-</span>
 							</td> 
 						</tr>
 					</tbody>  
@@ -145,7 +148,7 @@
 						<td></td>
 						<td></td>
 						<td>Total Amount:</td>
-						<td>₹2500/-</td>
+						<td>₹<%= totalAmount %>/-</td>
 					</tr>
 				</table>
 	
@@ -161,7 +164,7 @@
 				<div class="mt-5">
 					<p><span>Thanks & Regards,</span></p>
 					<p><span>For ICT Academy of Kerala,</span></p>
-					<p class="mt-5">Admin Name</p>
+					<p class="mt-5"><%= assignedBy %></p>
 				</div>
 				
 			</div>

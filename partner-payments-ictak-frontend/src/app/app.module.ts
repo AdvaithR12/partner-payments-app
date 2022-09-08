@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
+import { RouterModule } from '@angular/router';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -11,7 +12,6 @@ import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard
 import { AdminNewRequestComponent } from './admin/admin-new-request/admin-new-request.component';
 import { AdminInvoicesComponent } from './admin/admin-invoices/admin-invoices.component';
 import { SignupComponent } from './signup/signup.component';
-import { RouterModule } from '@angular/router';
 import { PartnerTemplateComponent } from './partner/partner-template/partner-template.component';
 import { MessagepageComponent } from './messagepage/messagepage.component';
 import { FinanceTemplateComponent } from './finance/finance-template/finance-template.component';
@@ -28,6 +28,7 @@ import { AdminModifyRequestComponent } from './admin/admin-modify-request/admin-
 import { ViewFileComponent } from './view-file/view-file.component';
 import { FinanceRemittanceComponent } from './finance/finance-remittance/finance-remittance.component';
 import { AdminPaymentsComponent } from './admin/admin-payments/admin-payments.component';
+import { TokenInterceptorService } from './token-interceptor.service';
 
 
 @NgModule({
@@ -64,7 +65,11 @@ import { AdminPaymentsComponent } from './admin/admin-payments/admin-payments.co
     RouterModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptorService,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

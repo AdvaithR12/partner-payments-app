@@ -36,10 +36,10 @@
                 name="partner"
                 [style.color]="textColor" 
                 (input)="toggleColor()" 
-                formControlName='partner'
+                formControlName='partnerId'
                 id="partnerInput" >
                   <option hidden disabled selected value> -- Choose Training Partner -- </option>
-                  <option *ngFor="let partner of partners" [value]="partner._id +','+ partner.fullname+','+ partner.email">{{partner.fullname}}</option>
+                  <option *ngFor="let partner of partners" [value]="partner._id">{{partner.fullname}}</option>
               </select>
             </div>
           </div>
@@ -65,9 +65,9 @@
                 class=" " 
                 id="modeInput" >
                   <option hidden disabled selected value> -- Select an option -- </option>
-                  <option value="online">Online</option>
-                  <option value="offline">Offline</option>
-                  <option value="hybrid">Hybrid</option>
+                  <option value="Online">Online</option>
+                  <option value="Offline">Offline</option>
+                  <option value="Hybrid">Hybrid</option>
               </select>
             </div>
             <div class="input-set">
@@ -134,10 +134,12 @@
               </div>
             </div>
           </div>
-          <i class="fa-regular fa-plus fs-4 px-5"><span class="fs-6 ms-2">Add Session</span></i>
+          <!-- <i class="fa-regular fa-plus fs-4 px-5"><span class="fs-6 ms-2">Add Session</span></i> -->
           <hr>
         </section>
         <!-- Session Details End -->
+
+        
 
         <!-- Submission Buttons Begin -->
         <section class="row d-flex justify-content-evenly mx-3 mt-5 mb-3">

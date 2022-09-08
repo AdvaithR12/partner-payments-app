@@ -8,10 +8,6 @@ const RemittanceData = require(`../model/finance-model`);
 const { isDate } = require('util/types');
 const financeRouter = express.Router();
 
-financeRouter.get(`/`, (req, res)=> {
-  res.send(`Hi I'm listening at /auth`);
-});
-
 financeRouter.get('/getinvoice/:id', (req, res)=> {
 
     if(fs.existsSync((path.join(__dirname, '../assets/uploads/invoices', `${req.params.id}`)))) { //check if the requested file exists in the file system.
@@ -46,11 +42,9 @@ financeRouter.get(`/getinvoices`, (req, res)=> {
 
 });
 
-financeRouter.put('/setworkorder', (req,res) =>{  /*verifyToken,/insert*/ 
-  // console.log('Backend',req.body);
+financeRouter.put('/setworkorder', (req,res) =>{ 
   const id = req.body.id;
   const isapproved = req.body.financeApproved;
-  console.log(id, isapproved);
   TrainingRequest.findByIdAndUpdate({"_id":id},
   {$set:{
     "financeApproved":isapproved

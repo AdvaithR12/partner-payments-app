@@ -10,9 +10,6 @@ errormessage="";
   constructor() { }
 
   ngOnInit(): void {
-    let isapproved = localStorage.getItem("isadminapproved")
-    if(isapproved === "false")
-    this.errormessage = "Your account is not appoved by Admin. Please contact the Admin"
   }
 
 }
