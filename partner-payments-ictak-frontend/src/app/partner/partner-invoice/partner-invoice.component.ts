@@ -73,6 +73,8 @@ export class PartnerInvoiceComponent implements OnInit {
     this.invoiceData.fileName = invoiceFileName;
     this.invoiceData.paid = this.invoiceData.invoiceType
     this.invoiceData.adminApproved = false;
+    console.log('invoiceData', this.invoiceData);
+    
 
     this.partnerServices.invoiceFormUpload(this.invoiceData)
     // .subscribe({

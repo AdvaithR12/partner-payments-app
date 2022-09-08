@@ -21,6 +21,7 @@ import { AdminModifyRequestComponent } from './admin/admin-modify-request/admin-
 import { ViewFileComponent } from './view-file/view-file.component';
 import { AdminUsersComponent } from './admin/admin-users/admin-users.component';
 import { FinanceRemittanceComponent } from './finance/finance-remittance/finance-remittance.component'; 
+import { AdminPaymentsComponent } from './admin/admin-payments/admin-payments.component';
 
 const routes: Routes = [
   {
@@ -61,6 +62,10 @@ const routes: Routes = [
         component: AdminInvoicesComponent
       },
       {
+        path: 'payments',
+        component: AdminPaymentsComponent
+      },
+      {
         path: 'invoices/getinvoice',
         component: ViewFileComponent
       },
@@ -94,6 +99,10 @@ const routes: Routes = [
       {
         path: "invoices",
         component: FinanceInvoicesComponent
+      },
+      {
+        path: 'payments',
+        component: AdminPaymentsComponent
       },
       {
         path: 'invoices/getinvoice',

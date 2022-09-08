@@ -15,6 +15,7 @@ var invoiceSchema = new Schema({
   fileName: String,
   totalAmount: String,
   invoiceDate: Date,
+  sessionDate: Date,
   invoiceDueDate: Date,
   paymentDate: Date
 });
