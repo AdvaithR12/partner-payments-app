@@ -36,10 +36,10 @@
                 name="partner"
                 [style.color]="textColor" 
                 (input)="toggleColor()" 
-                formControlName='partner'
+                formControlName='partnerId'
                 id="partnerInput" >
                   <option hidden disabled selected value> -- Choose Training Partner -- </option>
-                  <option *ngFor="let partner of partners" [value]="partner._id +','+ partner.fullname+','+ partner.email">{{partner.fullname}}</option>
+                  <option *ngFor="let partner of partners" [value]="partner._id">{{partner.fullname}}</option>
               </select>
             </div>
           </div>

@@ -18,10 +18,10 @@ export class AdminNewRequestComponent implements OnInit {
   partners: any = [];
   textColor: string = '';
 
-  trainingRequestForm = new FormGroup({
+  trainingRequestForm: any = new FormGroup({
     trainingDetails: new FormGroup({
       topic: new FormControl('', [Validators.required]),
-      partner: new FormControl('', [Validators.required])
+      partnerId: new FormControl('', [Validators.required])
     }),
     sessionDetails: new FormGroup({
       mode: new FormControl('', [Validators.required]),
@@ -50,17 +50,20 @@ export class AdminNewRequestComponent implements OnInit {
   }
 
   saveRequest() {
-    
+    this.trainingRequestForm.value.assignedBy = localStorage.getItem('user-name')
     this.adminServices.addNewRequest(this.trainingRequestForm.value)
       .subscribe({
         next: (response: any)=> {
           if(response.success) {
             alert('Successfully added new request');
             this.router.navigate(['admin/requests']);
+          } else {
+            alert(`Failed to add new request. ${response.message}`);
           }
         },
         error: (err)=> {
-          console.log(err);
+          alert(`Failed to add new request, ${err.error.message}`);
+          console.log('Error while adding new request', err.message);
         }
       });
   }

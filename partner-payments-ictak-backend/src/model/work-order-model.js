@@ -4,11 +4,19 @@ const Schema = mongoose.Schema;
 var TrainingRequestSchema = new Schema({
   adminApproved: Boolean,
   financeApproved: Boolean,
+  assignedBy: String,
   trainingDetails: { 
     topic: String,
     partnerId: String,
     partnerName: String,
     partnerEmail: String
+  },
+  partnerDetails: {
+    partnerId: String,
+    partnerName: String,
+    partnerEmail: String,
+    partnerGst: String,
+    partnerAddress: String
   },
   sessionDetails: {
     mode: String,
@@ -26,6 +34,12 @@ var TrainingRequestSchema = new Schema({
       index: true,
       sparse: true
     }
+  },
+  paymentDetails: {
+    durationHrs: Number,
+    totalAmount: Number,
+    includingGst: Boolean,
+    includingTds: Boolean
   }
 }, { timestamps: true });
 

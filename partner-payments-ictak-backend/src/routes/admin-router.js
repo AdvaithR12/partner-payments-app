@@ -5,7 +5,13 @@ const path = require('path');
 const InvoiceData = require(`../model/invoice-model`);
 const { TrainingRequest } = require(`../model/work-order-model`);
 const { verifyToken } = require('../contoller/auth-controller');
-const { userListGen, createWorkOrder, approveInvoice } = require('../contoller/admin-controller');
+const { 
+  userListGen, 
+  createWorkOrder, 
+  approveInvoice, 
+  getPartner,
+  addNewRequest
+} = require('../contoller/admin-controller');
 
 const adminRouter = express.Router();
 
@@ -38,37 +44,33 @@ adminRouter.get(`/getuserlist`, (req, res)=> {
   });
 });
 
-adminRouter.post('/newrequest', (req, res)=> {
+adminRouter.post('/newrequest', async (req, res)=> {
   var newRequest = req.body.trainingRequest;
 
-  //Converting the start and end time to valid date objects for mongoose - combine date and time
-  newRequest.sessionDetails.startTime = newRequest.sessionDetails.date + 'T' + newRequest.sessionDetails.startTime
-  newRequest.sessionDetails.endTime = newRequest.sessionDetails.date + 'T' + newRequest.sessionDetails.endTime
-
-  // split and save partner ID and name
-  newRequest.trainingDetails.partnerId = newRequest.trainingDetails.partner.split(',')[0];
-  newRequest.trainingDetails.partnerName = newRequest.trainingDetails.partner.split(',')[1];
-  newRequest.trainingDetails.partnerEmail = newRequest.trainingDetails.partner.split(',')[2];
-
-  newRequest.adminApproved = false;
-  newRequest.financeApproved = false;
-
-  var newRequestData = new TrainingRequest(newRequest);
-
-  newRequestData.save({ timestamps: true })
-    .then((succ)=> {
-      console.log('New training request saved');
-      res.status(200).json({
-        success: true,
-        message: 'New training request saved'
-      });
-    }).catch((err)=> {
-      console.log("Failed to add new training request", err);
-      res.status(500).json({
+  var partnerDetails = await getPartner(newRequest.trainingDetails.partnerId);
+  
+  if(partnerDetails) {
+    if(partnerDetails.gstnumber && partnerDetails.address) {
+      var addNewRequestStatus = await addNewRequest(newRequest, partnerDetails);
+    } else {
+      res.status(412).json({
         success: false,
-        message: 'Unknown Error! New request not saved'
+        message: 'Partner profile incomplete. Inform the partner to add address and GST number in their profile',
       });
+    }
+  } else {
+    res.status(412).json({
+      success: false,
+      message: 'Cannot find partner!'
     });
+  }
+
+  if(addNewRequestStatus && addNewRequestStatus.success) {
+    res.status(200).json(addNewRequestStatus);
+  } else {
+    res.status(500).json(addNewRequestStatus);
+  }
+
 });
 
 adminRouter.put('/updaterequest', (req, res)=> {

@@ -36,6 +36,7 @@ export class SigninComponent implements OnInit {
             } else {
               localStorage.setItem('user-token', token);
               localStorage.setItem("userid",this.result.userId.toString());  //store userid in localstorage
+              localStorage.setItem('user-name', userData.name)
               this.redirectTo(userData);
             }
           } else {
