@@ -19,6 +19,13 @@ export class SigninComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    if(this.auth.loggedIn('Admin')) {
+      this.router.navigate(['admin/dashboard']);
+    } else if(this.auth.loggedIn('Partner')) {
+      this.router.navigate(['partner/dashboard']);
+    } else if(this.auth.loggedIn('Finance Admin')) {
+      this.router.navigate(['finance/dashboard']);
+    }
   }
 
   logUser(user:any){

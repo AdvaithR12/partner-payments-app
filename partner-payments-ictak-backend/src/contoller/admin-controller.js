@@ -253,5 +253,3 @@ module.exports.approveInvoice = async (req, res, data)=> {
     }
   });
 }
-
-// module.exports = { userListGen, createWorkOrder, approveInvoice, getPartner };
