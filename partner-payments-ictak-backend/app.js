@@ -37,7 +37,7 @@ app.set('view engine','ejs');
 app.use(express.static(path.join(__dirname , '/src/assets/work-orders/template-files/')));
 
 //for hosting
-app.use(express.static('../partner-payments-ictak-frontend/dist/partner-payments-ictak-frontend'));
+app.use(express.static('./dist/partner-payments-ictak-frontend'));
 
 app.use(`/api/auth`, authRouter);
 app.use(`/api/admin`, adminRouter);
