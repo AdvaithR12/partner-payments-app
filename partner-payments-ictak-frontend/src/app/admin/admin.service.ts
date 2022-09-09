@@ -47,8 +47,13 @@ export class AdminService {
       dueDate: dueDate 
     });
   }
-  
-  getUserlist() { //List to approve users
+  denyInvoice(invoiceId: any) {
+    return this.http.put(`${server}/admin/denyinvoice`, { 
+      invoiceId: invoiceId
+    });
+  }
+  //user approval list
+  getUserlist() {
     return this.http.get(`${server}/admin/getuserlist`);
   }
   approveuser(id:any){

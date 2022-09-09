@@ -1,2 +1,4 @@
 /node_modules
+/src/assets/uploads/invoices/*
+/src/assets/work-orders/generated/*
 .env
