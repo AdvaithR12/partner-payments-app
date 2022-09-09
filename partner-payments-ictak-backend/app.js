@@ -45,6 +45,7 @@ app.use(`/api/partner`, partnerRouter);
 app.use(`/api/finance`, financeRouter);
 
 app.get('/*', (req, res)=> {
+  console.log(path.join(__dirname, '../partner-payments-ictak-frontend/dist/partner-payments-ictak-frontend'));
   res.sendFile(path.join(__dirname, '../partner-payments-ictak-frontend/dist/partner-payments-ictak-frontend'));
 });
 
