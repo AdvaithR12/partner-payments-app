@@ -13,22 +13,28 @@ export class FinanceService {
   getInvoices(invoiceType:any) {
     return this.http.get(`${this.server}/finance/getinvoices`,  { params: { 'invoiceType': invoiceType} });
   }
-/*
-approveuser(id:any){
+
+  approveuser(id:any){
     return this.http.put(`${this.server}/admin/approveuser/`,{
       id: id
     });
   }
-*/
-/*
-approveInvoice(invoiceId: any, dueDate: any) {
+
+  approveInvoice(invoiceId: any, dueDate: any) {
     return this.http.put(`${this.server}/admin/approveinvoice`, { 
       invoiceId: invoiceId, 
       dueDate: dueDate 
     });
+  } 
+
+  remittanceForm(data:any, invoiceId:any, workOrderId: any){
+    return this.http.post<any>(`${this.server}/finance/remittance`, {
+      data: data,
+      invoiceId: invoiceId,
+      workOrderId: workOrderId
+    })
   }
 
-*/
   setworkorder(id:any, approve: boolean){
     return this.http.put(`${this.server}/finance/setworkorder`,{
       id: id,

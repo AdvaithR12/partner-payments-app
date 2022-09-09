@@ -1,5 +1,3 @@
-
-
 <div class="container-fluid">
   <div class="row d-flex justify-content-center ">
     <div class="col-9  px-5 py-4 m-3  text-center fs-2 text-black rounded" style="font-weight: bold;">
@@ -33,26 +31,24 @@
               </select>
             </div>
             <div class="input-set">
-              <label for="invoiceid">Invoice Id</label>
+              <label for="invoiceid">Invoice Number</label>
               &nbsp;
               <input 
-                (blur)="fetchWorkOrderData()"
                 class="form-control" 
                 type="text" 
-                name="invoiceid" 
-                placeholder="Invoice Id" 
-                [(ngModel)]="invoiceData.invoiceId" 
+                name="invoiceNumber" 
+                placeholder="Invoice Number" 
+                [(ngModel)]="invoiceData.invoiceNumber" 
                 required>
             </div>
 
             <div class="input-set">
               <label for="dateInput">Invoice Date</label>
               <input 
- 
                 class="form-control"
-                name="date"
+                name="invoiceDate"
                 type="date" 
-                [(ngModel)]="invoiceData.date"
+                [(ngModel)]="invoiceData.invoiceDate"
                 id="dateInput" required >
             </div>
 
@@ -113,11 +109,10 @@
             <div class="input-set">
               <label for="dateInput">Session taken On</label>
               <input 
- 
                 class="form-control"
-                name="date"
+                name="sessionDate"
                 type="date" 
-                [(ngModel)]="invoiceData.date"
+                [(ngModel)]="invoiceData.sessionDate"
                 id="dateInput" required >
             </div>
 

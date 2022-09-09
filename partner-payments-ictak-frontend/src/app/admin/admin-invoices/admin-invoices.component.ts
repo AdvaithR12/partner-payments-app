@@ -11,6 +11,7 @@ export class AdminInvoicesComponent implements OnInit {
 
   pendingInvoices: any = [];
   approvedInvoices: any = [];
+  paidInvoices : any = [];
 
   constructor(
     private adminServices: AdminService,
@@ -31,13 +32,23 @@ export class AdminInvoicesComponent implements OnInit {
         }
       });
 
-    this.adminServices.getInvoices({ adminApproved: true })
+    this.adminServices.getInvoices({ adminApproved: true, paid : false })
       .subscribe({
         next: (succ: any)=> {
           this.approvedInvoices = succ.data;
         },
         error: (err)=> {
           console.log('Error getting approved invoices', err.message);
+        }
+      });
+
+      this.adminServices.getInvoices({ paid: true })
+      .subscribe({
+        next: (succ: any)=> {
+          this.paidInvoices = succ.data;
+        },
+        error: (err)=> {
+          console.log('Error getting paid invoices', err.message);
         }
       });
 
@@ -78,7 +89,7 @@ export class AdminInvoicesComponent implements OnInit {
             }); 
           }
         }else {
-          alert('Invalid due date. Please enter the due date in the prescribed format and prescribed length!');
+          alert('Invalid due date. Please enter the due date in the prescribed format(YYYY-MM-DD) and prescribed length!');
         }         
       }else {
         alert(`Due date can't be empty`);

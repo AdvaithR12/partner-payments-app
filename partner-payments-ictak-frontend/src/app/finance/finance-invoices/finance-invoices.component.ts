@@ -40,6 +40,11 @@ export class FinanceInvoicesComponent implements OnInit {
     });
   }
 
+  remittanceForm(invoiceId: any, workOrderId: any){
+    sessionStorage.setItem("invoiceId",invoiceId.toString())
+
+    this.router.navigate(['finance/remittance']);
+  }
 
   viewInvoice(invoiceId: any) {
     sessionStorage.setItem(`goToUrl`, `http://localhost:8080/api/finance/getinvoice/${invoiceId}`);
