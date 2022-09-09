@@ -1,31 +1,28 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { server } from "../globals";
 
 @Injectable({
   providedIn: 'root'
 })
 export class PartnerService {
 
-
-  server: string = 'http://localhost:8080/api'
-
-
   constructor( private http: HttpClient ) { }
 
   invoiceFormUpload(data: any) {
-    return this.http.post(`${this.server}/partner/invoice`, data);
+    return this.http.post(`${server}/partner/invoice`, data);
   }
 
   invoiceFileUpload(data: any) {
-    return this.http.post<any>(`${this.server}/partner/multipleFiles`, data)
+    return this.http.post<any>(`${server}/partner/multipleFiles`, data)
   }
 
   getWorkOrders(userId: any) {
-    return this.http.get(`${this.server}/partner/getworkorders`, { params: { userId: userId } });
+    return this.http.get(`${server}/partner/getworkorders`, { params: { userId: userId } });
 
   }
 
   fetchWorkOrderData(workOrderNumber: any) {
-    return this.http.get<any>(`${this.server}/partner/workorder`, { params: { workOrderNumber: workOrderNumber } });
+    return this.http.get<any>(`${server}/partner/workorder`, { params: { workOrderNumber: workOrderNumber } });
   }
 }

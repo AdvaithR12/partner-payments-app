@@ -8,6 +8,7 @@ import { AuthService } from '../auth.service';
   templateUrl: './signin.component.html',
   styleUrls: ['./signin.component.css']
 })
+
 export class SigninComponent implements OnInit {
 
   result:any = {};
