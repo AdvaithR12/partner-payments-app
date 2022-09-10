@@ -150,6 +150,7 @@ adminRouter.get(`/getworkorders`, (req,res)=> {
 });
 
 adminRouter.get(`/getworkorder/:id`, (req, res)=> {
+  console.log('adminrouter - getworkorder', req.params.id);
 
   if(fs.existsSync(path.join(__dirname, '../assets/work-orders/generated/', `workorder_${req.params.id}.pdf`))) {
     res.status(200).sendFile(path.join(__dirname, '../assets/work-orders/generated/', `workorder_${req.params.id}.pdf`));
@@ -162,7 +163,7 @@ adminRouter.get(`/getworkorder/:id`, (req, res)=> {
 
 adminRouter.get('/getinvoice/:id', (req, res)=> {
 
-  console.log(req.params.id );
+  console.log('adminrouter - getinvoice', req.params.id);
 
   if(fs.existsSync((path.join(__dirname, '../assets/uploads/invoices', `${req.params.id}`)))) {
     res.status(200).sendFile(path.join(__dirname, '../assets/uploads/invoices', `${req.params.id}`));
@@ -170,35 +171,14 @@ adminRouter.get('/getinvoice/:id', (req, res)=> {
     res.status(404).send('File not found');
   }
 
-  // extensions.forEach((ext)=> {
-  //   // console.log((path.join(__dirname, '../assets/uploads/invoices', `invoice_${req.params.id}.${ext}`)));
-
-  //   console.log(fs.existsSync((path.join(__dirname, '../assets/uploads/invoices', `invoice_${req.params.id}.${ext}`))), ext)
-  // }); 
-
-  // console.log((path.join(__dirname, '../assets/uploads/invoices', `invoice_${req.params.id}`)));
-
-  // console.log(fs.existsSync((path.join(__dirname, '../assets/uploads/invoices', `invoice_${req.params.id}.pdf`))));
-
-  // if(fs.existsSync(path.join(__dirname, '../assets/uploads/invoices', `invoice_${req.params.id}.pdf`))) {
-  //   res.status(200).sendFile(path.join(__dirname, '../assets/uploads/invoices', `invoice_${req.params.id}.pdf`));
-  // } else {
-  //   console.log('File not found');
-  //   res.status(404).send('File not found');
-  // }
-
 });
 
 adminRouter.get(`/getinvoices`, (req, res)=> {
   var qry = req.query;
-  console.log('param value',qry.adminApproved);
+  // console.log('param value',qry.adminApproved);
   if(qry.adminApproved == false || qry.adminApproved == 'false'){
     qry = {adminApproved: { $exists: false }}
   }
-  
-  //if(req.query.adminApproved)
-  //{adminApproved: { $exists: false }}
-  console.log('getinvoices',qry);
   
   InvoiceData.find(qry)//req.query
     .then((succ)=> {
@@ -238,13 +218,13 @@ adminRouter.put('/denyinvoice', (req, res)=> {
     console.log('success', success);
     res.status(200).json({
       success: true,
-      message: 'Invoice denied successfully'
+      message: 'Invoice rejected'
     });
   })
   .catch((err)=> {
     res.json({
       success: false,
-      message: 'Invoice deniel  failed',
+      message: 'Error while rejecting invoice',
     });
   });
 

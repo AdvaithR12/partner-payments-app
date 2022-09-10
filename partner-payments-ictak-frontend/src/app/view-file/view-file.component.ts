@@ -17,6 +17,8 @@ export class ViewFileComponent implements OnInit {
   ngOnInit(): void {
     let goToUrl = sessionStorage.getItem('goToUrl');
     this.workOrderUrl =  this.sanitizer.bypassSecurityTrustResourceUrl(`${goToUrl}`);
+    console.log(this.workOrderUrl);
+    
   }
 
 
