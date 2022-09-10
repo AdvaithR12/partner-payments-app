@@ -3,7 +3,7 @@ const path  = require("path")
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "src/assets/uploads/invoices");
+    cb(null, path.join(__dirname, "../assets/uploads/invoices")); 
   },
   filename: function (req, file, cb) {
     cb(null, Date.now() + path.extname(file.originalname));
@@ -11,6 +11,6 @@ var storage = multer.diskStorage({
   },
 });
   
-var multipleUpload = multer({ storage:storage }).array('files')
+var multipleUpload = multer({ storage:storage }).array('files');
 
 module.exports = multipleUpload;
