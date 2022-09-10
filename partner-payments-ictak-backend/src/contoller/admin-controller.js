@@ -5,16 +5,16 @@ const InvoiceData = require('../model/invoice-model');
 const { TrainingRequest, WorkOrderCounter } = require(`../model/work-order-model`);
 
 let browser, page;
-(async () => {
-    if (page) return;
-    browser = await puppeteer.launch({ headless: true }); //launch new chromium instance
-    page = await browser.newPage(); //open new page in the chromium instance
-    await page.goto('http://localhost:8080/api/admin/')
-})().then(()=> {
-  console.log('Puppeteer instance initiated');
-}).catch((err)=> {
-  console.log('Failed to initiate puppeteer', err.message);
-});
+// (async () => {
+//     if (page) return;
+//     browser = await puppeteer.launch({ headless: true }); //launch new chromium instance
+//     page = await browser.newPage(); //open new page in the chromium instance
+//     await page.goto('http://localhost:8080/api/admin/')
+// })().then(()=> {
+//   console.log('Puppeteer instance initiated');
+// }).catch((err)=> {
+//   console.log('Failed to initiate puppeteer', err.message);
+// });
 
 
 generateWorkOrderNumber = async ()=> {
