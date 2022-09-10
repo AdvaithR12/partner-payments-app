@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/partner-payments-ictak-frontend",
+            "outputPath": "../partner-payments-ictak-backend/dist/partner-payments-ictak-frontend",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
