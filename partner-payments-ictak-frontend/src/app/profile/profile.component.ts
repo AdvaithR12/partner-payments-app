@@ -83,6 +83,7 @@ updateProfile(){
 showAddSkill(){
   const addSkillDiv = document.getElementById('addedittech');
   if(addSkillDiv != null){
+    this.newlyaddedskill = "";
     addSkillDiv.style.display = 'block';
   }
 }
