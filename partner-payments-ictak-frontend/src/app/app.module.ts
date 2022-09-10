@@ -3,7 +3,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { RouterModule } from '@angular/router';
-import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -30,6 +29,7 @@ import { ViewFileComponent } from './view-file/view-file.component';
 import { FinanceRemittanceComponent } from './finance/finance-remittance/finance-remittance.component';
 import { AdminPaymentsComponent } from './admin/admin-payments/admin-payments.component';
 import { TokenInterceptorService } from './token-interceptor.service';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 
 @NgModule({
