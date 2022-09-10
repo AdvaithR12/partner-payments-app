@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { server } from 'src/app/globals';
 import { FinanceService } from '../finance.service'; 
 
 @Component({
@@ -47,7 +48,7 @@ export class FinanceInvoicesComponent implements OnInit {
   }
 
   viewInvoice(invoiceId: any) {
-    sessionStorage.setItem(`goToUrl`, `http://localhost:8080/api/finance/getinvoice/${invoiceId}`);
+    sessionStorage.setItem(`goToUrl`, `${server}/finance/getinvoice/${invoiceId}`);
     this.router.navigate(['finance/invoices/getinvoice']);
   }
 

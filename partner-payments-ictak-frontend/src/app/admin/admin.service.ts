@@ -5,6 +5,7 @@ import { server } from "../globals";
 @Injectable({
   providedIn: 'root'
 })
+
 export class AdminService {
 
   constructor( private http: HttpClient) { }
@@ -47,18 +48,21 @@ export class AdminService {
       dueDate: dueDate 
     });
   }
+
   denyInvoice(invoiceId: any) {
     return this.http.put(`${server}/admin/denyinvoice`, { 
       invoiceId: invoiceId
     });
   }
-  //user approval list
-  getUserlist() {
+
+  getUserlist() { //user approval list
     return this.http.get(`${server}/admin/getuserlist`);
   }
+
   approveuser(id:any){
     return this.http.put(`${server}/admin/approveuser/`,{
       id: id
     });
   }
+
 }

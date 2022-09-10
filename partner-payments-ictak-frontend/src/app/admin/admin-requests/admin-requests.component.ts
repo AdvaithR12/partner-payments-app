@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { server } from 'src/app/globals';
 import { AdminService } from '../admin.service';
 
 @Component({
@@ -68,9 +69,12 @@ export class AdminRequestsComponent implements OnInit {
               .then(() => {
                 this.router.navigate([currentRoute]); // navigate to same route
               }); 
+          } else {
+            alert(`Work Order generation failed`)
           }
         },
         error: (err)=> {
+          alert('Work Order generation failed')
           console.log('error', err);
         }
       });
@@ -83,7 +87,7 @@ export class AdminRequestsComponent implements OnInit {
   }
 
   viewWorkOrderPdf(workOrderId: any) {
-    sessionStorage.setItem(`goToUrl`, `http://localhost:8080/api/admin/getworkorder/${workOrderId}`);
+    sessionStorage.setItem(`goToUrl`, `${server}/admin/getworkorder/${workOrderId}`);
     this.router.navigate(['admin/requests/workorder']);
   };
 

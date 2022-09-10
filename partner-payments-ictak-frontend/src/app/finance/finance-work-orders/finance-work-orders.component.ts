@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AdminService } from 'src/app/admin/admin.service';
 import { FinanceService} from 'src/app/finance/finance.service';
+import { server } from 'src/app/globals';
 
 @Component({
   selector: 'app-finance-work-orders',
@@ -75,10 +76,6 @@ export class FinanceWorkOrdersComponent implements OnInit {
     }
   }
 
-  viewWorkOrderPdf(workOrderId: any) {
-    localStorage.setItem(`workOrderId`, workOrderId);
-    this.router.navigate(['admin/workorder']);
-  }
   //Approve
   approveworkorder(requestId: any){
     this.financeServices.setworkorder(requestId, true)
@@ -101,7 +98,7 @@ export class FinanceWorkOrdersComponent implements OnInit {
   }
 
    //Reject
-   rejectworkorder(requestId: any){
+  rejectworkorder(requestId: any){
     this.financeServices.setworkorder(requestId, false)
       .subscribe({
         next: (succ: any)=> {
@@ -123,7 +120,7 @@ export class FinanceWorkOrdersComponent implements OnInit {
 
   //View
   viewworkorder(workOrderId: any){
-    sessionStorage.setItem(`goToUrl`, `http://localhost:8080/api/admin/getworkorder/${workOrderId}`);
+    sessionStorage.setItem(`goToUrl`, `${server}/admin/getworkorder/${workOrderId}`);
     this.router.navigate(['finance/workorders/getworkorder']);
   }
 }

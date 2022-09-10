@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AdminService } from '../admin.service';
+import { server } from "../../globals";
 
 @Component({
   selector: 'app-admin-invoices',
@@ -98,7 +99,7 @@ export class AdminInvoicesComponent implements OnInit {
   }
 
   viewInvoice(invoiceId: any) {
-    sessionStorage.setItem(`goToUrl`, `/api/admin/getinvoice/${invoiceId}`);
+    sessionStorage.setItem(`goToUrl`, `${server}/admin/getinvoice/${invoiceId}`);
     console.log(invoiceId);
     
     this.router.navigate(['admin/invoices/getinvoice']);

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AdminService } from 'src/app/admin/admin.service';
 import { PartnerService } from '../partner.service';
 import { SigninComponent } from 'src/app/signin/signin.component';
+import { server } from 'src/app/globals';
 
 @Component({
   selector: 'app-partner-workorders',
@@ -14,8 +15,6 @@ export class PartnerWorkordersComponent implements OnInit {
   partners: any = [];
   trainingRequests: any = [];
   workOrders: any = []
-
-  
 
   constructor( 
     private partnerServices: PartnerService,
@@ -42,7 +41,7 @@ export class PartnerWorkordersComponent implements OnInit {
   }
 
   viewWorkOrderPdf(workOrderId: any) {
-    sessionStorage.setItem(`goToUrl`, `http://localhost:8080/api/partner/getworkorder/${workOrderId}`);
+    sessionStorage.setItem(`goToUrl`, `${server}/partner/getworkorder/${workOrderId}`);
     this.router.navigate(['partner/workorders/getworkorder']);
   }
 
