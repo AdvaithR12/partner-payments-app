@@ -24,9 +24,11 @@ export class AdminInvoicesComponent implements OnInit {
     this.adminServices.getInvoices({ adminApproved: false })
       .subscribe({
         next: (succ: any)=> {
+          console.log('success');
           this.pendingInvoices = succ.data;
           },
         error: (err)=> {
+          console.log('error');
           console.log('Error getting pending invoices', err.message);
         }
       });
@@ -100,5 +102,26 @@ export class AdminInvoicesComponent implements OnInit {
     sessionStorage.setItem(`goToUrl`, `http://localhost:8080/api/admin/getinvoice/${invoiceId}`);
     this.router.navigate(['admin/invoices/getinvoice']);
   }
-
+  deny(invoiceId: any){
+    if(confirm(`Are you sure?`)) {
+      {
+        this.adminServices.denyInvoice(invoiceId)
+        .subscribe({
+          next: (succ: any)=> {
+            if(succ.success) {
+              alert(`Invoice denied`)
+              const currentRoute = this.router.url; // function to reload the current component
+              this.router.navigateByUrl('/', { skipLocationChange: true })
+                .then(() => {
+                  this.router.navigate([currentRoute]); // navigate to same route
+                }); 
+            }
+          },
+          error: (err: any)=> {
+            console.log('Error while denying invoice', err.message);
+          }
+        }); 
+      }
+    }
+  }
 }
