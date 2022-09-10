@@ -73,9 +73,43 @@ adminRouter.post('/newrequest', async (req, res)=> {
 
 });
 
-adminRouter.put('/updaterequest', (req, res)=> {
-  console.log(req.body);
+adminRouter.put('/modifyrequest', (req, res)=> {
+  console.log(req.body.requestId);
+
+  id=req.body.requestId,
+  
+  TrainingRequest.findByIdAndUpdate(id,
+  {$set: {
+    "trainingDetails.topic": req.body.trainingRequest.trainingDetails.topic,
+    "trainingDetails.partnerName": req.body.trainingRequest.trainingDetails.partnerName,
+    "sessionDetails.mode": req.body.trainingRequest.sessionDetails.mode,
+    "sessionDetails.venue": req.body.trainingRequest.sessionDetails.venue,
+    "sessionDetails.hourlyPayment": req.body.trainingRequest.sessionDetails.hourlyPayment,
+    // "sessionDetails.startTime": req.body.trainingRequest.sessionDetails.startTime,
+    // "sessionDetails.endTime": req.body.trainingRequest.sessionDetails.endTime,
+  }})
+  .then(function(succ){
+    console.log(succ)
+  })
 });
+
+adminRouter.delete('/deleterequest/:id',(req,res)=>{
+   
+  TrainingRequest.findByIdAndDelete(req.params.id)
+  .then(()=>{
+      console.log('success')
+      res.status(200).json({
+        success: true,
+        message: 'Deleted successfully'
+      });
+  }).catch((err)=> {
+    console.log(err.message);
+    res.status(504).json({
+      success: false,
+      message: 'Failed to delete'
+    });
+  });
+}) 
 
 adminRouter.get('/trainingrequest', (req, res)=> {
   TrainingRequest.findById(req.query.requestId, (err, data)=> {
@@ -180,7 +214,18 @@ adminRouter.get(`/getinvoices`, (req, res)=> {
     qry = {adminApproved: { $exists: false }}
   }
   
+<<<<<<< HEAD
   InvoiceData.find(qry)//req.query
+=======
+
+  //InvoiceData.find(req.query)
+  InvoiceData.find({ 
+    $and:[
+      {adminApproved: true},
+      {paid: req.query.paid}
+    ]
+  })
+>>>>>>> main
     .then((succ)=> {
       res.status(200).json({
         success: true,

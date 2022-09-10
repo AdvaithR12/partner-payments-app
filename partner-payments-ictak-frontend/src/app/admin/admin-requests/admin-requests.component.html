@@ -2,7 +2,7 @@
 
   <div class="row d-flex justify-content-center ">
     <div class="col-9  px-5 py-4 m-3  text-center fs-2 text-black rounded" style="font-weight: bold;">
-      <span style="color: rgb(52, 51, 51); font-family: 'Roboto Condensed', sans-serif;">ALL REQUESTS </span>      
+      <span style="color: rgb(52, 51, 51); font-family: 'Roboto Condensed', sans-serif;">All Requests <i class="fas fa-calendar-plus"></i> </span>      
     </div>
   </div>
 
@@ -53,7 +53,7 @@
           </div>
           <div class="d-flex justify-content-center">
             <a><button (click)="modifyRequest(request._id)" class="btn btn-warning mx-1">Modify</button></a>
-            <a><button class="btn btn-danger mx-1">Reject</button></a>
+            <a><button (click)="deleteRequest(request._id)" class="btn btn-danger mx-1">Delete</button></a>
           </div>
         </div>
       </div>    
@@ -103,8 +103,8 @@
         </div>
         <div class="col text-center">
           <span>
-            <i *ngIf="!workOrder.financeApproved" style="color: red;" class="fa-solid fs-4 fa-circle-xmark"></i>
-            <i *ngIf="workOrder.financeApproved" style="color: green;" class="fa-solid fs-4 fa-circle-check"></i>
+            <i *ngIf="!workOrder.financeApproved"  class="text-danger fa-solid fs-4 fa-file-circle-exclamation"></i>
+            <i *ngIf="workOrder.financeApproved"  class="text-success fa-solid fs-4 fa-circle-check"></i>
 
           </span>
         </div>

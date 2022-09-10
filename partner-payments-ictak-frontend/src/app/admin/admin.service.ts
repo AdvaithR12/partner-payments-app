@@ -34,12 +34,18 @@ export class AdminService {
     return this.http.get(`${server}/admin/getworkorders`, { params: approvalStatus });
   }
 
-  getInvoices(approvalStatus: any) {
+  getInvoices(approvalStatus: any ) {
     return this.http.get(`${server}/admin/getinvoices`,  { params: approvalStatus } );
   }
 
-  updateRequest(trainingRequestData: any) {
-    return this.http.put(`${server}/admin/updaterequest`, { trainingRequest: trainingRequestData });
+  updateRequest(trainingRequestData: any, requestId : any) {
+    return this.http.put(`${server}/admin/modifyrequest`, 
+    { trainingRequest: trainingRequestData,  requestId : requestId},
+    );
+  }
+
+  deleteRequest(requestid: any) {
+    return this.http.delete(`${server}/admin/deleterequest/${requestid}`)
   }
 
   approveInvoice(invoiceId: any, dueDate: any) {
@@ -54,7 +60,7 @@ export class AdminService {
       invoiceId: invoiceId
     });
   }
-
+  
   getUserlist() { //user approval list
     return this.http.get(`${server}/admin/getuserlist`);
   }

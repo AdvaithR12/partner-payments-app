@@ -13,6 +13,7 @@ export class AdminInvoicesComponent implements OnInit {
   pendingInvoices: any = [];
   approvedInvoices: any = [];
   paidInvoices : any = [];
+  advanceInvoices: any = []
 
   constructor(
     private adminServices: AdminService,
@@ -43,13 +44,13 @@ export class AdminInvoicesComponent implements OnInit {
         }
       });
 
-      this.adminServices.getInvoices({ paid: true })
+      this.adminServices.getInvoices({ invoiceType: true })
       .subscribe({
         next: (succ: any)=> {
-          this.paidInvoices = succ.data;
+          this.advanceInvoices = succ.data;
         },
         error: (err)=> {
-          console.log('Error getting paid invoices', err.message);
+          console.log('Error getting advance invoices', err.message);
         }
       });
 

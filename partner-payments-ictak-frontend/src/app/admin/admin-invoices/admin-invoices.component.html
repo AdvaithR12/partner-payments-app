@@ -113,46 +113,52 @@
     </div>
 
   </div>
-
-  <br>
-  <!-- <div style="font-size:large;">
-    <span class="border-bottom border-dark border-3 rounded shadow py-2 px-3">Paid Invoices ({{paidInvoices.length}})</span>
+  <br><br>
+  <div style="font-size:large;">
+    <span class="border-bottom border-dark border-3 rounded shadow py-2 px-3">Advance Invoices ({{advanceInvoices.length}})</span>
   </div>
   <br>
   <div class="row d-flex justify-content-center align-items-center">
     
     <div class="row d-flex justify-content-center align-items-center ">
 
-      <div *ngIf="(paidInvoices.length != 0)" class="row text-center border-bottom fs-6 fw-bold text-uppercase border-2 border-dark mb-4 p-2  mx-2 my-2 d-flex align-items-center justify-content-center">
+      <div *ngIf="(advanceInvoices.length != 0)" class="row text-center border-bottom fs-6 fw-bold text-uppercase border-2 border-dark mb-4 p-2  mx-2 my-2 d-flex align-items-center justify-content-center">
         <div class="col ">
           Partner
         </div>
-        <div class="col d-flex justify-content-center">
-          Due Date
-        </div>
-        <div class="col d-flex justify-content-center">
-          Payment Date
-        </div>
+
         <div class="col text-center">
           Work Order Number
         </div>
+        
+        <div class="col d-flex justify-content-center">
+          Due Date
+        </div>
+
+        <div class="col ">
+          Total Amount
+        </div>
+
         <div class="col d-flex align-items-center justify-content-center">
           Action
         </div>
       </div> 
 
-      <div *ngFor="let invoice of paidInvoices" class="row text-center shadow bg-dark bg-opacity-25 mb-3 p-2  mx-2 my-1 d-flex align-items-center justify-content-center">
+      <div *ngFor="let invoice of advanceInvoices" class="row text-center shadow bg-dark bg-opacity-25 mb-3 p-2  mx-2 my-1 d-flex align-items-center justify-content-center">
         <div class="col">
           {{invoice.partnerName}}
         </div>
-        <div class="col text-capitalize d-flex  justify-content-center">
-          {{invoice.invoiceDueDate.toString().slice(0,10)}}
-        </div>
-        <div class="col text-capitalize  d-flex  justify-content-center">
-          {{invoice.paymentDate.toString().slice(0,10)}}
-        </div>
+
         <div class="col text-center">
           {{invoice.workOrderNumber}}
+        </div>
+        
+        <div class="col text-capitalize  d-flex  justify-content-center">
+          {{invoice.invoiceDueDate.toString().slice(0,10)}}
+        </div>
+
+        <div class="col text-capitalize">
+          {{invoice.totalAmount}}
         </div>
         <div class="col d-flex align-items-center justify-content-center">
           <a (click)="viewInvoice(invoice.fileName)">
@@ -163,6 +169,6 @@
 
     </div>
 
-  </div> -->
+  </div>
 
 </div>

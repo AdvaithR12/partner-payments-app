@@ -33,9 +33,11 @@ export class AdminModifyRequestComponent implements OnInit {
     private router: Router
   ) { }
 
+  requestId: any = '';
+
   ngOnInit(): void {
 
-    let requestId = sessionStorage.getItem('editRequestId');
+    this.requestId = sessionStorage.getItem('editRequestId');
 
     this.adminServices.getPartnerList() //load the list of partners to be displayed on the drop down list
       .subscribe({
@@ -47,7 +49,7 @@ export class AdminModifyRequestComponent implements OnInit {
         }
       });
 
-    this.adminServices.getTrainingRequest(requestId)
+    this.adminServices.getTrainingRequest(this.requestId)
       .subscribe({
         next: (succ: any)=> {
           console.log(succ);
@@ -68,12 +70,12 @@ export class AdminModifyRequestComponent implements OnInit {
   }
 
   saveModifiedRequest() {
-    this.adminServices.updateRequest(this.trainingRequestForm.value)
+    this.adminServices.updateRequest(this.trainingRequestForm.value, this.requestId)
       .subscribe({
         next: (response: any)=> {
           if(response.success) {
             alert('Successfully updated');
-            // this.router.navigate(['admin/requests']);
+            this.router.navigate(['admin/requests']);
           }
         },
         error: (err: any)=> {

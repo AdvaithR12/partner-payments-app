@@ -10,6 +10,7 @@ import { AdminService } from '../admin.service';
 export class AdminPaymentsComponent implements OnInit {
 
   paidInvoices : any = [];
+  unpaidInvoices : any = [];
 
   constructor(private adminServices: AdminService,
     private router: Router) { }
@@ -24,6 +25,16 @@ export class AdminPaymentsComponent implements OnInit {
       },
       error: (err)=> {
         console.log('Error getting paid invoices', err.message);
+      }
+    });
+
+    this.adminServices.getInvoices({ paid: false })
+    .subscribe({
+      next: (succ: any)=> {
+        this.unpaidInvoices = succ.data;
+      },
+      error: (err)=> {
+        console.log('Error getting unpaid invoices', err.message);
       }
     });
   }
