@@ -24,18 +24,21 @@ partnerRouter.post('/invoice', (req,res)=> {
 });
 
 partnerRouter.post('/multiplefiles', (req, res) => {
-
+  console.log('multiplefiles endpoint');
   multipleUpload(req, res, (err) => {
+    console.log('multipleupload fn');
     if(err) {
-      console.log(err.message)
+      console.log('error on calling multiple upload', err.message)
     }
 
     let img = []
     req.files.forEach(file => {
+      console.log('files.forEach');
       img.push(file.filename)
     });
 
     res.json({
+      success: true,
       path:img
     })
   });
