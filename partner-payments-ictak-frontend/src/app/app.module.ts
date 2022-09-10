@@ -29,8 +29,6 @@ import { ViewFileComponent } from './view-file/view-file.component';
 import { FinanceRemittanceComponent } from './finance/finance-remittance/finance-remittance.component';
 import { AdminPaymentsComponent } from './admin/admin-payments/admin-payments.component';
 import { TokenInterceptorService } from './token-interceptor.service';
-import { HashLocationStrategy, LocationStrategy } from '@angular/common';
-
 
 @NgModule({
   declarations: [
@@ -71,10 +69,6 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,
       multi: true
-    },
-    { 
-      provide: LocationStrategy, 
-      useClass: HashLocationStrategy 
     }
   ],
   bootstrap: [AppComponent]

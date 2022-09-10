@@ -36,7 +36,7 @@ app.set('views','./src/assets/work-orders/template-files/');
 app.set('view engine','ejs'); 
 app.use(express.static(path.join(__dirname , '/src/assets/work-orders/template-files/'))); 
 
-app.use(express.static(path.join(__dirname + '/dist/partner-payments-ictak-frontend')));
+app.use(express.static(path.join(__dirname, './dist/partner-payments-ictak-frontend')));
 
 app.use(`/api/auth`, authRouter);
 app.use(`/api/admin`, adminRouter);
@@ -44,8 +44,7 @@ app.use(`/api/partner`, partnerRouter);
 app.use(`/api/finance`, financeRouter);
 
 app.get('/*', (req, res)=> {
-  console.log('app.get /*');
-  res.sendFile(path.join(__dirname + '/dist/partner-payments-ictak-frontend'));
+  res.sendFile(path.join(__dirname, './dist/partner-payments-ictak-frontend/index.html'));
 });
 
 app.listen(PORT, ()=> {
