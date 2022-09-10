@@ -43,9 +43,10 @@ app.use(`/api/admin`, adminRouter);
 app.use(`/api/partner`, partnerRouter);
 app.use(`/api/finance`, financeRouter);
 
-// app.get('/*', (req, res)=> {
-//   res.sendFile(path.join(__dirname + './dist/partner-payments-ictak-frontend'));
-// });
+app.get('/*', (req, res)=> {
+  console.log('app.get /*');
+  res.sendFile(path.join(__dirname + '/dist/partner-payments-ictak-frontend'));
+});
 
 app.listen(PORT, ()=> {
   console.log(`Hi, I'm listening at ${PORT}`);
