@@ -9,7 +9,7 @@ let browser, page;
     if (page) return;
     browser = await puppeteer.launch({ args: ['--no-sandbox'] }); //launch new chromium instance
     page = await browser.newPage(); //open new page in the chromium instance
-    await page.goto('http://localhost:8080/api/admin/')
+    await page.goto(`/api/admin/`)
 })().then(()=> {
   console.log('Puppeteer instance initiated');
 }).catch((err)=> {
@@ -216,7 +216,10 @@ module.exports.createWorkOrder = async (req, res)=> {
   let pdfGenerationStatus = await generatePdf(req.body.requestId, workOrderNumber, trainingRequest) 
 
   // await to store the generated work order data in db
-  let storeWorkOrderStatus = await storeWorkOrderData(pdfGenerationStatus.fileName, req.body.requestId, workOrderNumber);
+  let storeWorkOrderStatus;
+  if(pdfGenerationStatus.success) {
+    storeWorkOrderStatus = await storeWorkOrderData(pdfGenerationStatus.fileName, req.body.requestId, workOrderNumber);
+  }
 
   if(storeWorkOrderStatus.adminApproved && pdfGenerationStatus.success) {
     return { 
