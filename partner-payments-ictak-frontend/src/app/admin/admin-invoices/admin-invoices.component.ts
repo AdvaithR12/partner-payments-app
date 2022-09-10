@@ -98,11 +98,12 @@ export class AdminInvoicesComponent implements OnInit {
   }
 
   viewInvoice(invoiceId: any) {
-    sessionStorage.setItem(`goToUrl`, `http://localhost:8080/api/admin/getinvoice/${invoiceId}`);
+    sessionStorage.setItem(`goToUrl`, `/api/admin/getinvoice/${invoiceId}`);
     console.log(invoiceId);
     
     this.router.navigate(['admin/invoices/getinvoice']);
   }
+
   deny(invoiceId: any){
     if(confirm(`Are you sure?`)) {
       {
