@@ -98,7 +98,7 @@ export class PartnerInvoiceComponent implements OnInit {
               .then(() => {
                 this.router.navigate([currentRoute]); // navigate to same route
               }); 
-          }, 3000)}
+          }, 2000)}
   })
 }
 }

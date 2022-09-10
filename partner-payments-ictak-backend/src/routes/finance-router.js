@@ -23,7 +23,7 @@ financeRouter.get(`/getinvoices`, (req, res)=> {
     InvoiceData.find({ 
         $and:[
           { adminApproved: true },
-          {paid: false},
+          { paid: false},
           { invoiceType: req.query.invoiceType }
         ]
       })

@@ -34,12 +34,22 @@ export class AdminService {
     return this.http.get(`${this.server}/admin/getworkorders`, { params: approvalStatus });
   }
 
-  getInvoices(approvalStatus: any) {
+  getInvoices(approvalStatus: any ) {
     return this.http.get(`${this.server}/admin/getinvoices`,  { params: approvalStatus } );
   }
 
-  updateRequest(trainingRequestData: any) {
-    return this.http.put(`${this.server}/admin/updaterequest`, { trainingRequest: trainingRequestData });
+  // getAdvanceInvoices(invoiceType:any) {
+  //   return this.http.get(`${this.server}/admin/getadvanceinvoices`,  { params: { 'invoiceType': invoiceType} });
+  // }
+
+  updateRequest(trainingRequestData: any, requestId : any) {
+    return this.http.put(`${this.server}/admin/modifyrequest`, 
+    { trainingRequest: trainingRequestData,  requestId : requestId},
+    );
+  }
+
+  deleteRequest(requestid: any) {
+    return this.http.delete(`${this.server}/admin/deleterequest/${requestid}`)
   }
 
   approveInvoice(invoiceId: any, dueDate: any) {

@@ -29,8 +29,8 @@ export class FinanceRemittanceComponent implements OnInit {
         .subscribe({
       next: (succ: any)=> {
         if(succ.success) {
-          console.log(this.remittanceDetails)
-          // this.router.navigate(['partner/dashboard'])
+          alert('Remittance details updated successfully');
+          this.router.navigate(['finance/invoices'])
         }
       },
       error: (err)=> {

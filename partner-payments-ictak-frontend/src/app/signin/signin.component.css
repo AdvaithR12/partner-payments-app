@@ -1,6 +1,4 @@
 
-
-
 body {
 	color: #000;
 	overflow-x: hidden;
@@ -14,6 +12,10 @@ body {
 	/* border-radius: 0px; */
 	width: 100%;
 	height: 100%;
+	background: #FFFFFF;
+	background: -webkit-linear-gradient(bottom right, #FFFFFF, #9AC8C0);
+	background: -moz-linear-gradient(bottom right, #FFFFFF, #9AC8C0);
+	background: linear-gradient(to top left, #FFFFFF, #9AC8C0);
   }
   
   .form2 {
@@ -29,51 +31,19 @@ body {
   }
   
   .image {
-	width: 360px;
+	width: 450px;
 	height: 280px;
   }
   
   .border-line {
-	border-right: 1px solid #EEEEEE;
+	border-right: 1px solid #0f0d0d;
   }
   
-  /* .facebook {
-	background-color: #3b5998;
-	color: #fff;
-	font-size: 18px;
-	padding-top: 5px;
-	border-radius: 50%;
-	width: 35px;
-	height: 35px;
-	cursor: pointer;
-  }
-  
-  .twitter {
-	background-color: #1DA1F2;
-	color: #fff;
-	font-size: 18px;
-	padding-top: 5px;
-	border-radius: 50%;
-	width: 35px;
-	height: 35px;
-	cursor: pointer;
-  }
-  
-  .linkedin {
-	background-color: #2867B2;
-	color: #fff;
-	font-size: 18px;
-	padding-top: 5px;
-	border-radius: 50%;
-	width: 35px;
-	height: 35px;
-	cursor: pointer;
-  } */
   
   .line {
 	height: 1px;
 	width: 45%;
-	background-color: #E0E0E0;
+	background-color: #0d0b0b;
 	margin-top: 10px;
   }
   

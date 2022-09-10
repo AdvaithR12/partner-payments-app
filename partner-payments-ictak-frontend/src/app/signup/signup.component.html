@@ -1,33 +1,27 @@
-<div class="container my-3">
-    <div class="row">
-
-        <div class="col-5 d-flex align-items-center">
-
-            <div class="form1 pb-5 mb-3">
-                <div class="row  justify-content-left mt-1 mb-3">
-                    <img routerLink="" src="../../assets/logo/LOGO_ICTAK-Name.svg" class="logo">
-                </div>
-                <div class=" row px-3  justify-content-center mt-4 mb-5 border-line">
-                    <img src="https://i.imgur.com/uNGdWHi.png" class="image">
+<div class="container-fluid">
+    <form #userSignUp = "ngForm" class="text-center" style="color: #757575;" (ngSubmit)="addUser()">
+    <div class="form0 ">
+        <div class="row d-flex">
+            <div class="col-lg-6">
+                <div class="form1 pb-5 mb-3">
+                    <div class="row  justify-content-left mt-1 mb-3">
+                        <img src="../../assets/logo/LOGO_ICTAK-Name.svg" class="logo">
+                    </div>
+                    <div class=" row px-3  justify-content-center mt-4 mb-5 border-line">
+                        <img src="https://i.imgur.com/uNGdWHi.png" class="image">
+                    </div>
                 </div>
             </div>
-
-        </div>
-        <div class="col-7">
-
-            <div class="card mx-auto container bg-light">
-                <h3 class="card-header  white-text text-center py-3">
-                    <strong>Sign Up</strong>
-                </h3><br>
-            
-                <!--Card content-->
-                <div class="card-body px-lg-5 pt-0">
-            
-                    <!-- Form -->
-                    <form #userSignUp = "ngForm" class="text-center" style="color: #757575;" (ngSubmit)="addUser()">
-                        <!-- Full Name -->
-                        <div class="md-form mt-0">
-                            <label for="fullname">Full Name</label>
+            <div class="col-lg-6"  >
+                <div class="form2 form border-0 px-4 py-5">
+  
+                    <div class="row px-2 mb-4">
+                        <div class="line"></div>
+                        <small class="or text-center">Signup</small>
+                        <div class="line"></div>
+                    </div>
+                    <div class="row px-3  input-set">
+                        <label for="fullname" style="color: black;">Full Name</label>
                             <input 
                                 id="name" 
                                 type="text" 
@@ -35,12 +29,12 @@
                                 #name = "ngModel" 
                                 [(ngModel)]="loginuser.name" 
                                 class="form-control" 
-                                [class.is-invalid] = "name.invalid && name.touched">
-                            <label for="name" id="namefeedback" style="color:red; visibility:hidden">Enter name</label>
-                        </div>
-                        <!-- E-mail -->
-                        <div class="md-form mt-0">
-                            <label for="email">E-mail</label>
+                                [class.is-invalid] = "name.invalid && name.touched" required>
+                                <small [class.d-none] = "!(name.invalid && name.touched)" for="name" id="name" style="color:red;">Enter your Name</small>
+                    </div>
+                    <br>
+                    <div class="row px-3 input-set">
+                        <label for="email" style="color: black;">E-mail</label>
                             <input 
                                 id="uid" 
                                 type="email" 
@@ -53,11 +47,10 @@
                                 pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" 
                                 required>
                                 <small [class.d-none] = "!(email.invalid && email.touched)" for="pwd" id="pwdfeedback" style="color:red;">Enter a valid Email ID</small>
-                        </div>
-
-                        <!-- Password -->
-                        <div class="md-form mt-0">
-                            <label for="pwd">Password</label>
+                    </div>
+                    <br>
+                    <div class="row px-3 input-set">
+                        <label for="pwd" style="color: black;">Password</label>
                             <input 
                                 id="pwd" 
                                 name="pwd" 
@@ -72,10 +65,11 @@
                                 pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$"  
                                 required>
                             <small [class.d-none] = "!(passwordModel.invalid && passwordModel.touched)" for="pwd" id="pwdfeedback" style="color:red;">One uppercase, one lowercase & minimum 8 characters required for password</small>
-                        </div><br>
-                                <!--Re- Type Password -->
-                        <div class="md-form mt-0">
-                            <label for="pwd">Retype Password</label>
+                    </div>
+                    <br>
+                    <div class="row px-3 input-set">
+
+                        <label for="pwd" style="color: black;">Retype Password</label>
                             <input 
                                 id="pwd2" 
                                 name="pwd2" 
@@ -90,10 +84,11 @@
                                 aria-describedby="materialRegisterFormPasswordHelpBlock"
                                 required>
                             <small [class.d-none] = "!(RetypepasswordModel.invalid && RetypepasswordModel.touched)" for="pwd" id="pwdfeedback" style="color:red;">Password and Repeat password should match</small>
-                        </div>
-                        <!-- User Type -->
-                        <div class="md-form mt-0"> 
-                            <label for="UserType">User Type</label><br>
+
+                    </div>
+                    <br>
+                    <div class="row px-3 input-set">
+                        <label for="UserType" style="color: black;">User Type</label><br>
                             <select 
                                 class=" dropdown-toggle form-control" 
                                 [(ngModel)]="loginuser.userType" 
@@ -103,38 +98,32 @@
                                     {{currentData}}
                                 </option>
                           </select>
-                        </div>
-                         <button 
+                    </div>
+                    <br>
+                    <div>
+                        <button 
                             id="signup" 
                             name="signup"  
-                            class=" my-3 btn btn-blue text-center"
-                            (ngSubmit)="addUser()">
+                            class="btn btn-blue"
+                            
+                            (ngSubmit)="addUser()"
+                            [disabled]="userSignUp.form.invalid" >
                                 Sign Up
                         </button>
-                        <!-- [disabled]="userSignUp.form.invalid"  -->
-                        <br>
-
-                        <div class="row mb-4 px-3">
-                            <small class="font-weight-bold">Already have an account? <a routerLink="" class="text-danger ">Sign In</a></small>
-                        </div>
-            
-                    </form>
-                    <!-- End of Form -->
-            
+                    </div>
+                    <div class="row px-3 mt-3">
+                        <small class="font-weight-bold">Already have an account? <a routerLink="" class="text-danger ">Sign In</a></small>
+                    </div>
                 </div>
-            
-            
             </div>
-
         </div>
-
     </div>
-
-</div>
-
-<div class="landing bg-blue py-2 mb-1">
-    <div class="row px-3 pb-1">
-        <small class="ml-4  mb-2 py-2">Copyright &copy; 2022. All rights reserved.</small>
-
+    <div class="landing bg-blue py-2 mb-1">
+        <div class="row px-3 pb-1">
+            <small class="ml-4  mb-2 py-2">Copyright &copy; 2022. All rights reserved.</small>
+  
+        </div>
     </div>
-</div>  
+  </form>
+
+  </div>

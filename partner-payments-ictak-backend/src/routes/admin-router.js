@@ -73,9 +73,43 @@ adminRouter.post('/newrequest', async (req, res)=> {
 
 });
 
-adminRouter.put('/updaterequest', (req, res)=> {
-  console.log(req.body);
+adminRouter.put('/modifyrequest', (req, res)=> {
+  console.log(req.body.requestId);
+
+  id=req.body.requestId,
+  
+  TrainingRequest.findByIdAndUpdate(id,
+  {$set: {
+    "trainingDetails.topic": req.body.trainingRequest.trainingDetails.topic,
+    "trainingDetails.partnerName": req.body.trainingRequest.trainingDetails.partnerName,
+    "sessionDetails.mode": req.body.trainingRequest.sessionDetails.mode,
+    "sessionDetails.venue": req.body.trainingRequest.sessionDetails.venue,
+    "sessionDetails.hourlyPayment": req.body.trainingRequest.sessionDetails.hourlyPayment,
+    // "sessionDetails.startTime": req.body.trainingRequest.sessionDetails.startTime,
+    // "sessionDetails.endTime": req.body.trainingRequest.sessionDetails.endTime,
+  }})
+  .then(function(succ){
+    console.log(succ)
+  })
 });
+
+adminRouter.delete('/deleterequest/:id',(req,res)=>{
+   
+  TrainingRequest.findByIdAndDelete(req.params.id)
+  .then(()=>{
+      console.log('success')
+      res.status(200).json({
+        success: true,
+        message: 'Deleted successfully'
+      });
+  }).catch((err)=> {
+    console.log(err.message);
+    res.status(504).json({
+      success: false,
+      message: 'Failed to delete'
+    });
+  });
+}) 
 
 adminRouter.get('/trainingrequest', (req, res)=> {
   TrainingRequest.findById(req.query.requestId, (err, data)=> {
@@ -191,7 +225,14 @@ adminRouter.get('/getinvoice/:id', (req, res)=> {
 
 adminRouter.get(`/getinvoices`, (req, res)=> {
   
-  InvoiceData.find(req.query)
+
+  //InvoiceData.find(req.query)
+  InvoiceData.find({ 
+    $and:[
+      {adminApproved: true},
+      {paid: req.query.paid}
+    ]
+  })
     .then((succ)=> {
       res.status(200).json({
         success: true,
@@ -205,6 +246,29 @@ adminRouter.get(`/getinvoices`, (req, res)=> {
       });
     });
 });
+
+// adminRouter.get(`/getadvanceinvoices`, (req, res)=> {
+
+//   InvoiceData.find({ 
+//       $and:[
+//         { adminApproved: true },
+//         { invoiceType: req.query.invoiceType }
+//       ]
+//     })
+//     .then((succ)=> {
+//       res.status(200).json({
+//         success: true,
+//         data: succ
+//       })
+//     }).catch((err)=> {
+//       console.log('Error while fetching invoices');
+//       res.status(500).json({
+//         success: false,
+//         message: `Server error while fetching invoices`
+//       });
+//     });
+
+// });
 
 adminRouter.put('/approveinvoice', (req, res)=> {
 

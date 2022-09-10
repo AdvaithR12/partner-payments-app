@@ -82,6 +82,32 @@ export class AdminRequestsComponent implements OnInit {
     this.router.navigate(['admin/modifyrequest']);
   }
 
+  deleteRequest(requestId:any) {
+    if(confirm(`Are you sure you want to delete this Training Request?`)) {
+    this.adminServices.deleteRequest(requestId)
+    .subscribe({
+      next: (data: any) => {
+        console.log(data)
+        if(data.success) {
+          alert(data.message);
+
+          const currentRoute = this.router.url;
+            this.router.navigateByUrl('/', { skipLocationChange: true })
+              .then(() => {
+                this.router.navigate([currentRoute]); // navigate to same route
+              }); 
+              
+        } else {
+          alert(data.message)
+        }
+      },
+      error: (err: any)=> {
+        alert('Failed to delete training request')
+      }
+    });
+  }
+  }
+
   viewWorkOrderPdf(workOrderId: any) {
     sessionStorage.setItem(`goToUrl`, `http://localhost:8080/api/admin/getworkorder/${workOrderId}`);
     this.router.navigate(['admin/requests/workorder']);

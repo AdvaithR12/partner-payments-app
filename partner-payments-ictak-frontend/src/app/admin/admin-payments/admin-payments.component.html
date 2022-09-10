@@ -19,7 +19,7 @@
           Partner
         </div>
         <div class="col d-flex justify-content-center">
-          Due Date
+          Invoice Date
         </div>
         <div class="col d-flex justify-content-center">
           Payment Date
@@ -37,7 +37,7 @@
           {{invoice.partnerName}}
         </div>
         <div class="col text-capitalize d-flex  justify-content-center">
-          {{invoice.invoiceDueDate.toString().slice(0,10)}}
+          {{invoice.invoiceDate.toString().slice(0,10)}}
         </div>
         <div class="col text-capitalize  d-flex  justify-content-center">
           {{invoice.paymentDate.toString().slice(0,10)}}
@@ -54,5 +54,55 @@
 
     </div>
 
-  </div>
+  </div><br>
+
+<div style="font-size:large;">
+<span class="border-bottom border-dark border-3 rounded shadow py-2 px-3">Unpaid Invoices ({{unpaidInvoices.length}})</span>
+</div>
+<br>
+<div class="row d-flex justify-content-center align-items-center">
+
+<div class="row d-flex justify-content-center align-items-center ">
+
+  <div *ngIf="(unpaidInvoices.length != 0)" class="row text-center border-bottom fs-6 fw-bold text-uppercase border-2 border-dark mb-4 p-2  mx-2 my-2 d-flex align-items-center justify-content-center">
+    <div class="col ">
+      Partner
+    </div>
+    <div class="col d-flex justify-content-center">
+      Invoice Date
+    </div>
+    <div class="col d-flex justify-content-center">
+      Due Date
+    </div>
+    <div class="col text-center">
+      Work Order Number
+    </div>
+    <div class="col d-flex align-items-center justify-content-center">
+      Action
+    </div>
+  </div> 
+
+  <div *ngFor="let invoice of unpaidInvoices" class="row text-center shadow bg-dark bg-opacity-25 mb-3 p-2  mx-2 my-1 d-flex align-items-center justify-content-center">
+    <div class="col">
+      {{invoice.partnerName}}
+    </div>
+    <div class="col text-capitalize  d-flex  justify-content-center">
+      {{invoice.invoiceDate.toString().slice(0,10)}}
+    </div>
+    <div class="col text-capitalize d-flex  justify-content-center">
+      {{invoice.invoiceDueDate.toString().slice(0,10)}}
+    </div>
+    <div class="col text-center">
+      {{invoice.workOrderNumber}}
+    </div>
+    <div class="col d-flex align-items-center justify-content-center">
+      <a (click)="viewInvoice(invoice.fileName)">
+        <button class="btn btn-primary mx-1">View Invoice</button>
+      </a>
+    </div>
+  </div>    
+
+</div>
+
+</div>
 </div>
