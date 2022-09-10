@@ -28,12 +28,11 @@ partnerRouter.post('/multiplefiles', (req, res) => {
   multipleUpload(req, res, (err) => {
     console.log('multipleupload fn');
     if(err) {
-      console.log('error on calling multiple upload', err.message)
+      console.log('Error on calling multiple upload', err.message)
     }
 
     let img = []
     req.files.forEach(file => {
-      console.log('files.forEach');
       img.push(file.filename)
     });
 

@@ -72,10 +72,10 @@ import { TokenInterceptorService } from './token-interceptor.service';
       useClass: TokenInterceptorService,
       multi: true
     },
-    // { 
-    //   provide: LocationStrategy, 
-    //   useClass: HashLocationStrategy 
-    // }
+    { 
+      provide: LocationStrategy, 
+      useClass: HashLocationStrategy 
+    }
   ],
   bootstrap: [AppComponent]
 })
