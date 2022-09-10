@@ -32,7 +32,7 @@ app.use(express.json());
 app.use(bodyparser.urlencoded({ extended:true }));
 
 //for work order pdf generation
-app.set('views','./src/assets/work-orders/template-files/');
+app.set('views', path.join(__dirname , './src/assets/work-orders/template-files/'));
 app.set('view engine','ejs'); 
 app.use(express.static(path.join(__dirname , './src/assets/work-orders/template-files/'))); 
 
