@@ -21,7 +21,7 @@ export class AdminInvoicesComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.adminServices.getInvoices({ adminApproved: false })
+    this.adminServices.getInvoices({ adminApproved: false, paymentStatus: false, invoiceType: false })
       .subscribe({
         next: (succ: any)=> {
           console.log('success');
@@ -33,7 +33,7 @@ export class AdminInvoicesComponent implements OnInit {
         }
       });
 
-    this.adminServices.getInvoices({ adminApproved: true, paid : false })
+    this.adminServices.getInvoices({ adminApproved: true, paymentStatus: false, invoiceType: false })
       .subscribe({
         next: (succ: any)=> {
           this.approvedInvoices = succ.data;
@@ -43,7 +43,7 @@ export class AdminInvoicesComponent implements OnInit {
         }
       });
 
-      this.adminServices.getInvoices({ invoiceType: true })
+      this.adminServices.getInvoices({ adminApproved: true, paymentStatus: true, invoiceType: true })
       .subscribe({
         next: (succ: any)=> {
           this.advanceInvoices = succ.data;

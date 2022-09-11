@@ -34,8 +34,8 @@ export class AdminService {
     return this.http.get(`${server}/admin/getworkorders`, { params: approvalStatus });
   }
 
-  getInvoices(approvalStatus: any ) {
-    return this.http.get(`${server}/admin/getinvoices`,  { params: approvalStatus } );
+  getInvoices(data: any ) {
+    return this.http.get(`${server}/admin/getinvoices`,  { params: data } );
   }
 
   updateRequest(trainingRequestData: any, requestId : any) {

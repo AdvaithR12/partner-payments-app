@@ -22,7 +22,7 @@ export class FinanceWorkOrdersComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.adminServices.getWorkOrders({ financeApproved: false })
+    this.financeServices.getWorkOrders(false)
     .subscribe({
       next: (data: any)=> {
         if(data.success) {
@@ -37,7 +37,7 @@ export class FinanceWorkOrdersComponent implements OnInit {
       }
     });
 
-    this.adminServices.getWorkOrders({ financeApproved: true })
+    this.financeServices.getWorkOrders(true)
     .subscribe({
       next: (data: any)=> {
         if(data.success) {

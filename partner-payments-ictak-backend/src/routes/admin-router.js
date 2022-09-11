@@ -207,18 +207,19 @@ adminRouter.get('/getinvoice/:id', (req, res)=> {
 });
 
 adminRouter.get(`/getinvoices`, (req, res)=> {
-  var qry = req.query;
-  console.log('param value',qry.adminApproved);
-  if(qry.adminApproved == false || qry.adminApproved == 'false'){
-    qry = {adminApproved: { $exists: false }}
-  }
+  // var qry = req.query;
+  // console.log('param value',qry.adminApproved);
+  // if(qry.adminApproved == false || qry.adminApproved == 'false'){
+  //   qry = {adminApproved: { $exists: false }}
+  // }
   
 
   //InvoiceData.find(req.query)
   InvoiceData.find({ 
     $and:[
-      {adminApproved: true},
-      {paid: req.query.paid}
+      {adminApproved: { $exists: false }},
+      {paid: req.query.paymentStatus},
+      {invoiceType : req.query.invoiceType}
     ]
   })
     .then((succ)=> {
