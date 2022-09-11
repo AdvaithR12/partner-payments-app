@@ -1,5 +1,6 @@
 import { JsonPipe } from '@angular/common';
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth.service';
 
@@ -8,6 +9,7 @@ import { AuthService } from 'src/app/auth.service';
   templateUrl: './admin-template.component.html',
   styleUrls: ['./admin-template.component.css']
 })
+
 export class AdminTemplateComponent implements OnInit {
   @ViewChild('viewChildHook', {static: true}) sideBar!: ElementRef;
 
@@ -15,10 +17,12 @@ export class AdminTemplateComponent implements OnInit {
   
   constructor(
     private router: Router,
-    private authServices: AuthService
+    private authServices: AuthService,
+    private title: Title
     ) { }
 
   ngOnInit(): void {
+    this.title.setTitle('Administrator: ICT-PPP ')
 
     let userId = localStorage.getItem('userid');
     this.authServices.getUserProfile(userId)

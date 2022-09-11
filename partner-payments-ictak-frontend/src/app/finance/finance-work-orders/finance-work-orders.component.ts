@@ -22,8 +22,8 @@ export class FinanceWorkOrdersComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
-    this.adminServices.getWorkOrders({ financeApproved: false })
+    //  { financeApproved: true }
+    this.adminServices.getWorkOrders('finance-pending')
     .subscribe({
       next: (data: any)=> {
         if(data.success) {
@@ -38,7 +38,7 @@ export class FinanceWorkOrdersComponent implements OnInit {
       }
     });
 
-    this.adminServices.getWorkOrders({ financeApproved: true })
+    this.adminServices.getWorkOrders('finance-approved')
     .subscribe({
       next: (data: any)=> {
         if(data.success) {
@@ -99,7 +99,8 @@ export class FinanceWorkOrdersComponent implements OnInit {
 
    //Reject
   rejectworkorder(requestId: any){
-    this.financeServices.setworkorder(requestId, false)
+    if(confirm('Reject this work order?')) {
+      this.financeServices.setworkorder(requestId, false)
       .subscribe({
         next: (succ: any)=> {
           console.log(succ);
@@ -116,6 +117,7 @@ export class FinanceWorkOrdersComponent implements OnInit {
           console.log('Error while rejecting work order ', err.message);
         }
       }); 
+    }
   }
 
   //View

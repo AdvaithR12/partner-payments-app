@@ -174,9 +174,16 @@ adminRouter.route(`/createworkorder`)
       });
 });
 
-adminRouter.get(`/getworkorders`, (req,res)=> {
-
-  TrainingRequest.find(req.query)
+adminRouter.get(`/getworkorders/:approvalstatus`, (req,res)=> {
+  let query;
+  if(req.params.approvalstatus == 'finance-pending') {
+    query = { financeApproved: {$exists: false}, adminApproved: true }
+  } else if(req.params.approvalstatus == 'finance-approved') {
+    query = { financeApproved: true, adminApproved: true }
+  } else if (req.params.approvalstatus == 'admin-approved') {
+    query = { adminApproved: true }
+  }
+  TrainingRequest.find(query)
     .then((succ)=> {
       res.status(200).json({
         success: true,
@@ -230,11 +237,12 @@ adminRouter.get(`/getinvoices/:invoicetype`, (req, res)=> {
     }            
   } else if(invoiceType == 'admin-approved') {
     invoiceQueryData = {adminApproved: true}
-  } 
-    $and:[
-      {adminApproved: true},
-      {paid: req.query.paid}
-    ]
+  } else if(invoiceType == 'paid') {
+    invoiceQueryData = {paid: true}
+  } else if(invoiceType == 'unpaid') {
+    invoiceQueryData = {paid: false}
+  }
+  
   InvoiceData.find(invoiceQueryData)
     .then((invoices)=> {
       res.status(200).json({

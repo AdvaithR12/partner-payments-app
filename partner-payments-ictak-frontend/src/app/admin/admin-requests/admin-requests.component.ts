@@ -31,7 +31,7 @@ export class AdminRequestsComponent implements OnInit {
       }
     })
 
-    this.adminServices.getWorkOrders({ adminApproved: true })
+    this.adminServices.getWorkOrders('admin-approved')
     .subscribe({
       next: (data: any)=> {
         if(data.success) {
@@ -79,7 +79,7 @@ export class AdminRequestsComponent implements OnInit {
         }
       });
     }
-  };
+  }
 
   modifyRequest(requestId: any) {
     sessionStorage.setItem('editRequestId', requestId);
@@ -109,7 +109,7 @@ export class AdminRequestsComponent implements OnInit {
         alert('Failed to delete training request')
       }
     });
-  }
+    }
   }
 
   viewWorkOrderPdf(workOrderId: any) {

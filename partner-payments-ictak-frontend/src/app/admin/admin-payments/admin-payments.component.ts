@@ -17,8 +17,7 @@ export class AdminPaymentsComponent implements OnInit {
 
   ngOnInit(): void {
 
-
-    this.adminServices.getInvoices({ paid: true })
+    this.adminServices.getInvoices('paid')
     .subscribe({
       next: (succ: any)=> {
         this.paidInvoices = succ.data;
@@ -28,7 +27,7 @@ export class AdminPaymentsComponent implements OnInit {
       }
     });
 
-    this.adminServices.getInvoices({ paid: false })
+    this.adminServices.getInvoices('unpaid')
     .subscribe({
       next: (succ: any)=> {
         this.unpaidInvoices = succ.data;
@@ -43,4 +42,5 @@ export class AdminPaymentsComponent implements OnInit {
     sessionStorage.setItem(`goToUrl`, `http://localhost:8080/api/admin/getinvoice/${invoiceId}`);
     this.router.navigate(['admin/invoices/getinvoice']);
   }
+
 }

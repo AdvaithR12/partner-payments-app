@@ -1,4 +1,5 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth.service';
 
@@ -14,10 +15,12 @@ export class FinanceTemplateComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private authServices: AuthService
+    private authServices: AuthService,
+    private title: Title
     ) { }
 
   ngOnInit(): void {
+    this.title.setTitle('Finance Administrator: ICT-PPP ')
 
     let userId = localStorage.getItem('userid');
     this.authServices.getUserProfile(userId)

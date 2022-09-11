@@ -156,7 +156,6 @@ module.exports.getTrainingRequest = async (requestId)=>{
 module.exports.addNewRequest = async (newRequest, partnerDetails)=> {
 
   newRequest.adminApproved = false;
-  newRequest.financeApproved = false;
 
   //Converting the start and end time to valid date objects for mongoose - combine date and time
   newRequest.sessionDetails.startTime = new Date(newRequest.sessionDetails.date + 'T' + newRequest.sessionDetails.startTime)
@@ -174,7 +173,7 @@ module.exports.addNewRequest = async (newRequest, partnerDetails)=> {
     partnerAddress : partnerDetails.address
   }
 
-  var durationHrs = (new Date(newRequest.sessionDetails.endTime) - new Date(newRequest.sessionDetails.startTime))/1000/60/60;
+  var durationHrs = ((new Date(newRequest.sessionDetails.endTime) - new Date(newRequest.sessionDetails.startTime))/1000/60/60).toFixed(2);
   var totalAmount = durationHrs * newRequest.sessionDetails.hourlyPayment;
 
   newRequest.paymentDetails = {

@@ -49,19 +49,16 @@ financeRouter.put('/setworkorder', (req,res) =>{
   {$set:{
     "financeApproved":isapproved
   }}).then((success)=> {
-    console.log('success', success);
     res.status(200).json({
       success: true,
       message: 'Work order updated successfully'
     });
-    
   }).catch((err)=> {
     res.json({
       success: false,
       message: 'Work order updated failed',
     });
   });
-
 });
 
 financeRouter.post('/remittance', (req,res)=> {

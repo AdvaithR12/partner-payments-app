@@ -43,7 +43,9 @@ export class PartnerInvoiceComponent implements OnInit {
           this.invoiceData.partnerEmail = succ.data.trainingDetails.partnerEmail;
           // this.invoiceData.startTime = succ.data.trainingDetails.startTime;
           this.invoiceData.workOrderId = succ.data._id;
+          this.invoiceData.workOrderDate = new Date(succ.data.sessionDetails.startTime);
           this.workOrderDataFetched = true;
+
         },
         error: (err)=> {
           // console.log('Error', err.message);
