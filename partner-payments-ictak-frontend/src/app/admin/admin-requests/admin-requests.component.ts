@@ -83,7 +83,7 @@ export class AdminRequestsComponent implements OnInit {
 
   modifyRequest(requestId: any) {
     sessionStorage.setItem('editRequestId', requestId);
-    this.router.navigate(['admin/modifyrequest']);
+    this.router.navigate(['admin/requests/modifyrequest']);
   }
 
   deleteRequest(requestId:any) {

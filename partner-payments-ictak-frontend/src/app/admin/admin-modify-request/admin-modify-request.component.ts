@@ -52,11 +52,16 @@ export class AdminModifyRequestComponent implements OnInit {
     this.adminServices.getTrainingRequest(this.requestId)
       .subscribe({
         next: (succ: any)=> {
+          succ.data.trainingDetails.partner = succ.data.trainingDetails.partnerId 
+          let sessionStartDate = new Date(succ.data.sessionDetails.startTime);
+          // console.log(`${startDate.getMonth()}/${startDate.getDate()}/${startDate.getFullYear()}`);  
+          // succ.data.sessionDetails.date = (`${startDate.getFullYear()}-${startDate.getMonth()}-0${startDate.getDate()}`).toString();
+          // let startDate =  sessionStartDate.getDate().toString().slice(-2);
+          // let startMonth = '0' + sessionStartDate.getMonth().toString().slice(-2);
+          // let startYear = sessionStartDate.getFullYear().toString();
+
+          // succ.data.sessionDetails.date =  `${startYear}-${startMonth}-${startDate}`
           console.log(succ);
-          succ.data.trainingDetails.partner = succ.data.trainingDetails.partnerId + ',' + succ.data.trainingDetails.partnerName + ',' + succ.data.trainingDetails.partnerEmail;
-          let startDate = new Date(succ.data.sessionDetails.startTime);
-          console.log(`${startDate.getMonth()}/${startDate.getDate()}/${startDate.getFullYear()}`);
-          succ.data.sessionDetails.date = (`${startDate.getFullYear()}-${startDate.getMonth()}-0${startDate.getDate()}`).toString();
           this.trainingRequestForm.patchValue(succ.data);
         },
         error: (err: any)=> {
@@ -76,10 +81,12 @@ export class AdminModifyRequestComponent implements OnInit {
           if(response.success) {
             alert('Successfully updated');
             this.router.navigate(['admin/requests']);
+          } else {
+            alert(response.message)
           }
         },
         error: (err: any)=> {
-          console.log(err);
+          console.log(err.message);
         }
       });
   }

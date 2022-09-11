@@ -77,7 +77,7 @@ const routes: Routes = [
         component: ProfileComponent
       },
       {
-        path: "modifyrequest",
+        path: "requests/modifyrequest",
         component: AdminModifyRequestComponent
       },
       {

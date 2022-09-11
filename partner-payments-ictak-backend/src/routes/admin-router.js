@@ -74,23 +74,31 @@ adminRouter.post('/newrequest', async (req, res)=> {
 });
 
 adminRouter.put('/modifyrequest', (req, res)=> {
-  console.log(req.body.requestId);
-
-  id=req.body.requestId,
+  id = req.body.requestId,
   
-  TrainingRequest.findByIdAndUpdate(id,
-  {$set: {
-    "trainingDetails.topic": req.body.trainingRequest.trainingDetails.topic,
-    "trainingDetails.partnerName": req.body.trainingRequest.trainingDetails.partnerName,
-    "sessionDetails.mode": req.body.trainingRequest.sessionDetails.mode,
-    "sessionDetails.venue": req.body.trainingRequest.sessionDetails.venue,
-    "sessionDetails.hourlyPayment": req.body.trainingRequest.sessionDetails.hourlyPayment,
-    // "sessionDetails.startTime": req.body.trainingRequest.sessionDetails.startTime,
-    // "sessionDetails.endTime": req.body.trainingRequest.sessionDetails.endTime,
-  }})
-  .then(function(succ){
-    console.log(succ)
-  })
+  TrainingRequest.findByIdAndUpdate(req.body.requestId, { 
+    $set: {
+      "trainingDetails.topic": req.body.trainingRequest.trainingDetails.topic,
+      "trainingDetails.partnerName": req.body.trainingRequest.trainingDetails.partnerName,
+      "sessionDetails.mode": req.body.trainingRequest.sessionDetails.mode,
+      "sessionDetails.venue": req.body.trainingRequest.sessionDetails.venue,
+      "sessionDetails.hourlyPayment": req.body.trainingRequest.sessionDetails.hourlyPayment,
+      "sessionDetails.startTime": new Date(req.body.trainingRequest.sessionDetails.date + 'T' + req.body.trainingRequest.sessionDetails.startTime),
+      "sessionDetails.endTime": new Date(req.body.trainingRequest.sessionDetails.date + 'T' + req.body.trainingRequest.sessionDetails.endTime)
+    }
+  }).then((succ)=> {
+    res.status(200).json({
+      success: true,
+      message: 'Training request modified'
+    });
+  }).catch((err)=> {
+    console.log(err.message);
+    res.status(200).json({
+      success: false,
+      message: `Error while modifying training request. ${err.message}`
+    });
+  });
+
 });
 
 adminRouter.delete('/deleterequest/:id',(req,res)=>{

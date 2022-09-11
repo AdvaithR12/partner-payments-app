@@ -24,7 +24,7 @@
                 formControlName='topic'
                 name="topic"
                 type="text" 
-                class="text-capitalize" 
+                class="text-capitalize"
                 id="topicInput" 
                 placeholder="Enter the topic for training">
             </div>
@@ -39,7 +39,7 @@
                 formControlName='partner'
                 id="partnerInput" >
                   <option hidden disabled selected value> -- Choose Training Partner -- </option>
-                  <option *ngFor="let partner of partners" [value]="partner._id +','+ partner.fullname+','+ partner.email">{{partner.fullname}}</option>
+                  <option *ngFor="let partner of partners" [value]="partner._id">{{partner.fullname}}</option>
               </select>
             </div>
           </div>
@@ -140,9 +140,8 @@
         <!-- Session Details End -->
 
         <!-- Submission Buttons Begin -->
-        <section class="row d-flex justify-content-evenly mx-3 mt-5 mb-3">
-          <button [disabled]="trainingForm.invalid" (click)="saveModifiedRequest()" class="col-4 btn btn-warning btn-lg">Save Request</button>
-          <button (click)="saveModifiedRequest()" class="col-4 btn btn-warning btn-lg">Save Request</button>
+        <section class="row d-flex justify-content-evenly mx-2 mt-5 mb-3">
+          <button [disabled]="trainingForm.invalid" (click)="saveModifiedRequest()" class="btn btn-warning btn-lg">Save Request</button>
         </section>
         <!-- Submission Buttons End -->
       </form>

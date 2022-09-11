@@ -38,8 +38,8 @@
                 (input)="toggleColor()" 
                 formControlName='partnerId'
                 id="partnerInput" >
-                  <option hidden disabled selected value> -- Choose Training Partner -- </option>
-                  <option *ngFor="let partner of partners" [value]="partner._id">{{partner.fullname}}</option>
+                <option hidden disabled selected value> -- Choose Training Partner -- </option>
+                <option *ngFor="let partner of partners" [value]="partner._id">{{partner.fullname}}</option>
               </select>
             </div>
           </div>
@@ -96,14 +96,14 @@
             <div class="input-set">
               <label for="hourlyPaymentInput">Session Payment (₹/hr)</label>
               <input 
-              [style.color]="textColor" 
-              (input)="toggleColor()"  
-              formControlName = 'hourlyPayment'
-              name="hourlyPayment"
-              type="number" 
-              class=" " 
-              id="hourlyPaymentInput" 
-              placeholder="Enter hourly renumeration (₹)">
+                [style.color]="textColor" 
+                (input)="toggleColor()"  
+                formControlName = 'hourlyPayment'
+                name="hourlyPayment"
+                type="number" 
+                class=" " 
+                id="hourlyPaymentInput" 
+                placeholder="Enter hourly renumeration (₹)">
             </div>
             <div class="row">
               <div class="col">
