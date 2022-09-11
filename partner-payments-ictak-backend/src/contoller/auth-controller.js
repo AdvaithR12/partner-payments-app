@@ -24,7 +24,7 @@ generateJwt = (user)=> {
     userType: user.userType,
     adminapproved: user.adminapproved,
     exp: parseInt(expiry.getTime() / 1000),
-  }, process.env.JWT_SECRET); // DO NOT KEEP YOUR SECRET IN THE CODE!
+  }, process.env.JWT_SECRET); 
 }
 
 validatePassword = (user, password)=> {

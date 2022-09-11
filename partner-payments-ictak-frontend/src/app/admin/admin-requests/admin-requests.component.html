@@ -43,9 +43,9 @@
           {{request.sessionDetails.mode}}
         </div>
         <div class="col text-center">
-          <span>{{request.sessionDetails.startTime.toString().slice(8,10)}}/{{request.sessionDetails.startTime.toString().slice(5,7)}}/{{request.sessionDetails.startTime.toString().slice(0,4)}}</span>
+          <span>{{request.sessionDetails.startTime | date:'dd/MM/yyyy'}}</span>
           <br>
-          <span>{{request.sessionDetails.startTime.toString().slice(11,16)}} PM</span>
+          <span>{{request.sessionDetails.startTime | date: 'hh:mm a'}}</span>
         </div>
         <div class="col ">
           <div class="d-flex justify-content-center">

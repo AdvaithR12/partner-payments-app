@@ -9,7 +9,7 @@ let browser, page;
     if (page) return;
     browser = await puppeteer.launch({ args: ['--no-sandbox'] }); //launch new chromium instance
     page = await browser.newPage(); //open new page in the chromium instance
-    await page.goto(`https://ppp-ictak.herokuapp.com/api/admin/`)
+    await page.goto(process.env.PDF_URL)
 })().then(()=> {
   console.log('Puppeteer instance initiated');
 }).catch((err)=> {
@@ -65,7 +65,7 @@ generatePdf = async (requestId, workOrderNumber, trainingRequest) => {
       assignedBy: trainingRequest.assignedBy,
       dated: today
     });
-    var url = 'https://ppp-ictak.herokuapp.com/api/admin/createworkorder/?' + query.toString();
+    var url = process.env.PDF_URL + 'createworkorder/?' + query.toString();
 
     //await to connect to the page with the mentioned address - (if successful- try & generate the pdf present in the page mentioned url, if failed- show error), if connection failed, show error;;; Return generated = true only on successfull pdf generation. Return generated = false for all other cases.
     await page.goto(url)
@@ -158,8 +158,8 @@ module.exports.addNewRequest = async (newRequest, partnerDetails)=> {
   newRequest.financeApproved = false;
 
   //Converting the start and end time to valid date objects for mongoose - combine date and time
-  newRequest.sessionDetails.startTime = newRequest.sessionDetails.date + 'T' + newRequest.sessionDetails.startTime
-  newRequest.sessionDetails.endTime = newRequest.sessionDetails.date + 'T' + newRequest.sessionDetails.endTime
+  newRequest.sessionDetails.startTime = new Date(newRequest.sessionDetails.date + 'T' + newRequest.sessionDetails.startTime)
+  newRequest.sessionDetails.endTime = new Date(newRequest.sessionDetails.date + 'T' + newRequest.sessionDetails.endTime)
 
   newRequest.trainingDetails.partnerId = partnerDetails._id;
   newRequest.trainingDetails.partnerName = partnerDetails.fullname;
