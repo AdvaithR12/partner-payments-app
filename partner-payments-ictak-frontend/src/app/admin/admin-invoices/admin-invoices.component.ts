@@ -22,10 +22,9 @@ export class AdminInvoicesComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.adminServices.getInvoices({ adminApproved: false })
+    this.adminServices.getInvoices('pending-approval') // fetch pending invoices adminApproved field doesnt exist for pending invoices
       .subscribe({
         next: (succ: any)=> {
-          console.log('success');
           this.pendingInvoices = succ.data;
           },
         error: (err)=> {
@@ -34,7 +33,7 @@ export class AdminInvoicesComponent implements OnInit {
         }
       });
 
-    this.adminServices.getInvoices({ adminApproved: true, paid : false })
+    this.adminServices.getInvoices('admin-approved')
       .subscribe({
         next: (succ: any)=> {
           this.approvedInvoices = succ.data;
@@ -44,15 +43,15 @@ export class AdminInvoicesComponent implements OnInit {
         }
       });
 
-      this.adminServices.getInvoices({ invoiceType: true })
-      .subscribe({
-        next: (succ: any)=> {
-          this.advanceInvoices = succ.data;
-        },
-        error: (err)=> {
-          console.log('Error getting advance invoices', err.message);
-        }
-      });
+    this.adminServices.getInvoices('advance') // fetch advance invoices - invoicetype = true for advance
+    .subscribe({
+      next: (succ: any)=> {
+        this.advanceInvoices = succ.data;
+      },
+      error: (err)=> {
+        console.log('Error getting advance invoices', err.message);
+      }
+    });
 
   }
 
@@ -86,7 +85,7 @@ export class AdminInvoicesComponent implements OnInit {
                 }
               },
               error: (err: any)=> {
-                console.log('Error while approving invoice', err.message);
+                alert(`Error while approving invoice, ${err.name}`)
               }
             }); 
           }
@@ -128,4 +127,5 @@ export class AdminInvoicesComponent implements OnInit {
       }
     }
   }
+
 }

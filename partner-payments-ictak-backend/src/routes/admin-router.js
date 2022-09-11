@@ -215,22 +215,31 @@ adminRouter.get('/getinvoice/:id', (req, res)=> {
 
 });
 
-adminRouter.get(`/getinvoices`, (req, res)=> {
-  var qry = req.query;
-  if(qry.adminApproved == false || qry.adminApproved == 'false'){
-    qry = {adminApproved: { $exists: false }}
-  }
+adminRouter.get(`/getinvoices/:invoicetype`, (req, res)=> {
+  let invoiceType = req.params.invoicetype;
 
-  InvoiceData.find({ 
+  let invoiceQueryData;
+  if(invoiceType == 'advance') {
+    invoiceQueryData = { invoiceType: true }
+  } else if(invoiceType == 'pending-approval') {
+    invoiceQueryData = { 
+      $and: [
+        {adminApproved: { $exists: false }},
+        {invoiceType: false}
+      ]
+    }            
+  } else if(invoiceType == 'admin-approved') {
+    invoiceQueryData = {adminApproved: true}
+  } 
     $and:[
       {adminApproved: true},
       {paid: req.query.paid}
     ]
-  })
-    .then((succ)=> {
+  InvoiceData.find(invoiceQueryData)
+    .then((invoices)=> {
       res.status(200).json({
         success: true,
-        data: succ
+        data: invoices
       })
     }).catch((err)=> {
       console.log('Error while fetching invoices',err);
@@ -238,8 +247,8 @@ adminRouter.get(`/getinvoices`, (req, res)=> {
         success: false,
         message: `Server error while fetching invoices`
       });
-    });
-    
+    });  
+
 });
 
 adminRouter.put('/approveinvoice', (req, res)=> {

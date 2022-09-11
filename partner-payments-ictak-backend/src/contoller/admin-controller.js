@@ -246,10 +246,15 @@ module.exports.approveInvoice = async (req, res, data)=> {
     } else {
       fs.rename(`./src/assets/uploads/invoices/${data.fileName}`, `./src/assets/uploads/invoices/invoice_${data._id}.${data.fileName.split('.')[1]}`, (err)=> { //rename the invoice file name on approval and set the extension by extracting it from the uploaded filename
         if(err) {
-          console.log('Error while renaming',  err.message);
+          console.log('Error while renaming -->',  err.message);
+          res.status(404).json({
+            success: true,
+            message: `Error while approving invoice. ${err.message}`
+          });
         } else {
           res.status(200).json({
-            success: true
+            success: true,
+            message: 'Successfully approved invoice'
           });
         }
       });

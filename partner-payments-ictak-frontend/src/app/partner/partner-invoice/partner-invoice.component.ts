@@ -29,8 +29,6 @@ export class PartnerInvoiceComponent implements OnInit {
   ngOnInit(): void {
   }
 
-
-
   selectMultipleInvoice(event:any) {
     if(event.target.files.length > 0) {
       this.multipleInvoices = event.target.files
@@ -72,31 +70,21 @@ export class PartnerInvoiceComponent implements OnInit {
   invoiceFormUpload(invoiceFileName: any) {
     this.invoiceData.fileName = invoiceFileName;
     this.invoiceData.paid = this.invoiceData.invoiceType
-    //this.invoiceData.adminApproved = false;
 
     this.partnerServices.invoiceFormUpload(this.invoiceData)
-    // .subscribe({
-    //   next: (succ: any)=> {
-    //     if(succ.success) {
-    //       // this.router.navigate(['partner/dashboard'])
-    //     }
-    //   },
-    //   error: (err)=> {
-    //     console.log('Error', err);
-    //   }
-    // });
-    .subscribe(
-      (succ:any) => {
-        if (succ.success) {
-          // this.invoiceForm.reset();
-          // localStorage.setItem("Id", this.invoiceData._id.toString() )
-          setTimeout(() => {
-            const currentRoute = this.router.url;
-            this.router.navigateByUrl('/', { skipLocationChange: true })
-              .then(() => {
-                this.router.navigate([currentRoute]); // navigate to same route
-              }); 
-          }, 2000)}
-  })
-}
+      .subscribe(
+        (succ:any) => {
+          if (succ.success) {
+            // this.invoiceForm.reset();
+            // localStorage.setItem("Id", this.invoiceData._id.toString() )
+            setTimeout(() => {
+              const currentRoute = this.router.url;
+              this.router.navigateByUrl('/', { skipLocationChange: true })
+                .then(() => {
+                  this.router.navigate([currentRoute]); // navigate to same route
+                }); 
+            }, 2000)}
+      })
+  }
+  
 }
