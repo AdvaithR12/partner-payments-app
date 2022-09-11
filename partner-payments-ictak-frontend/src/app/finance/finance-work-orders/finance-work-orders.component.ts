@@ -78,23 +78,25 @@ export class FinanceWorkOrdersComponent implements OnInit {
 
   //Approve
   approveworkorder(requestId: any){
-    this.financeServices.setworkorder(requestId, true)
-      .subscribe({
-        next: (succ: any)=> {
-          console.log(succ);
-          if(succ.success) {
-            alert(`Work order approved`)
-            const currentRoute = this.router.url; // function to reload the current component
-            this.router.navigateByUrl('/', { skipLocationChange: true })
-              .then(() => {
-                this.router.navigate([currentRoute]); // navigate to same route
-              }); 
+    if(confirm('Approve work order and forward to partner?')) {
+      this.financeServices.setworkorder(requestId, true)
+        .subscribe({
+          next: (succ: any)=> {
+            console.log(succ);
+            if(succ.success) {
+              alert(`Work order approved`)
+              const currentRoute = this.router.url; // function to reload the current component
+              this.router.navigateByUrl('/', { skipLocationChange: true })
+                .then(() => {
+                  this.router.navigate([currentRoute]); // navigate to same route
+                }); 
+            }
+          },
+          error: (err: any)=> {
+            console.log('Error while approving work order', err.message);
           }
-        },
-        error: (err: any)=> {
-          console.log('Error while approving work order', err.message);
-        }
-      }); 
+        }); 
+    }
   }
 
    //Reject
