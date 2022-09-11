@@ -1,5 +1,6 @@
 const puppeteer = require('puppeteer');
 const fs = require('fs');
+const path = require('path');
 const UserData = require(`../model/user-model`);
 const InvoiceData = require('../model/invoice-model');
 const { TrainingRequest, WorkOrderCounter } = require(`../model/work-order-model`);
@@ -244,7 +245,7 @@ module.exports.approveInvoice = async (req, res, data)=> {
     if(err) {
       console.log('Error while updating Invoice data', err.message)
     } else {
-      fs.rename(`./src/assets/uploads/invoices/${data.fileName}`, `./src/assets/uploads/invoices/invoice_${data._id}.${data.fileName.split('.')[1]}`, (err)=> { //rename the invoice file name on approval and set the extension by extracting it from the uploaded filename
+      fs.rename(path.join(__dirname, `../assets/uploads/invoices/${data.fileName}`) , path.join(__dirname, `../assets/uploads/invoices/invoice_${data._id}.${data.fileName.split('.')[1]}`), (err)=> { //rename the invoice file name on approval and set the extension by extracting it from the uploaded filename
         if(err) {
           console.log('Error while renaming -->',  err.message);
           res.status(404).json({
