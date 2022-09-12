@@ -73,11 +73,14 @@
       
           <td>
             <div class="col d-flex align-items-center justify-content-center mx-2">
-              <div class="col">
-                <a (click)="approve(invoice._id)"><button  style="width: 10.5rem;" class="btn btn-success px-5 mb-2">Approve</button></a>
-              </div>
-              <span *ngIf="invoice.invoiceType"> Advance </span>
-              <span *ngIf="!invoice.invoiceType"> Post Session</span>  
+              <a (click)="approve(invoice._id)">
+                <button  style="width: 9rem;" class="btn btn-success px-auto mb-2">Approve</button>
+              </a>
+            </div>
+            <div class="col d-flex align-items-center justify-content-center mx-2">
+              <a (click)="viewInvoice(invoice.fileName)">
+                <button  style="width: 9rem;" class="btn btn-primary mx-1">View Invoice</button>
+              </a>
             </div>
           </td>
 
@@ -116,10 +119,11 @@
         </th>
         <th>
             <div class="col ">
-              Work Order Number
+              Work Order<br>Number
             </div>
         </th>
-       <th>
+          <th>Paid</th>
+          <th>
             <div class="col d-flex align-items-center justify-content-center">
               Action
             </div>
@@ -131,7 +135,6 @@
 
       <tbody class="">  
         <tr *ngFor="let invoice of approvedInvoices" class="bg-dark bg-opacity-25  ">
-
           <td>
             <div class="col mx-1">
               {{invoice.partnerName}}
@@ -154,9 +157,13 @@
           </td>
       
           <td>
+            <i *ngIf="!invoice.paid"  class="text-danger fa-solid fs-4 fa-circle-xmark"></i>
+            <i *ngIf="invoice.paid"  class="text-success fa-solid fs-4 fa-circle-check"></i>
+          </td>
+          <td>
             <div class="col d-flex align-items-center justify-content-center mx-2">
               <a (click)="viewInvoice(invoice.fileName)">
-                <button class="btn btn-primary mx-1">View Invoice</button>
+                <button  style="width: 9rem;" class="btn btn-primary mx-1">View Invoice</button>
               </a>
             </div>
           </td>
@@ -168,7 +175,7 @@
   <br><br>
 
   <div style="font-size:large;">
-    <span class="border-bottom border-dark border-3 rounded shadow py-2 px-3">AdvanceInvoices ({{advanceInvoices.length}})</span>
+    <span class="border-bottom border-dark border-3 rounded shadow py-2 px-3">Advance Invoices ({{advanceInvoices.length}})</span>
   </div>
   <br>
   <div class='listing-table table-responsive'>
@@ -186,11 +193,6 @@
               Work Order Number
             </div>
         </th>
-        <!-- <th>      
-            <div class="col d-flex justify-content-center">
-              Due Date
-            </div>
-        </th> -->
         <th>
             <div class="col ">
               Total Amount
@@ -219,11 +221,6 @@
               {{invoice.workOrderNumber}}
             </div>
           </td>
-          <!-- <td>
-            <div class="col text-capitalize  d-flex  justify-content-center mx-2">
-              {{invoice.invoiceDueDate.toString().slice(0,10)}}
-            </div>
-          </td> -->
           <td>
             <div class="col text-capitalize mx-2">
               {{invoice.totalAmount}}
@@ -232,7 +229,7 @@
           <td>
             <div class="col d-flex align-items-center justify-content-center mx-2">
               <a (click)="viewInvoice(invoice.fileName)">
-                <button class="btn btn-primary mx-1">View Invoice</button>
+                <button  style="width: 9rem;"  class="btn btn-primary mx-1">View Invoice</button>
               </a>
             </div>
           </td>

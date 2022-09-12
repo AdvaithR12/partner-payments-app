@@ -154,9 +154,9 @@
           <td>
             <div class="col text-capitalize mx-2">
               <span>
-              <i *ngIf="!workOrder.financeApproved" style="color: red;" class="fa-solid fs-4 fa-circle-xmark"></i>
+              <!-- <i *ngIf="!workOrder.financeApproved" style="color: red;" class="fa-solid fs-4 fa-circle-xmark"></i> -->
               <i *ngIf="workOrder.financeApproved" style="color: green;" class="fa-solid fs-4 fa-circle-check"></i>
-  
+              <i *ngIf="!workOrder.financeApproved" class="text-danger fs-4 fa-solid fa-file-circle-xmark"></i>
             </span>
           <br>
             </div>
