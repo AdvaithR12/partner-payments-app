@@ -1,4 +1,4 @@
-<div class="container mb-5" >  
+<!-- <div class="container mb-5" >  
 
   <div class="row d-flex justify-content-center ">
     <div class="col-9  px-5 py-4 m-3  text-center fs-2 text-black rounded" style="font-weight: bold;">
@@ -141,6 +141,187 @@
           <td>
             <div class="col text-center mx-2">
               <span class="fw-bold">{{workOrder.trainingDetails.partnerName}}</span> /<br> {{workOrder.trainingDetails.topic}}
+            </div>
+          </td>
+          <td>
+            <div class="col text-capitalize  d-flex  justify-content-center mx-2">
+              <span>{{workOrder.workOrderDetails.generatedDate.toString().slice(8,10)}}/{{workOrder.workOrderDetails.generatedDate.toString().slice(5,7)}}/{{workOrder.workOrderDetails.generatedDate.toString().slice(0,4)}}</span>
+            </div>
+          </td>
+          <td>
+            <div class="col text-capitalize mx-2">
+              <span>
+              <i *ngIf="!workOrder.financeApproved" style="color: red;" class="fa-solid fs-4 fa-circle-xmark"></i>
+              <i *ngIf="workOrder.financeApproved" style="color: green;" class="fa-solid fs-4 fa-circle-check"></i>
+  
+            </span>
+          <br>
+            </div>
+          </td>
+      
+          <td>
+            <div class="col d-flex align-items-center justify-content-center mx-2">
+              <a (click)="viewWorkOrderPdf(workOrder._id)">
+                <button class="btn btn-primary mx-1">View Work Order</button>
+              </a>
+            </div>
+          </td>
+
+        </tr>     
+      </tbody>
+
+    </table>
+  </div>
+
+</div> -->
+
+
+<div class="container mb-5" >  
+
+  <div class="row d-flex justify-content-center ">
+    <div class="col-9  px-5 py-4 m-3  text-center fs-2 text-black rounded" style="font-weight: bold;">
+      <span style="color: rgb(52, 51, 51); font-family: 'Roboto Condensed', sans-serif;">All Requests <i class="fas fa-calendar-plus"></i> </span>      
+    </div>
+  </div>
+
+  <div style="font-size:large;">
+    <span class="border-bottom border-dark border-3 rounded shadow py-2 px-3">Pending Requests ({{trainingRequests.length}})</span>
+  </div>
+  <br>
+
+  <div class='listing-table table-responsive'>
+      
+    <table class="table text-center" *ngIf="!(trainingRequests.length == 0)" >
+      <thead class="text-uppercase">
+        <tr>
+       <th>
+            <div class="col ">
+              Partner
+            </div>
+        </th>
+        <th>
+            <div class="col text-center">
+              Topic
+            </div>
+        </th>
+        <th>      
+            <div class="col d-flex justify-content-center">
+              Mode
+            </div>
+        </th>
+        <th>
+            <div class="col ">
+              Date & Time
+            </div>
+        </th>
+       <th>
+            <div class="col d-flex align-items-center justify-content-center">
+              Action
+            </div>
+        </th>
+
+    </tr>
+        
+      </thead><br>
+
+      <tbody>  
+        <tr *ngFor="let request of trainingRequests" class="bg-dark bg-opacity-25  ">
+
+          <td>
+            <div class="col mx-1">
+              {{request.trainingDetails.partnerName}}
+            </div>
+          </td>
+          <td>
+            <div class="col text-center mx-2">
+              {{request.trainingDetails.topic}}
+            </div>
+          </td>
+          <td>
+            <div class="col text-capitalize  d-flex  justify-content-center mx-2">
+              {{request.sessionDetails.mode}}
+            </div>
+          </td>
+          <td>
+            <div class="col text-capitalize mx-2">
+
+              <span>{{request.sessionDetails.startTime | date:'dd/MM/yyyy'}}</span>
+              <br>
+              <span>{{request.sessionDetails.startTime | date: 'hh:mm a'}}</span>
+            </div>
+          </td>
+      
+          <td>
+            <div class="col">
+              <a (click)="approve(request._id)"><button class="btn btn-success px-5 mb-2">Approve</button></a>
+            </div>
+            <div class="col d-flex align-items-center justify-content-center mx-2">
+              <a><button (click)="modifyRequest(request._id)" class="btn btn-warning mx-1">Modify</button></a>
+            <a><button (click)="deleteRequest(request._id)" class="btn btn-danger mx-1">Delete</button></a>
+            </div>
+          </td>
+
+        </tr>     
+      </tbody>
+
+    </table>
+  </div>
+  <br>
+  <br>
+
+  <div style="font-size:large;">
+    <span class="border-bottom border-dark border-3 rounded shadow py-2 px-3">Approved ({{workOrders.length}})</span>
+  </div>
+  <br>
+ 
+  <div class='listing-table table-responsive'>
+      
+    <table class="table text-center table-striped" *ngIf="!(workOrders.length == 0)" >
+      <thead class="text-uppercase">
+        <tr>
+       <th style="width: 15%;">
+            <div class="col ">
+              Session Date & Time
+            </div>
+        </th>
+        <th style="width: 35%;">
+            <div class="col text-center">
+              Partner Name/Topic
+            </div>
+        </th>
+        <th  style="width: 15%;">      
+            <div class="col d-flex justify-content-center">
+              work Order Date
+            </div>
+        </th>
+        <th style="width: 15%;">
+            <div class="col ">
+              Finance Approval Status
+            </div>
+        </th>
+       <th style="width: 20%;">
+            <div class="col d-flex align-items-center justify-content-center">
+              Action
+            </div>
+        </th>
+
+    </tr>
+        
+      </thead><br>
+
+      <tbody class="">  
+        <tr *ngFor="let workOrder of workOrders" class="bg-dark bg-opacity-25  ">
+
+          <td>
+            <div class="col mx-1">
+              <span>{{workOrder.sessionDetails.startTime | date:'dd/MM/yyyy'}}</span>
+              <br>
+              <span>{{workOrder.sessionDetails.startTime | date: 'hh:mm a'}}</span>
+            </div>
+          </td>
+          <td>
+            <div class="col text-center mx-2">
+              <span class="fw-bold">{{workOrder.trainingDetails.partnerName}}</span> / {{workOrder.trainingDetails.topic}}
             </div>
           </td>
           <td>

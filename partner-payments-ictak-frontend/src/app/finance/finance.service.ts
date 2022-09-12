@@ -14,6 +14,10 @@ export class FinanceService {
     return this.http.get(`${server}/finance/getinvoices`,  { params: { 'invoiceType': invoiceType} });
   }
 
+  getWorkOrders(approvalStatus: any) {
+    return this.http.get(`${server}/finance/getworkorders`, { params: {'approvalStatus' : approvalStatus} });
+  }
+
   approveuser(id:any){
     return this.http.put(`${server}/admin/approveuser/`,{
       id: id

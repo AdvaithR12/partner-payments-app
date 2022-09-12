@@ -9,6 +9,7 @@ import { server } from 'src/app/globals';
   templateUrl: './finance-work-orders.component.html',
   styleUrls: ['./finance-work-orders.component.css']
 })
+
 export class FinanceWorkOrdersComponent implements OnInit {
 
   partners: any = [];
@@ -22,8 +23,7 @@ export class FinanceWorkOrdersComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    //  { financeApproved: true }
-    this.adminServices.getWorkOrders('finance-pending')
+    this.adminServices.getWorkOrders('finance-pending') // fetch all pending invoices
     .subscribe({
       next: (data: any)=> {
         if(data.success) {
