@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 
@@ -16,10 +17,13 @@ export class SigninComponent implements OnInit {
 
   constructor(
     private auth:AuthService, 
-    private router: Router
+    private router: Router,
+    private title: Title
   ) { }
 
   ngOnInit(): void {
+    this.title.setTitle('Partner Payments Portal: ICTAK')
+
     if(this.auth.loggedIn('Admin')) {
       this.router.navigate(['admin/dashboard']);
     } else if(this.auth.loggedIn('Partner')) {

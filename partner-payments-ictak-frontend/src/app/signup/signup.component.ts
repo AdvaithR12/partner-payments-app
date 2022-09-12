@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 
@@ -9,9 +10,14 @@ import { AuthService } from '../auth.service';
 })
 export class SignupComponent implements OnInit {
   
-  constructor(private auth:AuthService, private router: Router) { }
+  constructor(
+    private auth:AuthService, 
+    private router: Router, 
+    private title: Title
+  ) { }
 
   ngOnInit(): void {
+    this.title.setTitle('Partner Payments Portal: ICTAK')
   }
 
   loginuser= {
