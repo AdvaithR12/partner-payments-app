@@ -6,9 +6,10 @@ const InvoiceData = require(`../model/invoice-model`);
 const { TrainingRequest } = require(`../model/work-order-model`);
 const RemittanceData = require(`../model/finance-model`);
 const { isDate } = require('util/types');
+const { verifyToken } = require('../contoller/auth-controller');
 const financeRouter = express.Router();
 
-financeRouter.get('/getinvoice/:id', (req, res)=> {
+financeRouter.get('/getinvoice/:id',verifyToken, (req, res)=> {
 
     if(fs.existsSync((path.join(__dirname, '../assets/uploads/invoices', `${req.params.id}`)))) { //check if the requested file exists in the file system.
       res.status(200).sendFile(path.join(__dirname, '../assets/uploads/invoices', `${req.params.id}`)); //send the file if it exists
@@ -18,7 +19,7 @@ financeRouter.get('/getinvoice/:id', (req, res)=> {
   
 });
 
-financeRouter.get(`/getinvoices`, (req, res)=> {
+financeRouter.get(`/getinvoices`, verifyToken, (req, res)=> {
 
     InvoiceData.find({ 
         $and:[
@@ -42,7 +43,7 @@ financeRouter.get(`/getinvoices`, (req, res)=> {
 
 });
 
-financeRouter.get(`/getworkorders`, (req,res)=> {
+financeRouter.get(`/getworkorders`,verifyToken, (req,res)=> {
 
   TrainingRequest.find({ 
     $and:[
@@ -65,7 +66,7 @@ financeRouter.get(`/getworkorders`, (req,res)=> {
     });
 });
 
-financeRouter.put('/setworkorder', (req,res) =>{ 
+financeRouter.put('/setworkorder',verifyToken, (req,res) =>{ 
   const id = req.body.id;
   const isapproved = req.body.financeApproved;
   TrainingRequest.findByIdAndUpdate({"_id":id},
@@ -84,7 +85,7 @@ financeRouter.put('/setworkorder', (req,res) =>{
   });
 });
 
-financeRouter.post('/remittance', (req,res)=> {
+financeRouter.post('/remittance',verifyToken, (req,res)=> {
   
   var newRemittance = new RemittanceData(req.body.data);
   newRemittance.save()

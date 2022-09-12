@@ -97,7 +97,7 @@ authRouter.post('/signup', (req,res)=> {
 
 });
 
-authRouter.post('/updateProfile',function(req,res) {  
+authRouter.post('/updateProfile', authController.verifyToken, function(req,res) {  
   id=req.body._id;
 //userType
 
@@ -137,7 +137,7 @@ UserData.findByIdAndUpdate({"_id":id},
 });
 });
 
-authRouter.get('/findprofile/:id', (req,res) =>{  
+authRouter.get('/findprofile/:id',authController.verifyToken, (req,res) =>{  
   const id = req.params.id;
   UserData.findOne({"_id":id}) 
   .then((user)=>{

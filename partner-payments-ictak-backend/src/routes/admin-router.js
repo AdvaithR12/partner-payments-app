@@ -15,7 +15,7 @@ const {
 
 const adminRouter = express.Router();
 
-adminRouter.get(`/getpartners`, (req, res)=> {
+adminRouter.get(`/getpartners`, verifyToken, (req, res)=> {
   UserData.find({
     $and: [
       { userType: 'Partner' },
@@ -30,7 +30,7 @@ adminRouter.get(`/getpartners`, (req, res)=> {
     });
 });
 
-adminRouter.get(`/getuserlist`, (req, res)=> {
+adminRouter.get(`/getuserlist`, verifyToken, (req, res)=> {
 
   UserData.find({adminapproved: false})
   .then((succ)=> {
@@ -44,7 +44,7 @@ adminRouter.get(`/getuserlist`, (req, res)=> {
   });
 });
 
-adminRouter.post('/newrequest', async (req, res)=> {
+adminRouter.post('/newrequest', verifyToken, async (req, res)=> {
   var newRequest = req.body.trainingRequest;
 
   var partnerDetails = await getPartner(newRequest.trainingDetails.partnerId);
@@ -73,7 +73,7 @@ adminRouter.post('/newrequest', async (req, res)=> {
 
 });
 
-adminRouter.put('/modifyrequest', (req, res)=> {
+adminRouter.put('/modifyrequest', verifyToken, (req, res)=> {
   id = req.body.requestId,
   
   TrainingRequest.findByIdAndUpdate(req.body.requestId, { 
@@ -101,7 +101,7 @@ adminRouter.put('/modifyrequest', (req, res)=> {
 
 });
 
-adminRouter.delete('/deleterequest/:id',(req,res)=>{
+adminRouter.delete('/deleterequest/:id', verifyToken, (req,res)=>{
    
   TrainingRequest.findByIdAndDelete(req.params.id)
   .then(()=>{
@@ -119,7 +119,7 @@ adminRouter.delete('/deleterequest/:id',(req,res)=>{
   });
 }) 
 
-adminRouter.get('/trainingrequest', (req, res)=> {
+adminRouter.get('/trainingrequest', verifyToken, (req, res)=> {
   TrainingRequest.findById(req.query.requestId, (err, data)=> {
     if(err) {
       console.log(err.message);
@@ -136,7 +136,7 @@ adminRouter.get('/trainingrequest', (req, res)=> {
   });
 });
 
-adminRouter.get(`/trainingrequests`, (req,res)=> {
+adminRouter.get(`/trainingrequests`, verifyToken, (req,res)=> {
   TrainingRequest.find({ adminApproved: false })
     .then((succ)=> {
       res.send(succ)
@@ -147,9 +147,9 @@ adminRouter.get(`/trainingrequests`, (req,res)=> {
 });
 
 adminRouter.route(`/createworkorder`)
-  .get((req, res)=> {
+  .get(verifyToken, (req, res)=> {
     res.render('template', req.query);
-  }).post((req, res)=> {
+  }).post(verifyToken, (req, res)=> {
     createWorkOrder(req, res)
       .then((succ)=> {
         if(succ.success) {
@@ -174,7 +174,7 @@ adminRouter.route(`/createworkorder`)
       });
 });
 
-adminRouter.get(`/getworkorders/:approvalstatus`, (req,res)=> {
+adminRouter.get(`/getworkorders/:approvalstatus`, verifyToken, (req,res)=> {
   let query;
   if(req.params.approvalstatus == 'finance-pending') {
     query = { financeApproved: {$exists: false}, adminApproved: true }
@@ -198,7 +198,7 @@ adminRouter.get(`/getworkorders/:approvalstatus`, (req,res)=> {
     });
 });
 
-adminRouter.get(`/getworkorder/:id`, (req, res)=> {
+adminRouter.get(`/getworkorder/:id`,  (req, res)=> {
   console.log('adminrouter - getworkorder', req.params.id);
 
   if(fs.existsSync(path.join(__dirname, '../assets/work-orders/generated/', `workorder_${req.params.id}.pdf`))) {
@@ -210,7 +210,7 @@ adminRouter.get(`/getworkorder/:id`, (req, res)=> {
 
 });
 
-adminRouter.get('/getinvoice/:id', (req, res)=> {
+adminRouter.get('/getinvoice/:id',  (req, res)=> {
 
   console.log('adminrouter - getinvoice', req.params.id);
 
@@ -222,7 +222,7 @@ adminRouter.get('/getinvoice/:id', (req, res)=> {
 
 });
 
-adminRouter.get(`/getinvoices/:invoicetype`, (req, res)=> {
+adminRouter.get(`/getinvoices/:invoicetype`, verifyToken, (req, res)=> {
   let invoiceType = req.params.invoicetype;
 
   let invoiceQueryData;
@@ -259,7 +259,7 @@ adminRouter.get(`/getinvoices/:invoicetype`, (req, res)=> {
 
 });
 
-adminRouter.put('/approveinvoice', (req, res)=> {
+adminRouter.put('/approveinvoice', verifyToken, (req, res)=> {
 
   InvoiceData.findById(req.body.invoiceId)
     .then((data)=> {
@@ -271,7 +271,7 @@ adminRouter.put('/approveinvoice', (req, res)=> {
 
 });
 //denyinvoice
-adminRouter.put('/denyinvoice', (req, res)=> {
+adminRouter.put('/denyinvoice', verifyToken, (req, res)=> {
     const id = req.body.invoiceId;
     InvoiceData.findByIdAndUpdate({"_id":id},
     {$set:{

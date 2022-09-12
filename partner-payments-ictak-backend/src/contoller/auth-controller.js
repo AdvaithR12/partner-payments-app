@@ -103,7 +103,7 @@ module.exports.loginUser = async (req)=> {
 module.exports.verifyToken = (req, res, next)=> {
 
   if(!req.headers.authorization) {
-    console.log('No auth header');
+    console.log('Request without auth header received');
     return res.status(401).json({
       success: false,
       message: `Unauthorized request`
@@ -112,6 +112,7 @@ module.exports.verifyToken = (req, res, next)=> {
 
   let token = req.headers.authorization.split(':')[1];
   if(token == 'null') {
+    console.log('Request with no token received');
     return res.status(401).json({
       success: false,
       message: `Unauthorized request`
@@ -120,7 +121,7 @@ module.exports.verifyToken = (req, res, next)=> {
 
   jwt.verify(token, process.env.JWT_SECRET, (err, userData)=> {
     if(err) {
-      console.log('ERROR:--> JWT Verification', err.message);
+      console.log('JWT verification failed', err.message);
       return res.status(401).json({
         success: false,
         error: err.message,

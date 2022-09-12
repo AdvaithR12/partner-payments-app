@@ -5,9 +5,10 @@ const fs = require('fs');
 const path = require('path');
 const multipleUpload = require('../contoller/partner-controller');
 const { TrainingRequest } = require(`../model/work-order-model`);
+const { verifyToken } = require('../contoller/auth-controller');
 
 
-partnerRouter.post('/invoice', (req,res)=> {
+partnerRouter.post('/invoice',verifyToken, (req,res)=> {
 
   var newInvoice = new InvoiceData(req.body);
   newInvoice.save()
@@ -23,7 +24,7 @@ partnerRouter.post('/invoice', (req,res)=> {
   
 });
 
-partnerRouter.post('/multiplefiles', (req, res) => {
+partnerRouter.post('/multiplefiles',verifyToken, (req, res) => {
   console.log('multiplefiles endpoint');
   multipleUpload(req, res, (err) => {
     console.log('multipleupload fn');
@@ -44,7 +45,7 @@ partnerRouter.post('/multiplefiles', (req, res) => {
 
 });
 
-partnerRouter.get(`/getworkorders`, (req,res)=> {
+partnerRouter.get(`/getworkorders`,verifyToken, (req,res)=> {
   var userId = req.query.userId
 
   TrainingRequest.find({ 
@@ -69,7 +70,7 @@ partnerRouter.get(`/getworkorders`, (req,res)=> {
     });
 });
 
-partnerRouter.get(`/workorder`, (req, res)=> {
+partnerRouter.get(`/workorder`,verifyToken, (req, res)=> {
 
   TrainingRequest.find({ "workOrderDetails.workOrderNumber" : req.query.workOrderNumber.trim()})
     .then((succ)=> {
