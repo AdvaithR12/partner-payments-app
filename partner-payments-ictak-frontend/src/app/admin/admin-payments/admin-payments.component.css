@@ -1,0 +1,13 @@
+.listing-table table thead {
+    border-bottom: 1px solid black  ;
+}
+
+.listing-table table tbody tr {
+    vertical-align: middle;
+    border-bottom: 10px solid rgba(211, 242, 229, 0.773)  ;
+    /* border-top: 10px solid rgba(211, 242, 229, 0.773)   ; */
+}
+
+.listing-table table tbody tr:last-child {
+    border-bottom: 1px solid rgba(211, 242, 229, 0.773)
+}

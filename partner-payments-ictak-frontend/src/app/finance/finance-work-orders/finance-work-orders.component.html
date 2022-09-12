@@ -1,8 +1,8 @@
-<div class="container mb-5">  
+<div class="container mb-5" >  
 
   <div class="row d-flex justify-content-center ">
     <div class="col-9  px-5 py-4 m-3  text-center fs-2 text-black rounded" style="font-weight: bold;">
-      <span style="color: rgb(52, 51, 51); font-family: 'Roboto Condensed', sans-serif;" >WORK ORDERS <i class="fa-solid fa-pen-to-square"></i></span>      
+      <span style="color: rgb(52, 51, 51); font-family: 'Roboto Condensed', sans-serif;">All Requests <i class="fas fa-calendar-plus"></i> </span>      
     </div>
   </div>
 
@@ -10,110 +10,160 @@
     <span class="border-bottom border-dark border-3 rounded shadow py-2 px-3">Pending Work Orders ({{pendingWorkOrders.length}})</span>
   </div>
   <br>
-  <div class="row mt-2 d-flex justify-content-center align-items-center">
-    
-    <div class="row d-flex justify-content-center align-items-center ">
+ 
+  <div class='listing-table table-responsive'>
+      
+    <table class="table text-center table-striped" *ngIf="!(pendingWorkOrders.length == 0)" >
+      <thead class="text-uppercase">
+        <tr>
+       <th>
+            <div class="col ">
+              Partner
+            </div>
+        </th>
+        <th>
+            <div class="col text-center">
+              Topic
+            </div>
+        </th>
+        <th>      
+            <div class="col d-flex justify-content-center">
+              Mode
+            </div>
+        </th>
+        <th>
+            <div class="col ">
+              Date & Time
+            </div>
+        </th>
+       <th>
+            <div class="col d-flex align-items-center justify-content-center">
+              Action
+            </div>
+        </th>
 
-      <div *ngIf="!(pendingWorkOrders.length == 0)" class="row border-bottom fs-6 fw-bold text-uppercase border-2 border-dark mb-4 p-2  mx-2 my-2 d-flex align-items-center justify-content-center">
-        <div class="col ">
-          Partner
-        </div>
-        <div class="col ">
-          Topic
-        </div>
-        <div class="col d-flex justify-content-center">
-          Mode
-        </div>
-        <div class="col text-center">
-          Date & Time
-        </div>
-        <div class="col d-flex align-items-center justify-content-center">
-          Action
-        </div>
-      </div> 
+    </tr>
+        
+      </thead><br>
 
-      <div  *ngFor="let request of pendingWorkOrders" class="row  shadow bg-dark bg-opacity-25 mb-3 p-2  mx-2 my-1 d-flex align-items-center justify-content-center">
-        <div class="col">
-          {{request.trainingDetails.partnerName}}
-        </div>
-        <div class="col text-capitalize">
-          {{request.trainingDetails.topic}}
-        </div>
-        <div class="col text-capitalize  d-flex  justify-content-center">
-          {{request.sessionDetails.mode}}
-        </div>
-        <div class="col text-center">
-          <span>{{request.sessionDetails.startTime.toString().slice(8,10)}}/{{request.sessionDetails.startTime.toString().slice(5,7)}}/{{request.sessionDetails.startTime.toString().slice(0,4)}}</span>
+      <tbody class="">  
+        <tr *ngFor="let request of pendingWorkOrders" class="bg-dark bg-opacity-25  ">
+
+          <td>
+            <div class="col mx-1">
+              {{request.trainingDetails.partnerName}}
+            </div>
+          </td>
+          <td>
+            <div class="col text-center mx-2">
+              {{request.trainingDetails.topic}}
+            </div>
+          </td>
+          <td>
+            <div class="col text-capitalize  d-flex  justify-content-center mx-2">
+              {{request.sessionDetails.mode}}
+            </div>
+          </td>
+          <td>
+            <div class="col text-capitalize mx-2">
+              <span>{{request.sessionDetails.startTime.toString().slice(8,10)}}/{{request.sessionDetails.startTime.toString().slice(5,7)}}/{{request.sessionDetails.startTime.toString().slice(0,4)}}</span>
           <br>
           <span>{{request.sessionDetails.startTime.toString().slice(11,16)}} PM</span>
-        </div>
-        <div class="col ">
-          <div class="d-flex justify-content-center">
-            <a (click)="approveworkorder(request._id)"><button style="width: 10.5rem;" class="btn btn-success px-5 mb-2">Approve</button></a>
-          </div>
-          <div class="d-flex justify-content-center">
-            <a (click)="viewworkorder(request._id)"><button style="width: 5rem;" class="btn btn-primary mx-1">View</button></a>
-            <a (click)="rejectworkorder(request._id)"><button style="width: 5rem;" class="btn btn-danger mx-1">Reject</button></a>
-          </div>
-        </div>
-      </div>    
+            </div>
+          </td>
+      
+          <td>
+            <div class="col">
+              <a (click)="approveworkorder(request._id)"><button style="width: 10.5rem;" class="btn btn-success px-5 mb-2">Approve</button></a>
+            </div>
+            <div class="col d-flex align-items-center justify-content-center mx-2">
+              <a (click)="viewworkorder(request._id)"><button style="width: 5rem;" class="btn btn-primary mx-1">View</button></a>
+              <a (click)="rejectworkorder(request._id)"><button style="width: 5rem;" class="btn btn-danger mx-1">Reject</button></a>
+            </div>
+          </td>
 
-    </div>
+        </tr>     
+      </tbody>
 
+    </table>
   </div>
+<br><br>
 
-  <br>
-  <br>
+<div style="font-size:large;">
+  <span class="border-bottom border-dark border-3 rounded shadow py-2 px-3">Approved ({{financeApprovedWorkOrders.length}})</span>
+</div>
+<br>
 
-  <div style="font-size:large;">
-    <span class="border-bottom border-dark border-3 rounded shadow py-2 px-3">Approved ({{financeApprovedWorkOrders.length}})</span>
-  </div>
-  <br>
-  <div class="row d-flex justify-content-center align-items-center">
+<div class='listing-table table-responsive'>
     
-    <div class="row d-flex justify-content-center align-items-center ">
+  <table class="table text-center table-striped" *ngIf="!(financeApprovedWorkOrders.length == 0)" >
+    <thead class="text-uppercase">
+      <tr>
+     <th>
+          <div class="col ">
+            Work Order Number
+          </div>
+      </th>
+      <th>
+          <div class="col text-center">
+            Partner Name/Topic
+          </div>
+      </th>
+      <th>      
+          <div class="col d-flex justify-content-center">
+            work Order Date
+          </div>
+      </th>
+      <th>
+          <div class="col ">
+            Amount
+          </div>
+      </th>
+     <th>
+          <div class="col d-flex align-items-center justify-content-center">
+            Action
+          </div>
+      </th>
 
-      <div *ngIf="!(financeApprovedWorkOrders.length == 0)" class="row border-bottom fs-6 fw-bold text-uppercase border-2 border-dark mb-4 p-2  mx-2 my-2 d-flex align-items-center justify-content-center">
-        <div class="col ">
-          Work Order ID
-        </div>
-        <div class="col  text-center">
-          Partner Name / Topic
-        </div>
-        <div class="col d-flex justify-content-center">
-          Work Order Date
-        </div>
-        <div class="col text-center">
-          Amount
-        </div>
-        <div class="col d-flex align-items-center justify-content-center">
-          Action
-        </div>
-      </div> 
+  </tr>
+      
+    </thead><br>
 
-      <div *ngFor="let workOrder of financeApprovedWorkOrders" class="row shadow mb-3 p-2  bg-dark bg-opacity-25  mx-2 my-1 d-flex align-items-center justify-content-center">
-        <div class="col ">
-          {{workOrder.workOrderDetails.workOrderNumber}}
-        </div>
-        <div class="col text-capitalize">
-          <span class="fw-bold">{{workOrder.trainingDetails.partnerName}}</span> / {{workOrder.trainingDetails.topic}}
-        </div>
-        <div class="col text-capitalize  d-flex  justify-content-center">
-          <span>{{workOrder.workOrderDetails.generatedDate.toString().slice(8,10)}}/{{workOrder.workOrderDetails.generatedDate.toString().slice(5,7)}}/{{workOrder.workOrderDetails.generatedDate.toString().slice(0,4)}}</span>
-        </div>
-        <div class="col text-center">
-          <span>
+    <tbody class="">  
+      <tr *ngFor="let workOrder of financeApprovedWorkOrders" class="bg-dark bg-opacity-25  ">
+
+        <td>
+          <div class="col mx-1">
+            {{workOrder.workOrderDetails.workOrderNumber}}
+          </div>
+        </td>
+        <td>
+          <div class="col text-center mx-2">
+            <span class="fw-bold">{{workOrder.trainingDetails.partnerName}}</span> / {{workOrder.trainingDetails.topic}}
+          </div>
+        </td>
+        <td>
+          <div class="col text-capitalize  d-flex  justify-content-center mx-2">
+            <span>{{workOrder.workOrderDetails.generatedDate.toString().slice(8,10)}}/{{workOrder.workOrderDetails.generatedDate.toString().slice(5,7)}}/{{workOrder.workOrderDetails.generatedDate.toString().slice(0,4)}}</span>
+          </div>
+        </td>
+        <td>
+          <div class="col text-capitalize mx-2">
             {{workOrder.paymentDetails.totalAmount}}
-          </span>
-        </div>
-        <div class="col d-flex align-items-center justify-content-center">
-          <a (click)="viewworkorder(workOrder._id)">
-            <button class="btn btn-primary mx-1">View Work Order</button></a>
-        </div>
-      </div>    
+          </div>
+        </td>
+    
+        <td>
+          <div class="col d-flex align-items-center justify-content-center mx-2">
+            <a (click)="viewworkorder(workOrder._id)">
+              <button class="btn btn-primary mx-1">View Work Order</button>
+            </a>
+          </div>
+        </td>
 
-    </div>
-
-  </div>
+      </tr>     
+    </tbody>
+  </table>
+</div>
 
 </div>

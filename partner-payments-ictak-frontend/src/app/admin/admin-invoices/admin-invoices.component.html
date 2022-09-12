@@ -10,11 +10,171 @@
     <span class="border-bottom border-dark border-3 rounded shadow py-2 px-3">Pending Invoices ({{pendingInvoices.length}})</span>
   </div>
   <br>
-  <div class='table-responsive'>
-    <div class="row d-flex justify-content-center align-items-center ">
-      <div class="row text-center border-bottom fs-6 fw-bold text-uppercase border-2 border-dark mb-4 p-5  mx-2 my-2 d-flex align-items-center justify-content-center">
-    <table *ngIf="(advanceInvoices.length != 0)" >
-      <thead>
+
+  <div class='listing-table table-responsive'>
+      
+    <table class="table text-center" *ngIf="(pendingInvoices.length != 0)" >
+      <thead class="text-uppercase">
+        <tr>
+       <th>
+            <div class="col ">
+              Partner
+            </div>
+        </th>
+        <th>
+            <div class="col text-center">
+              Invoice Date
+            </div>
+        </th>
+        <th>      
+            <div class="col d-flex justify-content-center">
+             Invoice Type
+            </div>
+        </th>
+        <th>
+            <div class="col ">
+              Work Order Number
+            </div>
+        </th>
+       <th>
+            <div class="col d-flex align-items-center justify-content-center">
+              Action
+            </div>
+        </th>
+
+    </tr>
+        
+      </thead><br>
+
+      <tbody>  
+        <tr *ngFor="let invoice of pendingInvoices" class="bg-dark bg-opacity-25  ">
+
+          <td>
+            <div class="col mx-1">
+              {{invoice.partnerName}}
+            </div>
+          </td>
+          <td>
+            <div class="col text-center mx-2">
+              {{invoice.invoiceDate.toString().slice(0,10)}}
+            </div>
+          </td>
+          <td>
+            <div class="col text-capitalize  d-flex  justify-content-center mx-2">
+              <span *ngIf="invoice.invoiceType"> Advance </span>
+              <span *ngIf="!invoice.invoiceType"> Post Session</span>
+            </div>
+          </td>
+          <td>
+            <div class="col text-capitalize mx-2">
+              {{invoice.workOrderNumber}}
+            </div>
+          </td>
+      
+          <td>
+            <div class="col d-flex align-items-center justify-content-center mx-2">
+              <div class="col">
+                <a (click)="approve(invoice._id)"><button  style="width: 10.5rem;" class="btn btn-success px-5 mb-2">Approve</button></a>
+              </div>
+              <span *ngIf="invoice.invoiceType"> Advance </span>
+              <span *ngIf="!invoice.invoiceType"> Post Session</span>  
+            </div>
+          </td>
+
+        </tr>     
+      </tbody>
+
+    </table>
+  </div>
+  <br>
+  <br>
+
+  <div style="font-size:large;">
+    <span class="border-bottom border-dark border-3 rounded shadow py-2 px-3">Approved Invoices ({{approvedInvoices.length}})</span>
+  </div>
+  <br>
+ 
+  <div class='listing-table table-responsive'>
+      
+    <table class="table text-center table-striped" *ngIf="(approvedInvoices.length != 0)" >
+      <thead class="text-uppercase">
+        <tr>
+          <th>
+            <div class="col ">
+              Partner
+            </div>
+        </th>
+        <th>
+            <div class="col text-center">
+              Invoice Date
+            </div>
+        </th>
+        <th>      
+            <div class="col d-flex justify-content-center">
+             Due Date
+            </div>
+        </th>
+        <th>
+            <div class="col ">
+              Work Order Number
+            </div>
+        </th>
+       <th>
+            <div class="col d-flex align-items-center justify-content-center">
+              Action
+            </div>
+        </th>
+
+    </tr>
+        
+      </thead><br>
+
+      <tbody class="">  
+        <tr *ngFor="let invoice of approvedInvoices" class="bg-dark bg-opacity-25  ">
+
+          <td>
+            <div class="col mx-1">
+              {{invoice.partnerName}}
+            </div>
+          </td>
+          <td>
+            <div class="col text-center mx-2">
+              {{invoice.invoiceDate.toString().slice(0,10)}}
+            </div>
+          </td>
+          <td>
+            <div class="col text-capitalize  d-flex  justify-content-center mx-2">
+              {{invoice.invoiceDueDate.toString().slice(0,10)}}
+            </div>
+          </td>
+          <td>
+            <div class="col text-capitalize mx-2">
+              {{invoice.workOrderNumber}}
+            </div>
+          </td>
+      
+          <td>
+            <div class="col d-flex align-items-center justify-content-center mx-2">
+              <a (click)="viewInvoice(invoice.fileName)">
+                <button class="btn btn-primary mx-1">View Invoice</button>
+              </a>
+            </div>
+          </td>
+        </tr>     
+      </tbody>
+
+    </table>
+  </div>
+  <br><br>
+
+  <div style="font-size:large;">
+    <span class="border-bottom border-dark border-3 rounded shadow py-2 px-3">AdvanceInvoices ({{advanceInvoices.length}})</span>
+  </div>
+  <br>
+  <div class='listing-table table-responsive'>
+    
+    <table class="table text-center" *ngIf="(advanceInvoices.length != 0)" >
+      <thead class="text-uppercase">
         <tr>
        <th>
             <div class="col ">
@@ -26,11 +186,11 @@
               Work Order Number
             </div>
         </th>
-        <th>      
+        <!-- <th>      
             <div class="col d-flex justify-content-center">
               Due Date
             </div>
-        </th>
+        </th> -->
         <th>
             <div class="col ">
               Total Amount
@@ -42,31 +202,31 @@
             </div>
         </th>
 
-        </tr>
+    </tr>
         
       </thead><br>
 
       <tbody>  
-        <tr *ngFor="let invoice of advanceInvoices" class="bg-dark bg-opacity-25  border p-4  border-2">
+        <tr *ngFor="let invoice of advanceInvoices" class="bg-dark bg-opacity-25  ">
 
           <td>
             <div class="col mx-1">
-              invoice.partnerName
+              {{invoice.partnerName}}
             </div>
           </td>
           <td>
             <div class="col text-center mx-2">
-              invoice.workOrderNumber
+              {{invoice.workOrderNumber}}
             </div>
           </td>
-          <td>
+          <!-- <td>
             <div class="col text-capitalize  d-flex  justify-content-center mx-2">
-              invoice.dueDate
+              {{invoice.invoiceDueDate.toString().slice(0,10)}}
             </div>
-          </td>
+          </td> -->
           <td>
             <div class="col text-capitalize mx-2">
-              invoice.totalAmount
+              {{invoice.totalAmount}}
             </div>
           </td>
           <td>
@@ -81,8 +241,7 @@
       </tbody>
 
     </table>
-  </div>
-    </div>
+ 
   </div>
 </div>
 
