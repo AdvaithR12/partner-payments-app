@@ -42,6 +42,29 @@ financeRouter.get(`/getinvoices`, (req, res)=> {
 
 });
 
+financeRouter.get(`/getworkorders`, (req,res)=> {
+
+  TrainingRequest.find({ 
+    $and:[
+      { adminApproved: true },
+      { financeApproved: req.query.approvalStatus }
+    ]
+  })
+    .then((succ)=> {
+      console.log(succ)
+      res.status(200).json({
+        success: true,
+        workOrders: succ
+      });
+    }).catch((err)=> {
+      console.log('Error on fetching work orders', err.message);
+      res.status(500).json({
+        success: false,
+        message: `Unknown error. Can't get list of work orders`
+      });
+    });
+});
+
 financeRouter.put('/setworkorder', (req,res) =>{ 
   const id = req.body.id;
   const isapproved = req.body.financeApproved;

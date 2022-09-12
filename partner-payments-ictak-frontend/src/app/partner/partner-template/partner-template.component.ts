@@ -42,7 +42,6 @@ export class PartnerTemplateComponent implements OnInit {
 
   toggleSideBar() {
     const sideBarStatus = window.getComputedStyle(this.sideBar.nativeElement).display;
-    console.log(sideBarStatus);
     
     sideBarStatus == 'block' ? this.hideSideBar() : this.showSideBar() ;
   }

@@ -66,9 +66,10 @@
           </td>
           <td>
             <div class="col text-capitalize mx-2">
-              <span>{{request.sessionDetails.startTime.toString().slice(8,10)}}/{{request.sessionDetails.startTime.toString().slice(5,7)}}/{{request.sessionDetails.startTime.toString().slice(0,4)}}</span>
-          <br>
-          <span>{{request.sessionDetails.startTime.toString().slice(11,16)}} PM</span>
+
+              <span>{{request.sessionDetails.startTime | date:'dd/MM/yyyy'}}</span>
+              <br>
+              <span>{{request.sessionDetails.startTime | date: 'hh:mm a'}}</span>
             </div>
           </td>
       
@@ -100,27 +101,27 @@
     <table class="table text-center table-striped" *ngIf="!(workOrders.length == 0)" >
       <thead class="text-uppercase">
         <tr>
-       <th>
+       <th style="width: 15%;">
             <div class="col ">
-              Work Order Number
+              Session Date & Time
             </div>
         </th>
-        <th>
+        <th style="width: 35%;">
             <div class="col text-center">
-              Partner Name /<br>Topic
+              Partner Name/Topic
             </div>
         </th>
-        <th>      
+        <th  style="width: 15%;">      
             <div class="col d-flex justify-content-center">
               work Order Date
             </div>
         </th>
-        <th>
+        <th style="width: 15%;">
             <div class="col ">
-              Finance Approval<br> Status
+              Finance Approval Status
             </div>
         </th>
-       <th>
+       <th style="width: 20%;">
             <div class="col d-flex align-items-center justify-content-center">
               Action
             </div>
@@ -135,12 +136,14 @@
 
           <td>
             <div class="col mx-1">
-              {{workOrder.workOrderDetails.workOrderNumber}}
+              <span>{{workOrder.sessionDetails.startTime | date:'dd/MM/yyyy'}}</span>
+              <br>
+              <span>{{workOrder.sessionDetails.startTime | date: 'hh:mm a'}}</span>
             </div>
           </td>
           <td>
             <div class="col text-center mx-2">
-              <span class="fw-bold">{{workOrder.trainingDetails.partnerName}}</span> /<br> {{workOrder.trainingDetails.topic}}
+              <span class="fw-bold">{{workOrder.trainingDetails.partnerName}}</span> / {{workOrder.trainingDetails.topic}}
             </div>
           </td>
           <td>
@@ -151,9 +154,9 @@
           <td>
             <div class="col text-capitalize mx-2">
               <span>
-              <i *ngIf="!workOrder.financeApproved" style="color: red;" class="fa-solid fs-4 fa-circle-xmark"></i>
+              <!-- <i *ngIf="!workOrder.financeApproved" style="color: red;" class="fa-solid fs-4 fa-circle-xmark"></i> -->
               <i *ngIf="workOrder.financeApproved" style="color: green;" class="fa-solid fs-4 fa-circle-check"></i>
-  
+              <i *ngIf="!workOrder.financeApproved" class="text-danger fs-4 fa-solid fa-file-circle-xmark"></i>
             </span>
           <br>
             </div>
