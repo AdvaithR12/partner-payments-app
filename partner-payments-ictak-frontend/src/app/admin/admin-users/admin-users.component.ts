@@ -28,7 +28,7 @@ export class AdminUsersComponent implements OnInit {
   }
   approveuser(id:any, email:any, userType:any){
 
-    if(confirm(`Approve and authorize the user (${email}) to access the portal as ${userType}`)) {
+    if(confirm(`Approve and authorize the user (${email}) to access the portal as ${userType}?`)) {
       this.adminServices.approveuser(id)
       .subscribe({
         next: (succ: any)=> {
