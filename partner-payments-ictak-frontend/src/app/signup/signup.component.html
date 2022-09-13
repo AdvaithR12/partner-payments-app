@@ -64,7 +64,7 @@
                                 [class.is-invalid] = "passwordModel.invalid && passwordModel.touched" 
                                 pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$"  
                                 required>
-                            <small [class.d-none] = "!(passwordModel.invalid && passwordModel.touched)" for="pwd" id="pwdfeedback" style="color:red;">One uppercase, one lowercase & minimum 8 characters required for password</small>
+                            <small [class.d-none] = "!(passwordModel.invalid && passwordModel.touched)" for="pwd" id="pwdfeedback" style="color:red;">One uppercase, one lowercase, one specaial character & a minimum of 8 characters required!</small>
                     </div>
                     <br>
                     <div class="row px-3 input-set">
