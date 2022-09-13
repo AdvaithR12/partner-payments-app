@@ -66,7 +66,7 @@ adminRouter.post('/newrequest', verifyToken, async (req, res)=> {
     } else {
       res.status(412).json({
         success: false,
-        message: 'Partner profile incomplete. Inform the partner to add address and GST number in their profile',
+        message: 'Partner profile incomplete. Inform the partner to add address and GST/PAN number in their profile',
       });
     }
   } else {
