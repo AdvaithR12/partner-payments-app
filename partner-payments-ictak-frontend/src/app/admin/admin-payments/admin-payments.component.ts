@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { server } from 'src/app/globals';
 import { AdminService } from '../admin.service';
 
 @Component({
@@ -39,8 +40,13 @@ export class AdminPaymentsComponent implements OnInit {
   }
 
   viewInvoice(invoiceId: any) {
-    sessionStorage.setItem(`goToUrl`, `http://localhost:8080/api/admin/getinvoice/${invoiceId}`);
-    this.router.navigate(['admin/invoices/getinvoice']);
+    sessionStorage.setItem(`goToUrl`, `${server}/admin/getinvoice/${invoiceId}`);
+    
+    if((this.router.url== '/finance/payments')){
+      this.router.navigate(['finance/invoices/getinvoice']);
+    } else {
+      this.router.navigate(['admin/invoices/getinvoice']);
+    }
   }
 
 }
