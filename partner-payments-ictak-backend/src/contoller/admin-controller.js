@@ -176,8 +176,8 @@ module.exports.addNewRequest = async (newRequest, partnerDetails)=> {
   newRequest.adminApproved = false;
 
   //Converting the start and end time to valid date objects for mongoose - combine date and time
-  newRequest.sessionDetails.startTime = new Date(newRequest.sessionDetails.date + 'T' + newRequest.sessionDetails.startTime)
-  newRequest.sessionDetails.endTime = new Date(newRequest.sessionDetails.date + 'T' + newRequest.sessionDetails.endTime)
+  newRequest.sessionDetails.startTime = newRequest.sessionDetails.date + 'T' + newRequest.sessionDetails.startTime;
+  newRequest.sessionDetails.endTime = newRequest.sessionDetails.date + 'T' + newRequest.sessionDetails.endTime;
 
   newRequest.trainingDetails.partnerId = partnerDetails._id;
   newRequest.trainingDetails.partnerName = partnerDetails.fullname;

@@ -94,8 +94,8 @@ adminRouter.put('/modifyrequest', verifyToken, (req, res)=> {
       "sessionDetails.mode": req.body.trainingRequest.sessionDetails.mode,
       "sessionDetails.venue": req.body.trainingRequest.sessionDetails.venue,
       "sessionDetails.hourlyPayment": req.body.trainingRequest.sessionDetails.hourlyPayment,
-      "sessionDetails.startTime": new Date(req.body.trainingRequest.sessionDetails.date + 'T' + req.body.trainingRequest.sessionDetails.startTime),
-      "sessionDetails.endTime": new Date(req.body.trainingRequest.sessionDetails.date + 'T' + req.body.trainingRequest.sessionDetails.endTime)
+      "sessionDetails.startTime": req.body.trainingRequest.sessionDetails.date + 'T' + req.body.trainingRequest.sessionDetails.startTime ,
+      "sessionDetails.endTime": req.body.trainingRequest.sessionDetails.date + 'T' + req.body.trainingRequest.sessionDetails.endTime 
     }
   }).then((succ)=> {
     res.status(200).json({
