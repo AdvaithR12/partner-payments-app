@@ -47,38 +47,38 @@
       </thead><br>
 
       <tbody class="">  
-        <tr *ngFor="let request of pendingWorkOrders" class="bg-dark bg-opacity-25  ">
+        <tr *ngFor="let workOrder of pendingWorkOrders" class="bg-dark bg-opacity-25  ">
 
           <td>
             <div class="col mx-1">
-              {{request.trainingDetails.partnerName}}
+              {{workOrder.trainingDetails.partnerName}}
             </div>
           </td>
           <td>
             <div class="col text-center mx-2">
-              {{request.trainingDetails.topic}}
+              {{workOrder.trainingDetails.topic}}
             </div>
           </td>
           <td>
             <div class="col text-capitalize  d-flex  justify-content-center mx-2">
-              {{request.sessionDetails.mode}}
+              {{workOrder.sessionDetails.mode}}
             </div>
           </td>
           <td>
             <div class="col text-capitalize mx-2">
-              <span>{{request.sessionDetails.startTime | date:'dd/MM/yyyy'}}</span>
+              <span>{{workOrder.sessionDetails.startTime | date:'dd/MM/yyyy'}}</span>
           <br>
-          <span>{{request.sessionDetails.startTime | date: 'hh:mm a'}}</span>
+          <span>{{workOrder.sessionDetails.startTime | date: 'hh:mm a'}}</span>
             </div>
           </td>
       
           <td>
             <div class="col">
-              <a (click)="approveworkorder(request._id)"><button style="width: 10.5rem;" class="btn btn-success px-5 mb-2">Approve</button></a>
+              <a (click)="approveworkorder(workOrder._id)"><button style="width: 10.5rem;" class="btn btn-success px-5 mb-2">Approve</button></a>
             </div>
             <div class="col d-flex align-items-center justify-content-center mx-2">
-              <a (click)="viewworkorder(request._id)"><button style="width: 5rem;" class="btn btn-primary mx-1">View</button></a>
-              <a (click)="rejectworkorder(request._id)"><button style="width: 5rem;" class="btn btn-danger mx-1">Reject</button></a>
+              <a (click)="viewworkorder(workOrder._id, workOrder.workOrderDetails.workOrderNumber)"><button style="width: 5rem;" class="btn btn-primary mx-1">View</button></a>
+              <a (click)="rejectworkorder(workOrder._id)"><button style="width: 5rem;" class="btn btn-danger mx-1">Reject</button></a>
             </div>
           </td>
 
@@ -155,7 +155,7 @@
     
         <td>
           <div class="col d-flex align-items-center justify-content-center mx-2">
-            <a (click)="viewworkorder(workOrder._id)">
+            <a (click)="viewworkorder(workOrder._id, workOrder.workOrderDetails.workOrderNumber)">
               <button class="btn btn-primary mx-1">View Work Order</button>
             </a>
           </div>

@@ -40,8 +40,8 @@ export class PartnerWorkordersComponent implements OnInit {
     });
   }
 
-  viewWorkOrderPdf(workOrderId: any) {
-    sessionStorage.setItem(`goToUrl`, `${server}/partner/getworkorder/${workOrderId}`);
+  viewWorkOrderPdf(workOrderId: any, workOrderNumber: any) {
+    sessionStorage.setItem(`goToUrl`, `${server}/admin/getworkorder/${workOrderId}/${encodeURIComponent(workOrderNumber)}`);
     this.router.navigate(['partner/workorders/getworkorder']);
   }
 

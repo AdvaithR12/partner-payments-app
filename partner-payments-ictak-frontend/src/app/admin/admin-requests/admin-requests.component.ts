@@ -113,7 +113,6 @@ export class AdminRequestsComponent implements OnInit {
   }
 
   viewWorkOrderPdf(workOrderId: any, workOrderNumber: any) {
-    
     sessionStorage.setItem(`goToUrl`, `${server}/admin/getworkorder/${workOrderId}/${encodeURIComponent(workOrderNumber)}`);
     this.router.navigate(['admin/requests/workorder']);
   };

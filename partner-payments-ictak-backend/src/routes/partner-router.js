@@ -87,15 +87,4 @@ partnerRouter.get(`/workorder`,verifyToken, (req, res)=> {
 
 });
 
-partnerRouter.get(`/getworkorder/:id`, (req, res)=> {
-
-  if(fs.existsSync(path.join(__dirname, '../assets/work-orders/generated/', `workorder_${req.params.id}.pdf`))) {
-    res.status(200).sendFile(path.join(__dirname, '../assets/work-orders/generated/', `workorder_${req.params.id}.pdf`));
-  } else {
-    console.log('File not found');
-    res.status(404).send('File not found');
-  }
-
-});
-
 module.exports = partnerRouter;

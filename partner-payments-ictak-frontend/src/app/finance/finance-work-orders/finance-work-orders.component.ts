@@ -123,8 +123,8 @@ export class FinanceWorkOrdersComponent implements OnInit {
   }
 
   //View
-  viewworkorder(workOrderId: any){
-    sessionStorage.setItem(`goToUrl`, `${server}/admin/getworkorder/${workOrderId}`);
+  viewworkorder(workOrderId: any, workOrderNumber: any){
+    sessionStorage.setItem(`goToUrl`, `${server}/admin/getworkorder/${workOrderId}/${encodeURIComponent(workOrderNumber)}`);
     this.router.navigate(['finance/workorders/getworkorder']);
   }
 }

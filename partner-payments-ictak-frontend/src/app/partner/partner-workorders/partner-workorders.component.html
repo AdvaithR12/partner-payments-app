@@ -75,7 +75,7 @@
     
         <td>
           <div class="col d-flex align-items-center justify-content-center mx-2">
-            <a (click)="viewWorkOrderPdf(workOrder._id)">
+            <a (click)="viewWorkOrderPdf(workOrder._id, workOrder.workOrderDetails.workOrderNumber)">
               <button class="btn btn-primary mx-1">View Work Order</button>
             </a>
           </div>

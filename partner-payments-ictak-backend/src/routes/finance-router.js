@@ -9,7 +9,7 @@ const { isDate } = require('util/types');
 const { verifyToken } = require('../contoller/auth-controller');
 const financeRouter = express.Router();
 
-financeRouter.get('/getinvoice/:id',verifyToken, (req, res)=> {
+financeRouter.get('/getinvoice/:id', (req, res)=> {
 
     if(fs.existsSync((path.join(__dirname, '../assets/uploads/invoices', `${req.params.id}`)))) { //check if the requested file exists in the file system.
       res.status(200).sendFile(path.join(__dirname, '../assets/uploads/invoices', `${req.params.id}`)); //send the file if it exists
