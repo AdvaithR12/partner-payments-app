@@ -48,9 +48,20 @@ adminRouter.post('/newrequest', verifyToken, async (req, res)=> {
   var newRequest = req.body.trainingRequest;
 
   var partnerDetails = await getPartner(newRequest.trainingDetails.partnerId);
+
+  let completedProfile;
+  if(!partnerDetails.address){
+    completedProfile = false;
+  } else if(!partnerDetails.partnertype){
+    completedProfile = false
+  } else if(partnerDetails.partnertype == 'Individual') {
+    completedProfile = !!partnerDetails.pannumber? true : false;
+  } else if(partnerDetails.partnertype == 'Company') {
+    completedProfile = !!partnerDetails.gstnumber? true : false;
+  } else completedProfile = true;
   
   if(partnerDetails) {
-    if(partnerDetails.gstnumber && partnerDetails.address) {
+    if(completedProfile) {
       var addNewRequestStatus = await addNewRequest(newRequest, partnerDetails);
     } else {
       res.status(412).json({
@@ -147,9 +158,9 @@ adminRouter.get(`/trainingrequests`, verifyToken, (req,res)=> {
 });
 
 adminRouter.route(`/createworkorder`)
-  .get(verifyToken, (req, res)=> {
+  .get((req, res)=> {
     res.render('template', req.query);
-  }).post(verifyToken, (req, res)=> {
+  }).post((req, res)=> {
     createWorkOrder(req, res)
       .then((succ)=> {
         if(succ.success) {
@@ -198,8 +209,7 @@ adminRouter.get(`/getworkorders/:approvalstatus`, verifyToken, (req,res)=> {
     });
 });
 
-adminRouter.get(`/getworkorder/:id`,  (req, res)=> {
-  console.log('adminrouter - getworkorder', req.params.id);
+adminRouter.get(`/getworkorder/:id/:number`,  (req, res)=> {
 
   if(fs.existsSync(path.join(__dirname, '../assets/work-orders/generated/', `workorder_${req.params.id}.pdf`))) {
     res.status(200).sendFile(path.join(__dirname, '../assets/work-orders/generated/', `workorder_${req.params.id}.pdf`));
@@ -236,11 +246,11 @@ adminRouter.get(`/getinvoices/:invoicetype`, verifyToken, (req, res)=> {
       ]
     }            
   } else if(invoiceType == 'admin-approved') {
-    invoiceQueryData = {adminApproved: true}
+    invoiceQueryData = { adminApproved: true }
   } else if(invoiceType == 'paid') {
     invoiceQueryData = {paid: true}
   } else if(invoiceType == 'unpaid') {
-    invoiceQueryData = {paid: false}
+    invoiceQueryData = { paid: false, adminApproved: true }
   }
   
   InvoiceData.find(invoiceQueryData)

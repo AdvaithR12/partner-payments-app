@@ -1,6 +1,7 @@
 const puppeteer = require('puppeteer');
 const fs = require('fs');
 const path = require('path');
+const dayjs = require('dayjs');
 const UserData = require(`../model/user-model`);
 const InvoiceData = require('../model/invoice-model');
 const { TrainingRequest, WorkOrderCounter } = require(`../model/work-order-model`);
@@ -46,14 +47,27 @@ generatePdf = async (requestId, workOrderNumber, trainingRequest) => {
       fileName:  false
     }
 
-    let date = new Date();
-    let today = `${((date.getDate()).toString().length == 2) ? (date.getDate()).toString() : ('0'+(date.getDate()).toString())}/${((date.getMonth()+1).toString().length == 2) ? (date.getMonth()+1).toString() : ('0'+(date.getMonth()+1).toString())}/${date.getFullYear().toString()}`;
+    let today = dayjs().format('DD/MM/YYYY');
+    let startTime = dayjs(trainingRequest.sessionDetails.startTime).format('hh:mm A');
+    let endTime = dayjs(trainingRequest.sessionDetails.endTime).format('hh:mm A');
+
+    let includingGstFlag, gstNumber, panNumber, gstOrPanFlag;
+    if(trainingRequest.partnerDetails.partnerType == 'Company') {
+      gstOrPan = 'GST No.'
+      includingGstFlag = 'Yes'
+      partnerGstOrPan = trainingRequest.partnerDetails.partnerGst
+    } else {
+      includingGstFlag = 'No';
+      if(trainingRequest.partnerDetails.partnerType == 'Individual'){
+        gstOrPanFlag = 'PAN No.'
+        partnerGstOrPan = trainingRequest.partnerDetails.partnerPan
+      }
+    }
 
     let query = new URLSearchParams({ 
       workOrderNumber: workOrderNumber,
       partnerName: trainingRequest.partnerDetails.partnerName,
       partnerEmail: trainingRequest.partnerDetails.partnerEmail,
-      partnerGst: trainingRequest.partnerDetails.partnerGst,
       partnerAddress: trainingRequest.partnerDetails.partnerAddress,
       trainingMode: trainingRequest.sessionDetails.mode,
       hourlyPayment: trainingRequest.sessionDetails.hourlyPayment,
@@ -61,9 +75,13 @@ generatePdf = async (requestId, workOrderNumber, trainingRequest) => {
       trainingVenue: trainingRequest.sessionDetails.venue,
       durationHrs: trainingRequest.paymentDetails.durationHrs,
       totalAmount: trainingRequest.paymentDetails.totalAmount,
-      includingGst: `${trainingRequest.paymentDetails.includingGst? 'Yes' : 'No'}`,
+      includingGst: includingGstFlag,
+      gstOrPan: gstOrPanFlag,
       includingTds: `${trainingRequest.paymentDetails.includingTds? 'Yes' : 'No'}`,
+      partnerGstOrPan: partnerGstOrPan,
       assignedBy: trainingRequest.assignedBy,
+      startTime: startTime,
+      endTime: endTime,
       dated: today
     });
     var url = process.env.PDF_URL + 'createworkorder/?' + query.toString();
@@ -168,9 +186,15 @@ module.exports.addNewRequest = async (newRequest, partnerDetails)=> {
   newRequest.partnerDetails = {
     partnerId: partnerDetails._id.toHexString(),
     partnerName: partnerDetails.fullname,
+    partnerType: partnerDetails.partnertype,
     partnerEmail: partnerDetails.email,
-    partnerGst : partnerDetails.gstnumber,
     partnerAddress : partnerDetails.address
+  }
+
+  if(partnerDetails.partnertype == 'Individual') { // If the partner type is individual, save PAN number & if company, save GST
+    newRequest.partnerDetails.partnerPan = partnerDetails.pannumber;
+  } else if(partnerDetails.partnertype == 'Company') {
+    newRequest.partnerDetails.partnerGst = partnerDetails.gstnumber;
   }
 
   var durationHrs = ((new Date(newRequest.sessionDetails.endTime) - new Date(newRequest.sessionDetails.startTime))/1000/60/60).toFixed(2);

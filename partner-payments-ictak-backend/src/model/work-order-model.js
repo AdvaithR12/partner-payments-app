@@ -15,7 +15,9 @@ var TrainingRequestSchema = new Schema({
     partnerId: String,
     partnerName: String,
     partnerEmail: String,
+    partnerType: String,
     partnerGst: String,
+    partnerPan: String,
     partnerAddress: String
   },
   sessionDetails: {
