@@ -1,11 +1,6 @@
 const express = require(`express`);
-const passport = require(`passport`)
 const UserData = require(`../model/user-model`);
 const authController = require('../contoller/auth-controller');
-
-const crypto = require('crypto');
-const jwt = require('jsonwebtoken')
-// const User = require('../model/user-model');
 
 const authRouter = express.Router();
 
@@ -31,51 +26,6 @@ authRouter.post(`/signin`, (req, res)=> {
       });
     });
 
-  // passport.authenticate('local', (err, user, info)=> {
-    
-  //   if(err) { //If there is an error with passport
-  //     console.log('Error thrown with passport', err.message);
-  //     res.status(404).json(err)
-  //     return;
-  //   }
-  //   if(user) {
-  //     console.log(user);
-  //     token = user.generateJwt();
-  //     res.status(200).json({
-  //       token: token
-  //     });
-  //   } else {
-  //     console.log(info);
-  //     res.status(401).json(info);
-  //   }
-
-  // });
-
-  // var email = req.body.email.trim();
-  // var password = req.body.password.trim();
-
-  // UserData.find({"email":email})
-  //   .then((user)=> {
-  //     if(user.length == 0) {
-  //       res.status(200).json({
-  //         success: false,
-  //         message: 'User Not found'
-  //       });
-  //     } else if(user[0].password != password) {
-  //       res.status(200).json({
-  //         success: false,
-  //         message: `Invalid Password`        
-  //       });
-  //     } else {
-  //       res.status(200).json({
-  //         success: true,
-  //         message: `Authenticated User` ,
-  //         user: user[0]
-  //       });
-  //     }
-  //   }).catch((err)=> {
-  //     console.log('auth-router.js:16 - err', err);
-  //   });
 });
 
 authRouter.post('/signup', (req,res)=> {
@@ -153,27 +103,3 @@ authRouter.get('/findprofile/:id',authController.verifyToken, (req,res) =>{
 
 
 module.exports = authRouter;
-
-
-
-// passport.authenticate('local', function(err, user, info){
-//   var token;
-
-//   // If Passport throws/catches an error
-//   if (err) {
-//     res.status(404).json(err);
-//     return;
-//   }
-
-//   // If a user is found
-//   if(user){
-//     token = user.generateJwt();
-//     res.status(200);
-//     res.json({
-//       "token" : token
-//     });
-//   } else {
-//     // If user is not found
-//     res.status(401).json(info);
-//   }
-// })(req, res);

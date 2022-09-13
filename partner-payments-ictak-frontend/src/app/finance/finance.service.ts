@@ -11,7 +11,7 @@ export class FinanceService {
   constructor(private http: HttpClient) { }
 
   getInvoices(invoiceType:any) {
-    return this.http.get(`${server}/finance/getinvoices`,  { params: { 'invoiceType': invoiceType} });
+    return this.http.get(`${server}/finance/getinvoices/${invoiceType}`);
   }
 
   getWorkOrders(approvalStatus: any) {

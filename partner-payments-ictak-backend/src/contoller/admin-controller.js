@@ -60,7 +60,7 @@ generatePdf = async (requestId, workOrderNumber, trainingRequest) => {
         includingGstFlag = 'No';
         gstOrPanFlag = 'PAN No.'
         partnerGstOrPan = trainingRequest.partnerDetails.partnerPan
-      }
+    }
     
 
     let query = new URLSearchParams({ 
@@ -230,15 +230,13 @@ module.exports.generatePreviewQuery = (trainingRequest)=> {
 
   let includingGstFlag, gstOrPanFlag;
   if(trainingRequest.partnerDetails.partnerType == 'Company') {
-    gstOrPan = 'GST No.'
+    gstOrPanFlag = 'GST No.'
     includingGstFlag = 'Yes'
     partnerGstOrPan = trainingRequest.partnerDetails.partnerGst
-  } else {
-    includingGstFlag = 'No';
-    if(trainingRequest.partnerDetails.partnerType == 'Individual'){
+  } else if(trainingRequest.partnerDetails.partnerType == 'Individual'){
+      includingGstFlag = 'No';
       gstOrPanFlag = 'PAN No.'
       partnerGstOrPan = trainingRequest.partnerDetails.partnerPan
-    }
   }
 
   let query = new URLSearchParams({ 

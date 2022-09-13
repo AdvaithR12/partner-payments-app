@@ -19,27 +19,32 @@ financeRouter.get('/getinvoice/:id', (req, res)=> {
   
 });
 
-financeRouter.get(`/getinvoices`, verifyToken, (req, res)=> {
+financeRouter.get(`/getinvoices/:type`, verifyToken, (req, res)=> {
 
-    InvoiceData.find({ 
-        $and:[
-          { adminApproved: true },
-          { paid: false},
-          { invoiceType: req.query.invoiceType }
-        ]
+  if(req.params.type == 'post-session') {
+    invoiceQuery = {
+      $and: [
+        { adminApproved: true },
+        { invoiceType: false }
+      ]
+    }
+  } else if(req.params.type == 'advance') {
+    invoiceQuery = { invoiceType: true }
+  }
+
+  InvoiceData.find(invoiceQuery)
+    .then((succ)=> {
+      res.status(200).json({
+        success: true,
+        data: succ
       })
-      .then((succ)=> {
-        res.status(200).json({
-          success: true,
-          data: succ
-        })
-      }).catch((err)=> {
-        console.log('Error while fetching invoices');
-        res.status(500).json({
-          success: false,
-          message: `Server error while fetching invoices`
-        });
+    }).catch((err)=> {
+      console.log('Error while fetching invoices');
+      res.status(500).json({
+        success: false,
+        message: `Server error while fetching invoices`
       });
+    });
 
 });
 

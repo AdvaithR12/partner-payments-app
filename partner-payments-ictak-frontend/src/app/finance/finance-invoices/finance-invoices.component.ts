@@ -11,7 +11,7 @@ import { FinanceService } from '../finance.service';
 export class FinanceInvoicesComponent implements OnInit {
 
   pendingInvoices: any = [];
-  approvedInvoices: any = [];
+  postSessionInvoices: any = [];
   advanceInvoices: any = [];
   invoiceType: any = []
 
@@ -20,17 +20,17 @@ export class FinanceInvoicesComponent implements OnInit {
 
   ngOnInit(): void {
 
-  this.financeServices.getInvoices(false)
+  this.financeServices.getInvoices('post-session')
     .subscribe({
       next: (succ: any)=> {
-        this.approvedInvoices = succ.data;
+        this.postSessionInvoices = succ.data;
       },
       error: (err)=> {
-        console.log('Error getting approved invoices', err.message);
+        console.log('Error getting post session invoices', err.message);
       }
     });
 
-    this.financeServices.getInvoices(true)
+    this.financeServices.getInvoices('advance')
     .subscribe({
       next: (succ: any)=> {
         this.advanceInvoices = succ.data;

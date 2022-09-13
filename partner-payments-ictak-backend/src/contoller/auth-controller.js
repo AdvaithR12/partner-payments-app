@@ -1,7 +1,5 @@
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken')
-const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
 const UserData = require(`../model/user-model`);
 
 encryptPassword = (password)=> {
