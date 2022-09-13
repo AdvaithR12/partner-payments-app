@@ -51,7 +51,7 @@ generatePdf = async (requestId, workOrderNumber, trainingRequest) => {
     let startTime = dayjs(trainingRequest.sessionDetails.startTime).format('hh:mm A');
     let endTime = dayjs(trainingRequest.sessionDetails.endTime).format('hh:mm A');
 
-    let includingGstFlag, gstNumber, panNumber, gstOrPanFlag;
+    let includingGstFlag, gstOrPanFlag;
     if(trainingRequest.partnerDetails.partnerType == 'Company') {
       gstOrPan = 'GST No.'
       includingGstFlag = 'Yes'
@@ -84,6 +84,7 @@ generatePdf = async (requestId, workOrderNumber, trainingRequest) => {
       endTime: endTime,
       dated: today
     });
+
     var url = process.env.PDF_URL + 'createworkorder/?' + query.toString();
 
     //await to connect to the page with the mentioned address - (if successful- try & generate the pdf present in the page mentioned url, if failed- show error), if connection failed, show error;;; Return generated = true only on successfull pdf generation. Return generated = false for all other cases.
@@ -104,7 +105,6 @@ generatePdf = async (requestId, workOrderNumber, trainingRequest) => {
         console.log('Error on connection, A-C: L74', err.message); //on connection failure
       });
     
-    // await browser.close();
     return result;
 
 }
@@ -155,20 +155,18 @@ module.exports.getPartner = async (partnerId)=> {
 }
 
 module.exports.getTrainingRequest = async (requestId)=>{
-  TrainingRequest.findById(requestId, (err, data)=> {
-    if(err) {
-      console.log(err.message);
+  return TrainingRequest.findById(requestId)
+    .then((trainingRequest)=> {
+      return {
+        success: true,
+        data: trainingRequest
+      };
+    }).catch((err)=> {
       return {
         success: false,
         message: err.message
       };
-    } else {
-      return {
-        success: true,
-        data: data
-      };
-    }
-  });
+    });
 }
 
 module.exports.addNewRequest = async (newRequest, partnerDetails)=> {
@@ -222,6 +220,50 @@ module.exports.addNewRequest = async (newRequest, partnerDetails)=> {
         error: err.message
       };
     });
+
+}
+
+module.exports.generatePreviewQuery = (trainingRequest)=> {
+
+  let today = dayjs().format('DD/MM/YYYY');
+  let startTime = dayjs(trainingRequest.sessionDetails.startTime).format('hh:mm A');
+  let endTime = dayjs(trainingRequest.sessionDetails.endTime).format('hh:mm A');
+
+  let includingGstFlag, gstOrPanFlag;
+  if(trainingRequest.partnerDetails.partnerType == 'Company') {
+    gstOrPan = 'GST No.'
+    includingGstFlag = 'Yes'
+    partnerGstOrPan = trainingRequest.partnerDetails.partnerGst
+  } else {
+    includingGstFlag = 'No';
+    if(trainingRequest.partnerDetails.partnerType == 'Individual'){
+      gstOrPanFlag = 'PAN No.'
+      partnerGstOrPan = trainingRequest.partnerDetails.partnerPan
+    }
+  }
+
+  let query = new URLSearchParams({ 
+    workOrderNumber: 'workOrderNumber',
+    partnerName: trainingRequest.partnerDetails.partnerName,
+    partnerEmail: trainingRequest.partnerDetails.partnerEmail,
+    partnerAddress: trainingRequest.partnerDetails.partnerAddress,
+    trainingMode: trainingRequest.sessionDetails.mode,
+    hourlyPayment: trainingRequest.sessionDetails.hourlyPayment,
+    trainingTopic: trainingRequest.trainingDetails.topic,
+    trainingVenue: trainingRequest.sessionDetails.venue,
+    durationHrs: trainingRequest.paymentDetails.durationHrs,
+    totalAmount: trainingRequest.paymentDetails.totalAmount,
+    includingGst: includingGstFlag,
+    gstOrPan: gstOrPanFlag,
+    includingTds: `${trainingRequest.paymentDetails.includingTds? 'Yes' : 'No'}`,
+    partnerGstOrPan: partnerGstOrPan,
+    assignedBy: trainingRequest.assignedBy,
+    startTime: startTime,
+    endTime: endTime,
+    dated: today
+  });
+
+  return query.toString();
 
 }
 

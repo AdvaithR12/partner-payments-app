@@ -23,7 +23,7 @@ mongoose.connect(MONGODB_URI, {
   mongoDbServer = (MONGODB_URI == 'mongodb://localhost:27017/partner-payments')? 'Local' : 'Atlas'
   console.log(`MongoDB ${mongoDbServer} connected!`);
 }).catch((err)=> {
-  console.log(`MongoDB connection error! Can't connect`);
+  console.log(`MongoDB connection error! Can't connect`, err.message);
 });
 
 app.use(cors());

@@ -71,4 +71,9 @@ export class AdminService {
     });
   }
 
+  previewWorkOrder(requestId: any) {
+    console.log(requestId);
+    return this.http.get(`${server}/admin/previewworkorder/${requestId}`);
+  }
+
 }

@@ -74,12 +74,13 @@
           </td>
       
           <td>
-            <div class="col">
-              <a (click)="approve(request._id)"><button class="btn btn-success px-5 mb-2">Approve</button></a>
-            </div>
-            <div class="col d-flex align-items-center justify-content-center mx-2">
-              <a><button (click)="modifyRequest(request._id)" class="btn btn-warning mx-1">Modify</button></a>
-            <a><button (click)="deleteRequest(request._id)" class="btn btn-danger mx-1">Delete</button></a>
+            <div class="btn-group">
+              <button style="width: 6rem;" class="btn btn-primary" (click)="previewWorkOrder(request._id)">Preview</button>
+              <button style="width: 6rem;" class="btn btn-success ms-1" (click)="approve(request._id)" >Approve</button>
+            </div> <br>
+            <div class="btn-group mt-1">
+              <button style="width: 6rem;" (click)="modifyRequest(request._id)" class="btn btn-warning ">Modify</button>
+              <button style="width: 6rem;" (click)="deleteRequest(request._id)" class="btn btn-danger ms-1">Delete</button>
             </div>
           </td>
 

@@ -37,7 +37,7 @@ export class SignupComponent implements OnInit {
       .subscribe({
         next: (succ: any)=> {
           if(succ.success) {
-            alert('Sign Up successful. Proceed to sign in and use your account!');
+            alert('Sign Up successful. Please wait for an admin to approve your account before signing in!');
             this.router.navigate(['']);
           }
         },

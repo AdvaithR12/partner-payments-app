@@ -10,7 +10,9 @@ const {
   createWorkOrder, 
   approveInvoice, 
   getPartner,
-  addNewRequest
+  addNewRequest,
+  getTrainingRequest,
+  generatePreviewQuery
 } = require('../contoller/admin-controller');
 
 const adminRouter = express.Router();
@@ -154,6 +156,22 @@ adminRouter.get(`/trainingrequests`, verifyToken, (req,res)=> {
     }).catch((err)=> {
       console.log(err);
       res.send('Some error')
+    });
+});
+
+adminRouter.get('/previewworkorder/:id', verifyToken, async (req, res)=> {
+  let requestId = req.params.id;
+  let trainingRequest = await getTrainingRequest(requestId)
+    .then((data)=> {
+      return data.data;
+    }).catch((err)=>{
+      console.log('Error while fetching training request', err.message);
+    });
+
+    let previewQuery = generatePreviewQuery(trainingRequest)
+    res.status(200).json({
+      success: true,
+      previewQuery: previewQuery
     });
 });
 

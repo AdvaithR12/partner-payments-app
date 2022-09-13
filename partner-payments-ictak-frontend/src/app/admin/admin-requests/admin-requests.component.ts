@@ -112,6 +112,20 @@ export class AdminRequestsComponent implements OnInit {
     }
   }
 
+  previewWorkOrder(requestId: any) {    
+    this.adminServices.previewWorkOrder(requestId)
+      .subscribe({
+        next: (receivedData: any)=> {
+          console.log(receivedData);
+          sessionStorage.setItem('goToUrl', `${server}/admin/createworkorder/?${receivedData.previewQuery}`);
+          this.router.navigate(['admin/requests/workorder']);
+        },
+        error: (err: any)=> {
+          console.log(err);
+        }
+      });
+  }
+
   viewWorkOrderPdf(workOrderId: any, workOrderNumber: any) {
     sessionStorage.setItem(`goToUrl`, `${server}/admin/getworkorder/${workOrderId}/${encodeURIComponent(workOrderNumber)}`);
     this.router.navigate(['admin/requests/workorder']);
