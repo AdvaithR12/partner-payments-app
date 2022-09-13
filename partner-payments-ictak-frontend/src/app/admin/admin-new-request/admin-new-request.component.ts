@@ -27,7 +27,7 @@ export class AdminNewRequestComponent implements OnInit {
       mode: new FormControl('', [Validators.required]),
       date: new FormControl('', [Validators.required]),
       venue: new FormControl('', [Validators.required]),
-      hourlyPayment: new FormControl('', [Validators.required]),
+      hourlyPayment: new FormControl('', [Validators.required, Validators.min(0)]),
       startTime: new FormControl('', [Validators.required]),
       endTime: new FormControl('', [Validators.required]),
     })
